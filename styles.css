@@ -436,6 +436,58 @@ p {
 .questions__contact .name  { color: var(--text); font-weight: 400; }
 .questions__contact .phone { color: #888; }
 
+/* FAQ accordion */
+.faq {
+  max-width: 640px;
+  margin: 0 auto 3.5rem;
+  text-align: left;
+  border-top: 1px solid #e0d4cc;
+}
+.faq__item { border-bottom: 1px solid #e0d4cc; }
+.faq__q {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 1.25rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+}
+.faq__q::after {
+  content: '+';
+  flex-shrink: 0;
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--green);
+  transition: transform 0.25s ease;
+  line-height: 1;
+}
+.faq__item.open .faq__q::after {
+  transform: rotate(45deg);
+}
+.faq__a-wrap {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.faq__item.open .faq__a-wrap {
+  max-height: 300px;
+}
+.faq__a {
+  padding-bottom: 1.25rem;
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--muted);
+}
+.questions__sub { margin-top: 0.5rem; }
+
 /* ============================================================
 
 /* ============================================================

@@ -67,6 +67,16 @@
     applyLang(btn.dataset.lang);
   });
 
+  /* ── FAQ accordion ── */
+  document.addEventListener('click', function (e) {
+    const btn = e.target.closest('.faq__q');
+    if (!btn) return;
+    const item = btn.closest('.faq__item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq__item.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+
   /* ── init ── */
   document.addEventListener('DOMContentLoaded', function () {
     const saved = localStorage.getItem('wedding_lang') || 'en';
