@@ -16,9 +16,35 @@
 </head>
 <body>
 
-  <!-- LANGUAGE SWITCHER (main page, top-right) -->
-  <div class="lang-switcher" id="main-lang">
-    <button class="lang-toggle" id="main-lang-btn"></button>
+  <!-- NAV -->
+  <nav class="nav" id="main-nav">
+    <a class="nav__logo" href="#">N &amp; A</a>
+    <div class="nav__links">
+      <a class="nav__link" href="#wedding"       data-i18n="nav.program"></a>
+      <a class="nav__link" href="#story"         data-i18n="nav.story"></a>
+      <a class="nav__link" href="#getting-there" data-i18n="nav.travel"></a>
+      <a class="nav__link" href="#more"          data-i18n="nav.faq"></a>
+    </div>
+    <div class="nav__right">
+      <button class="nav__rsvp" data-rsvp-open data-i18n="rsvp.btn"></button>
+      <button class="lang-toggle" id="main-lang-btn"></button>
+      <button class="nav__hamburger" id="nav-hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HAMBURGER MENU PANEL -->
+  <div class="nav__menu" id="nav-menu" aria-hidden="true">
+    <div class="nav__menu-inner">
+      <a class="nav__menu-link" href="#wedding"      data-i18n="nav.program"></a>
+      <a class="nav__menu-link" href="#story"        data-i18n="nav.story"></a>
+      <a class="nav__menu-link" href="#getting-there" data-i18n="nav.travel"></a>
+      <a class="nav__menu-link" href="#more"         data-i18n="nav.faq"></a>
+      <button class="btn--round nav__menu-rsvp" data-rsvp-open data-i18n="rsvp.btn"></button>
+    </div>
   </div>
 
   <!-- HERO -->

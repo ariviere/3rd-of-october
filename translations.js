@@ -1,5 +1,10 @@
 const T = {
   en: {
+    'nav.program': 'The Program',
+    'nav.story':   'Our Story',
+    'nav.travel':  'Getting There',
+    'nav.faq':     'FAQ',
+
     'hero.sub':   "We're getting married!",
     'hero.date':  'Sunday, October 3rd, 2027',
     'tagline':    "We can't wait to be surrounded by our favorite people!",
@@ -74,6 +79,11 @@ const T = {
   },
 
   fr: {
+    'nav.program': 'Le Programme',
+    'nav.story':   'Notre histoire',
+    'nav.travel':  'Venir',
+    'nav.faq':     'FAQ',
+
     'hero.sub':   'Nous nous marions\u00a0!',
     'hero.date':  'Dimanche 3 octobre 2027',
     'tagline':    'Nous avons h\u00e2te d\u2019\u00eatre entour\u00e9s de nos personnes pr\u00e9f\u00e9r\u00e9es\u00a0!',

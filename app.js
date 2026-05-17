@@ -77,9 +77,60 @@
     if (!isOpen) item.classList.add('open');
   });
 
+  /* ── hamburger menu ── */
+  document.addEventListener('DOMContentLoaded', function () {
+    const hamburger = document.getElementById('nav-hamburger');
+    const navMenu   = document.getElementById('nav-menu');
+
+    function toggleMenu(open) {
+      const isOpen = open !== undefined ? open : !hamburger.classList.contains('is-open');
+      hamburger.classList.toggle('is-open', isOpen);
+      navMenu.classList.toggle('is-open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+      navMenu.setAttribute('aria-hidden', !isOpen);
+    }
+
+    hamburger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    // close when a menu link or RSVP button is clicked
+    navMenu.addEventListener('click', function (e) {
+      if (e.target.closest('.nav__menu-link') || e.target.closest('[data-rsvp-open]')) {
+        toggleMenu(false);
+      }
+    });
+
+    // close on outside click
+    document.addEventListener('click', function (e) {
+      if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+        toggleMenu(false);
+      }
+    });
+
+    // hide nav on scroll down, reveal on scroll up (mobile only)
+    const nav = document.getElementById('main-nav');
+    let lastY = window.scrollY;
+    window.addEventListener('scroll', function () {
+      if (window.innerWidth > 768) return;
+      const y = window.scrollY;
+      if (y > lastY && y > 60) {
+        nav.classList.add('nav--hidden');
+        toggleMenu(false);
+      } else {
+        nav.classList.remove('nav--hidden');
+      }
+      lastY = y;
+    }, { passive: true });
+  });
+
   /* ── init ── */
   document.addEventListener('DOMContentLoaded', function () {
-    const saved = localStorage.getItem('wedding_lang') || 'en';
-    applyLang(saved);
+    const params   = new URLSearchParams(window.location.search);
+    const paramLang = params.get('lang');
+    const validLang = paramLang === 'fr' || paramLang === 'en' ? paramLang : null;
+    const lang = validLang || localStorage.getItem('wedding_lang') || 'en';
+    applyLang(lang);
   });
 })();
