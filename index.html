@@ -8,39 +8,41 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=Fahkwang:wght@200;300&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
+  <script>
+    if (localStorage.getItem('wedding_auth') !== '1') {
+      document.documentElement.style.visibility = 'hidden';
+    }
+  </script>
 </head>
 <body>
 
+  <!-- LANGUAGE SWITCHER (main page, top-right) -->
+  <div class="lang-switcher" id="main-lang">
+    <button class="lang-toggle" id="main-lang-btn"></button>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
-    <!-- Left 2/3: teal colour + background image behind it -->
     <div class="hero__left">
       <div class="hero__left-bg"></div>
       <div class="hero__content">
         <h1 class="hero__title">Norika &amp; Antoine</h1>
-        <p class="hero__sub">We're getting married!</p>
-        <p class="hero__date">Sunday, October 3rd, 2027</p>
-        <a href="#rsvp" class="btn--round btn--round-light">RSVP</a>
+        <p class="hero__sub" data-i18n="hero.sub"></p>
+        <p class="hero__date" data-i18n="hero.date"></p>
+        <a href="#rsvp" class="btn--round btn--round-light" data-i18n="rsvp.btn"></a>
       </div>
     </div>
-    <!-- Right 1/3: couple photo -->
     <div class="hero__right">
-      <img
-        src="images/sf.jpg"
-        alt="" />
+      <img src="images/sf.jpg" alt="" />
     </div>
-    <!-- Center couple portrait — floats above both panels -->
     <div class="hero__couple">
-      <img
-        src="images/japan.jpeg"
-        alt="Norika and Antoine" />
+      <img src="images/japan.jpeg" alt="Norika and Antoine" />
     </div>
   </section>
 
   <!-- TAGLINE -->
   <section class="tagline">
-    <p>We can't wait to be surrounded by our favorite people!</p>
+    <p data-i18n="tagline"></p>
   </section>
 
   <!-- THE PROGRAM -->
@@ -49,12 +51,12 @@
       <div class="program__photo-wrap program__photo-wrap--left">
         <img src="images/marina_green.png" alt="Marina Green, San Francisco" class="program__photo" />
       </div>
-      <span class="program__date">Saturday, October 2nd</span>
-      <h3 class="program__day-title">Welcoming</h3>
+      <span class="program__date" data-i18n="program.date1"></span>
+      <h3 class="program__day-title" data-i18n="program.welcoming"></h3>
       <div class="program__events">
         <p class="program__event"><strong>Marina Green</strong>, San Francisco</p>
-        <p class="program__event">Drinks &amp; bites by the bay from <strong>3&nbsp;p.m.</strong></p>
-        <p class="program__event program__event--note">The bay breeze can be crisp — bring a layer!</p>
+        <p class="program__event" data-i18n-html="program.drinks"></p>
+        <p class="program__event program__event--note" data-i18n="program.layer"></p>
       </div>
     </div>
 
@@ -62,19 +64,18 @@
       <div class="program__photo-wrap program__photo-wrap--right">
         <img src="images/brazilian_room_house.jpeg" alt="Brazilian Room, Berkeley" class="program__photo" />
       </div>
-      <span class="program__date">Sunday, October 3rd</span>
-      <h3 class="program__day-title">The Wedding</h3>
+      <span class="program__date" data-i18n="program.date2"></span>
+      <h3 class="program__day-title" data-i18n="program.wedding"></h3>
       <div class="program__events">
         <p class="program__event"><strong>Brazilian Room</strong>, Berkeley</p>
-        <p class="program__event">Reception &amp; Ceremony from <strong>3&nbsp;p.m.</strong></p>
-        <p class="program__event">After-party at <strong>Kona Club</strong> from <strong>10&nbsp;p.m.</strong></p>
+        <p class="program__event" data-i18n-html="program.ceremony"></p>
+        <p class="program__event" data-i18n-html="program.afterparty"></p>
       </div>
     </div>
   </section>
 
   <!-- LOVE STORY -->
   <section class="story" id="story">
-    <!-- left: photo board -->
     <div class="story__board">
       <div class="polaroid polaroid--1"><img src="images/disney.jpeg" alt="" /></div>
       <div class="polaroid polaroid--2"><img src="images/tiburon.jpeg" alt="" /></div>
@@ -88,28 +89,28 @@
 
   <!-- GETTING THERE -->
   <section class="getting-there" id="getting-there">
-    <h2 class="section-title">Getting There</h2>
+    <h2 class="section-title" data-i18n="getting-there.title"></h2>
     <div class="getting-there__grid">
       <div class="getting-there__item">
-        <h3>By air</h3>
-        <p>Two airports serve the Bay Area. <strong>Oakland (OAK)</strong> is the closest to Berkeley — about 20 minutes by car or BART. <strong>San Francisco (SFO)</strong> is a great option too, roughly 45 minutes away. Both have plenty of direct flights from across the US and beyond.</p>
+        <h3 data-i18n="getting-there.air.title"></h3>
+        <p data-i18n-html="getting-there.air.text"></p>
       </div>
       <div class="getting-there__divider"></div>
       <div class="getting-there__item">
-        <h3>Lodging</h3>
-        <p>We recommend staying in the <strong>Berkeley area</strong> to be close to the main venue. There are lovely hotels, as well as plenty of Airbnb and Vrbo options that work beautifully for solo travelers and groups alike.</p>
+        <h3 data-i18n="getting-there.lodging.title"></h3>
+        <p data-i18n-html="getting-there.lodging.text"></p>
       </div>
     </div>
-    <a href="#" class="btn--round">Details</a>
+    <a href="#" class="btn--round" data-i18n="getting-there.btn"></a>
   </section>
 
   <!-- RSVP BANNER -->
   <section class="rsvp-banner" id="rsvp">
     <div class="rsvp-banner__content">
-      <h2>We look forward<br />to seeing you!</h2>
-      <p>Our celebration wouldn't be the same without you. Please let us know if you plan to attend by following the RSVP link below, and make note of any dietary restrictions or special requests.</p>
-      <p class="rsvp-banner__deadline">Kindly RSVP by March 1</p>
-      <a href="#" class="btn--round btn--round-light">RSVP</a>
+      <h2 data-i18n-html="rsvp.title"></h2>
+      <p data-i18n="rsvp.text"></p>
+      <p class="rsvp-banner__deadline" data-i18n="rsvp.deadline"></p>
+      <a href="#" class="btn--round btn--round-light" data-i18n="rsvp.btn"></a>
     </div>
   </section>
 
@@ -124,16 +125,16 @@
         alt="Registry" />
     </div>
     <div class="registry__content">
-      <h2 class="section-title">Registry</h2>
-      <p>We know this is already a long journey for most of you, and your presence alone means everything to us. But if you'd like to give us a little something, you can do so right here.</p>
-      <a href="#" class="btn--round">Contribute</a>
+      <h2 class="section-title" data-i18n="registry.title"></h2>
+      <p data-i18n="registry.text"></p>
+      <a href="#" class="btn--round" data-i18n="registry.btn"></a>
     </div>
   </section>
 
   <!-- QUESTIONS -->
   <section class="questions" id="more">
-    <h2 class="section-title">Have Questions?</h2>
-    <p class="questions__sub">Drop us an email</p>
+    <h2 class="section-title" data-i18n="questions.title"></h2>
+    <p class="questions__sub" data-i18n="questions.sub"></p>
     <div class="questions__contacts">
       <div class="questions__contact">
         <span class="name">Antoine &amp; Norika:</span>
@@ -141,5 +142,28 @@
       </div>
     </div>
   </section>
+
+  <!-- PASSWORD GATE -->
+  <div id="gate" class="gate" style="display:none">
+    <div class="gate__box">
+      <!-- LANGUAGE SWITCHER (gate page) -->
+      <div class="lang-switcher lang-switcher--gate">
+        <button class="lang-toggle" id="gate-lang-btn"></button>
+      </div>
+      <h2 class="gate__title">Norika &amp; Antoine</h2>
+      <p class="gate__sub" data-i18n="gate.sub"></p>
+      <form class="gate__form" id="gate-form">
+        <div class="gate__field">
+          <input class="gate__input" id="gate-input" type="text" data-i18n-placeholder="gate.placeholder" autocomplete="off" />
+          <span class="gate__hint" tabindex="0">?</span>
+        </div>
+        <button class="gate__btn" type="submit" data-i18n="gate.btn"></button>
+      </form>
+      <p class="gate__error" id="gate-error"></p>
+    </div>
+  </div>
+
+  <script src="translations.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
