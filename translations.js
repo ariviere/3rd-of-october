@@ -22,7 +22,7 @@ const T = {
 
     'rsvp.title':    'We look forward<br>to seeing you!',
     'rsvp.text':     "Our celebration wouldn't be the same without you. Please let us know if you plan to attend by following the RSVP link below, and make note of any dietary restrictions or special requests.",
-    'rsvp.deadline': 'Kindly RSVP by March 1',
+    'rsvp.deadline': 'Kindly RSVP by February 1',
     'rsvp.btn':      'RSVP',
 
     'questions.title': 'Have Questions?',
@@ -31,7 +31,7 @@ const T = {
     'faq.1.q': 'What is the dress code?',
     'faq.1.a': 'Cocktail attire — elegant but comfortable. Dresses, suits, or dressy separates are all wonderful. Bay Area evenings in October can be cool, so a light layer is always a smart idea.',
     'faq.2.q': 'Are children welcome?',
-    'faq.2.a': 'We adore your little ones, but our reception will be an adults-only celebration. We hope this gives you a wonderful excuse for a night out!',
+    'faq.2.a': 'Yes, of course! Don\'t forget to add them to the RSVP.',
     'faq.3.q': 'Can I bring a plus one?',
     'faq.3.a': 'Yes! Just make sure to add them when you fill out your RSVP so we can plan accordingly.',
     'faq.4.q': 'Is there parking at the wedding venue?',
@@ -39,7 +39,7 @@ const T = {
     'faq.5.q': 'What if I have dietary restrictions or allergies?',
     'faq.5.a': 'Please mention any dietary restrictions or allergies when you RSVP. We want everyone to eat well and feel taken care of.',
     'faq.6.q': 'When is the RSVP deadline?',
-    'faq.6.a': 'Please RSVP by March 1st, 2027. We need a final headcount for catering, and we truly appreciate you letting us know early!',
+    'faq.6.a': 'Please RSVP by February 1st, 2027. We need a final headcount for catering, and we truly appreciate you letting us know early!',
     'faq.7.q': 'Do you have a registry?',
     'faq.7.a': "We know this is already a long journey for most of you, and your presence alone means everything to us. But if you'd like to give us a little something, you can find our registry right here.",
 
@@ -72,7 +72,7 @@ const T = {
 
     'rsvp.title':    'Nous avons h\u00e2te<br>de vous voir\u00a0!',
     'rsvp.text':     "Notre f\u00eate ne serait pas pareille sans vous. Merci de nous indiquer si vous pr\u00e9voyez d\u2019assister en suivant le lien RSVP ci-dessous, et de noter tout r\u00e9gime alimentaire particulier.",
-    'rsvp.deadline': 'Merci de confirmer avant le 1er mars',
+    'rsvp.deadline': 'Merci de confirmer avant le 1er f\u00e9vrier',
     'rsvp.btn':      'RSVP',
 
     'questions.title': 'Des questions\u00a0?',
@@ -81,15 +81,15 @@ const T = {
     'faq.1.q': 'Quelle est la tenue vestimentaire\u00a0?',
     'faq.1.a': 'Tenue de cocktail \u2014 \u00e9l\u00e9gante mais confortable. Robes, costumes ou ensembles habill\u00e9s sont parfaits. Les soir\u00e9es d\u2019octobre \u00e0 la Bay Area peuvent \u00eatre fra\u00eeches, alors pr\u00e9voyez une petite veste.',
     'faq.2.q': 'Les enfants sont-ils les bienvenus\u00a0?',
-    'faq.2.a': 'Nous adorons vos petits bouts, mais notre r\u00e9ception sera r\u00e9serv\u00e9e aux adultes. Nous esp\u00e9rons que cela vous donnera une excellente occasion de profiter d\u2019une soir\u00e9e entre grands\u00a0!',
-    'faq.3.q': 'Puis-je venir avec un(e) accompagnateur(trice)\u00a0?',
-    'faq.3.a': 'Oui\u00a0! Pensez simplement \u00e0 l\u2019ajouter lors de votre RSVP afin que nous puissions planifier en cons\u00e9quence.',
+    'faq.2.a': 'Oui, bien s\u00fbr\u00a0! N\u2019oubliez pas de les ajouter au RSVP.',
+    'faq.3.q': 'Puis-je venir accompagn\u00e9(e)\u00a0?',
+    'faq.3.a': 'Oui\u00a0! Pensez simplement \u00e0 l\u2019ajouter lors de votre RSVP.',
     'faq.4.q': 'Y a-t-il un parking au lieu de r\u00e9ception\u00a0?',
     'faq.4.a': 'Oui\u00a0! Le Brazilian Room dispose d\u2019un parking gratuit sur place. Uber et Lyft fonctionnent tr\u00e8s bien \u00e9galement.',
     'faq.5.q': 'Que faire si j\u2019ai des restrictions alimentaires ou des allergies\u00a0?',
     'faq.5.a': 'Merci de mentionner toute restriction alimentaire ou allergie lors de votre RSVP. Nous tenons \u00e0 ce que chacun mange bien et se sente choy\u00e9.',
     'faq.6.q': 'Quelle est la date limite pour le RSVP\u00a0?',
-    'faq.6.a': 'Merci de confirmer avant le 1er mars 2027. Nous avons besoin du nombre d\u00e9finitif d\u2019invit\u00e9s pour le traiteur, et appr\u00e9cions vraiment de le savoir \u00e0 l\u2019avance\u00a0!',
+    'faq.6.a': 'Merci de confirmer avant le 1er f\u00e9vrier 2027. Nous avons besoin du nombre d\u00e9finitif d\u2019invit\u00e9s pour le traiteur, et appr\u00e9cions vraiment de le savoir \u00e0 l\u2019avance\u00a0!',
     'faq.7.q': 'Avez-vous une liste de mariage\u00a0?',
     'faq.7.a': 'Nous savons que c\u2019est d\u00e9j\u00e0 un long voyage pour la plupart d\u2019entre vous, et votre pr\u00e9sence nous suffit\u00a0! Mais si vous souhaitez nous faire un petit cadeau, vous pouvez trouver notre liste ici.',
 
