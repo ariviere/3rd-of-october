@@ -29,7 +29,7 @@
         <h1 class="hero__title">Norika &amp; Antoine</h1>
         <p class="hero__sub" data-i18n="hero.sub"></p>
         <p class="hero__date" data-i18n="hero.date"></p>
-        <a href="#rsvp" class="btn--round btn--round-light" data-i18n="rsvp.btn"></a>
+        <button class="btn--round btn--round-light" data-rsvp-open data-i18n="rsvp.btn"></button>
       </div>
     </div>
     <div class="hero__right">
@@ -110,9 +110,96 @@
       <h2 data-i18n-html="rsvp.title"></h2>
       <p data-i18n="rsvp.text"></p>
       <p class="rsvp-banner__deadline" data-i18n="rsvp.deadline"></p>
-      <a href="#" class="btn--round btn--round-light" data-i18n="rsvp.btn"></a>
+      <button class="btn--round btn--round-light" data-rsvp-open data-i18n="rsvp.btn"></button>
     </div>
   </section>
+
+  <!-- RSVP MODAL -->
+  <div class="rsvp-modal" id="rsvp-modal" role="dialog" aria-modal="true" hidden>
+    <div class="rsvp-modal__overlay" id="rsvp-modal-overlay"></div>
+    <div class="rsvp-modal__panel">
+      <button class="rsvp-modal__close" id="rsvp-modal-close" aria-label="Close">×</button>
+
+      <!-- Update banner -->
+      <div class="rsvp__update-banner" id="rsvp-update-banner" hidden>
+        <span data-i18n="rsvp.form.update-banner"></span>
+      </div>
+
+      <!-- Success state -->
+      <div class="rsvp__success" id="rsvp-success" hidden>
+        <p class="rsvp__success-title" data-i18n="rsvp.form.success-title"></p>
+        <p class="rsvp__success-text" data-i18n="rsvp.form.success-text"></p>
+        <p class="rsvp__success-update" data-i18n="rsvp.form.success-update"></p>
+      </div>
+
+      <form id="rsvp-form" class="rsvp__form" novalidate>
+
+        <!-- Name + Email -->
+        <div class="rsvp__row">
+          <input class="rsvp__input" type="text" id="rsvp-name" name="name" required
+                 data-i18n-placeholder="rsvp.form.name" autocomplete="name" />
+          <input class="rsvp__input" type="email" id="rsvp-email" name="email" required
+                 data-i18n-placeholder="rsvp.form.email" autocomplete="email" />
+        </div>
+
+        <!-- Attending -->
+        <fieldset class="rsvp__fieldset">
+          <legend class="rsvp__legend" data-i18n="rsvp.form.attending"></legend>
+          <div class="rsvp__radios">
+            <label class="rsvp__radio">
+              <input type="radio" name="attending" value="yes" />
+              <span data-i18n="rsvp.form.yes"></span>
+            </label>
+            <label class="rsvp__radio">
+              <input type="radio" name="attending" value="no" />
+              <span data-i18n="rsvp.form.no"></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- Events + Guests -->
+        <div id="rsvp-details" class="rsvp__details">
+          <fieldset class="rsvp__fieldset">
+            <legend class="rsvp__legend" data-i18n="rsvp.form.events"></legend>
+            <div class="rsvp__checks">
+              <label class="rsvp__check">
+                <input type="checkbox" name="events" value="saturday" />
+                <span data-i18n="rsvp.form.saturday"></span>
+              </label>
+              <label class="rsvp__check">
+                <input type="checkbox" name="events" value="sunday" />
+                <span data-i18n="rsvp.form.sunday"></span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="rsvp__guests">
+            <p class="rsvp__legend" data-i18n="rsvp.form.guests"></p>
+            <div id="rsvp-guest-list"></div>
+            <button type="button" class="rsvp__add-guest" id="rsvp-add-guest">
+              <span aria-hidden="true">+</span>
+              <span data-i18n="rsvp.form.add-guest"></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Message -->
+        <textarea class="rsvp__input rsvp__textarea" name="message" id="rsvp-message"
+                  rows="3" data-i18n-placeholder="rsvp.form.message"></textarea>
+
+        <!-- Error -->
+        <p class="rsvp__error" id="rsvp-error"></p>
+
+        <!-- Submit -->
+        <div class="rsvp__submit-wrap">
+          <button type="submit" class="rsvp__submit" id="rsvp-submit">
+            <span data-i18n="rsvp.form.submit"></span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
 
   <!-- QUESTIONS -->
   <section class="questions" id="more">
@@ -181,5 +268,6 @@
 
   <script src="translations.js"></script>
   <script src="app.js"></script>
+  <script src="rsvp.js"></script>
 </body>
 </html>

@@ -332,6 +332,7 @@ p {
   height: 88px;
   border-radius: 50%;
   border: 1px solid var(--text);
+  background: transparent;
   color: var(--text);
   font-family: var(--font-body);
   font-size: 0.72rem;
@@ -367,13 +368,286 @@ p {
   line-height: 1.25;
   margin-bottom: 1.2rem;
 }
-.rsvp-banner p       { color: rgba(255,255,255,0.82); font-size: 1.1rem; margin-bottom: 0.9rem; }
-.rsvp-banner p.rsvp-banner__deadline {
+.rsvp-banner p { color: rgba(255,255,255,0.82); font-size: 1.1rem; margin-bottom: 0.9rem; }
+.rsvp-banner__deadline {
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.6) !important;
+  margin-bottom: 2rem !important;
+}
+
+/* ============================================================
+   RSVP MODAL
+   ============================================================ */
+.rsvp-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+.rsvp-modal.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+.rsvp-modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+}
+.rsvp-modal__panel {
+  position: relative;
+  z-index: 1;
+  background: var(--cream);
+  max-width: 580px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 3rem 3.5rem;
+  border-radius: 4px;
+  transform: translateY(14px);
+  transition: transform 0.25s ease;
+}
+.rsvp-modal.is-open .rsvp-modal__panel { transform: translateY(0); }
+
+.rsvp-modal__close {
+  position: absolute;
+  top: 1rem;
+  right: 1.2rem;
+  background: none;
+  border: none;
+  font-size: 1.7rem;
+  line-height: 1;
+  color: #bbb;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+.rsvp-modal__close:hover { color: var(--text); }
+
+body.modal-open { overflow: hidden; }
+
+/* ── form inside modal ── */
+.rsvp__update-banner {
+  background: #e8f0eb;
+  color: var(--green);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0.7rem 1rem;
+  border-radius: 3px;
   margin-bottom: 2rem;
+}
+
+/* ── success state ── */
+.rsvp__success { text-align: center; padding: 1rem 0; }
+.rsvp__success-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--green);
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem !important;
+}
+.rsvp__success-text   { margin-bottom: 1rem !important; }
+.rsvp__success-update { font-size: 0.82rem !important; color: #aaa !important; line-height: 1.6; }
+
+/* ── form layout ── */
+.rsvp__form { display: flex; flex-direction: column; gap: 1.6rem; }
+
+.rsvp__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+/* ── inputs ── */
+.rsvp__input {
+  width: 100%;
+  padding: 0.75rem 1.1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--text);
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.rsvp__input:focus { border-color: var(--green); }
+.rsvp__textarea { resize: vertical; min-height: 80px; }
+
+/* ── fieldset / legend ── */
+.rsvp__fieldset { border: none; padding: 0; }
+.rsvp__legend {
+  display: block;
+  font-size: 0.97rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.9rem;
+}
+
+/* ── radio buttons ── */
+.rsvp__radios { display: flex; flex-direction: column; gap: 0.55rem; }
+.rsvp__radio  { display: flex; align-items: center; gap: 0.65rem; cursor: pointer; }
+.rsvp__radio span { font-size: 1.2rem; color: var(--text); }
+
+.rsvp__radio input[type="radio"] {
+  appearance: none;
+  width: 17px;
+  height: 17px;
+  border: 1.5px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.2s;
+  position: relative;
+}
+.rsvp__radio input[type="radio"]:checked {
+  border-color: var(--green);
+  background: var(--green);
+  box-shadow: inset 0 0 0 3px var(--cream);
+}
+
+/* ── checkboxes ── */
+.rsvp__checks { display: flex; flex-direction: column; gap: 0.55rem; }
+.rsvp__check  { display: flex; align-items: center; gap: 0.65rem; cursor: pointer; }
+.rsvp__check span { font-size: 1.2rem; color: var(--text); }
+
+.rsvp__check input[type="checkbox"] {
+  appearance: none;
+  width: 17px;
+  height: 17px;
+  border: 1.5px solid #ccc;
+  border-radius: 3px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.2s, background 0.2s;
+  position: relative;
+}
+.rsvp__check input[type="checkbox"]:checked {
+  border-color: var(--green);
+  background: var(--green);
+}
+.rsvp__check input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 0px;
+  width: 5px;
+  height: 9px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+/* ── details panel (events + guests) ── */
+.rsvp__details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+.rsvp__details.is-open {
+  max-height: 1000px;
+  opacity: 1;
+}
+
+/* ── guest list ── */
+.rsvp__guests { display: flex; flex-direction: column; gap: 0.6rem; }
+
+.rsvp__guest-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2rem;
+  gap: 0.6rem;
+  align-items: center;
+}
+.rsvp__guest-row--self { grid-template-columns: 1fr 1fr 2rem; }
+
+.rsvp__remove-guest {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+  justify-self: center;
+}
+.rsvp__remove-guest:hover { color: #b55; }
+
+.rsvp__add-guest {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: none;
+  color: var(--green);
+  font-family: var(--font-body);
+  font-size: 1.07rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0.3rem 0;
+  margin-top: 0.2rem;
+  transition: opacity 0.2s;
+}
+.rsvp__add-guest:hover { opacity: 0.7; }
+
+/* ── error ── */
+.rsvp__error {
+  font-size: 0.82rem !important;
+  color: #b55 !important;
+  min-height: 1.2em;
+}
+
+/* ── submit ── */
+.rsvp__submit-wrap { display: flex; justify-content: center; }
+.rsvp__submit {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: 1px solid var(--green);
+  background: transparent;
+  color: var(--green);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.rsvp__submit:hover  { background: var(--green); color: #fff; }
+.rsvp__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── responsive ── */
+@media (max-width: 768px) {
+  .rsvp__card { padding: 2rem 1.5rem; }
+  .rsvp__row  { grid-template-columns: 1fr; }
+  .rsvp__guest-row {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+  }
+  .rsvp__guest-row .rsvp__input:first-child { grid-column: 1; grid-row: 1; }
+  .rsvp__guest-row .rsvp__input:nth-child(2) { grid-column: 1 / -1; grid-row: 2; }
+  .rsvp__remove-guest { grid-column: 2; grid-row: 1; align-self: center; }
 }
 
 /* ============================================================
@@ -454,7 +728,7 @@ p {
   align-items: center;
   gap: 1rem;
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 1.3rem;
   font-weight: 400;
   color: var(--text);
   cursor: pointer;
@@ -482,7 +756,7 @@ p {
 }
 .faq__a {
   padding-bottom: 1.25rem;
-  font-size: 0.9rem;
+  font-size: 1.25rem;
   line-height: 1.75;
   color: var(--muted);
 }
@@ -682,9 +956,11 @@ p {
 }
 .gate__hint:hover::after,
 .gate__hint:focus::after { opacity: 1; }
+
+.gate__error {
   margin-top: 1rem;
   font-size: 0.78rem;
-  color: #b55;
+  color: #b55 !important;
   letter-spacing: 0.04em;
   min-height: 1.2em;
 }
