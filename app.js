@@ -8,20 +8,28 @@
 
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.dataset.i18n;
-      if (dict[key] != null) el.textContent = dict[key];
+      const val = dict[key] != null ? dict[key] : (T.fr[key] != null ? T.fr[key] : null);
+      if (val != null) el.textContent = val;
     });
     document.querySelectorAll('[data-i18n-html]').forEach(el => {
       const key = el.dataset.i18nHtml;
-      if (dict[key] != null) el.innerHTML = dict[key];
+      const val = dict[key] != null ? dict[key] : (T.fr[key] != null ? T.fr[key] : null);
+      if (val != null) el.innerHTML = val;
     });
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
       const key = el.dataset.i18nPlaceholder;
-      if (dict[key] != null) el.placeholder = dict[key];
+      const val = dict[key] != null ? dict[key] : (T.fr[key] != null ? T.fr[key] : null);
+      if (val != null) el.placeholder = val;
     });
 
     document.querySelectorAll('.lang-toggle').forEach(btn => {
       btn.textContent = other;
       btn.dataset.lang = lang === 'en' ? 'fr' : 'en';
+    });
+
+    // show/hide elements restricted to a specific language
+    document.querySelectorAll('[data-lang-only]').forEach(el => {
+      el.style.display = el.dataset.langOnly === lang ? '' : 'none';
     });
   }
 
@@ -65,16 +73,6 @@
     const btn = e.target.closest('.lang-toggle');
     if (!btn) return;
     applyLang(btn.dataset.lang);
-  });
-
-  /* ── FAQ accordion ── */
-  document.addEventListener('click', function (e) {
-    const btn = e.target.closest('.faq__q');
-    if (!btn) return;
-    const item = btn.closest('.faq__item');
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq__item.open').forEach(el => el.classList.remove('open'));
-    if (!isOpen) item.classList.add('open');
   });
 
   /* ── hamburger menu ── */
@@ -125,12 +123,63 @@
     }, { passive: true });
   });
 
+  /* ── registry gift note form ── */
+  document.addEventListener('DOMContentLoaded', function () {
+    var WORKER_URL = 'https://wedding.windnow.workers.dev';
+    var form    = document.getElementById('registry-form');
+    var success = document.getElementById('registry-success');
+    var errorEl = document.getElementById('registry-error');
+    var submitBtn = document.getElementById('registry-submit');
+    if (!form) return;
+
+    function t(key) {
+      var lang = localStorage.getItem('wedding_lang') || 'en';
+      return (T[lang] && T[lang][key]) || (T.en && T.en[key]) || '';
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name    = document.getElementById('registry-name').value.trim();
+      var message = document.getElementById('registry-message').value.trim();
+      errorEl.textContent = '';
+      if (!name) {
+        errorEl.textContent = t('registry.note.name') + ' is required.';
+        return;
+      }
+      submitBtn.disabled = true;
+      fetch(WORKER_URL + '/registry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, message: message }),
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (!data.ok) throw new Error('server');
+          form.hidden    = true;
+          success.hidden = false;
+          success.textContent = t('registry.note.success');
+        })
+        .catch(function () {
+          errorEl.textContent = t('registry.note.error');
+          submitBtn.disabled  = false;
+        });
+    });
+  });
+
   /* ── init ── */
   document.addEventListener('DOMContentLoaded', function () {
     const params   = new URLSearchParams(window.location.search);
     const paramLang = params.get('lang');
     const validLang = paramLang === 'fr' || paramLang === 'en' ? paramLang : null;
     const lang = validLang || localStorage.getItem('wedding_lang') || 'en';
+
+    // redirect if this page is restricted to a specific language
+    const restrict = document.body.dataset.langRestrict;
+    if (restrict && lang !== restrict) {
+      window.location.href = 'index.html';
+      return;
+    }
+
     applyLang(lang);
   });
 })();

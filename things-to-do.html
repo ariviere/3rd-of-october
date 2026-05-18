@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Things to Do | Norika &amp; Antoine</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=Fahkwang:wght@200;300&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
+  <script>
+    if (localStorage.getItem('wedding_auth') !== '1') {
+      document.documentElement.style.visibility = 'hidden';
+    }
+  </script>
+</head>
+<body data-lang-restrict="fr">
+
+  <!-- NAV -->
+  <nav class="nav" id="main-nav">
+    <a class="nav__logo" href="index.html">N &amp; A</a>
+    <div class="nav__links">
+      <a class="nav__link" href="index.html#wedding"      data-i18n="nav.program"></a>
+      <a class="nav__link" href="index.html#story"        data-i18n="nav.story"></a>
+      <a class="nav__link" href="index.html#getting-there" data-i18n="nav.travel"></a>
+      <a class="nav__link nav__link--active" href="things-to-do.html" data-i18n="nav.todo"></a>
+      <a class="nav__link" href="index.html#more"         data-i18n="nav.faq"></a>
+    </div>
+    <div class="nav__right">
+      <button class="nav__rsvp" data-rsvp-open data-i18n="rsvp.btn"></button>
+      <button class="lang-toggle" id="main-lang-btn"></button>
+      <button class="nav__hamburger" id="nav-hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HAMBURGER MENU PANEL -->
+  <div class="nav__menu" id="nav-menu" aria-hidden="true">
+    <div class="nav__menu-inner">
+      <a class="nav__menu-link" href="index.html#wedding"       data-i18n="nav.program"></a>
+      <a class="nav__menu-link" href="index.html#story"         data-i18n="nav.story"></a>
+      <a class="nav__menu-link" href="index.html#getting-there" data-i18n="nav.travel"></a>
+      <a class="nav__menu-link nav__menu-link--active" href="things-to-do.html" data-i18n="nav.todo"></a>
+      <a class="nav__menu-link" href="index.html#more"          data-i18n="nav.faq"></a>
+      <button class="btn--round nav__menu-rsvp" data-rsvp-open data-i18n="rsvp.btn"></button>
+    </div>
+  </div>
+
+  <!-- PAGE BANNER -->
+  <section class="todo-banner">
+    <div class="todo-banner__content">
+      <h1 class="todo-banner__title" data-i18n="todo.hero.title"></h1>
+      <p class="todo-banner__sub" data-i18n="todo.hero.sub"></p>
+    </div>
+  </section>
+
+  <!-- IN SAN FRANCISCO -->
+  <section class="todo-section">
+    <div class="todo-section__header">
+      <h2 class="section-title" data-i18n="todo.sf.title"></h2>
+      <p class="todo-section__intro" data-i18n="todo.sf.sub"></p>
+    </div>
+    <div class="todo-grid">
+
+      <div class="todo-card">
+        <span class="todo-card__num">01</span>
+        <h3 class="todo-card__name" data-i18n="todo.sf.1.name"></h3>
+        <p class="todo-card__desc" data-i18n="todo.sf.1.desc"></p>
+      </div>
+
+      <div class="todo-card">
+        <span class="todo-card__num">02</span>
+        <h3 class="todo-card__name" data-i18n="todo.sf.2.name"></h3>
+        <p class="todo-card__desc" data-i18n="todo.sf.2.desc"></p>
+      </div>
+
+      <div class="todo-card">
+        <span class="todo-card__num">03</span>
+        <h3 class="todo-card__name" data-i18n="todo.sf.3.name"></h3>
+        <p class="todo-card__desc" data-i18n="todo.sf.3.desc"></p>
+      </div>
+
+      <div class="todo-card">
+        <span class="todo-card__num">04</span>
+        <h3 class="todo-card__name" data-i18n="todo.sf.4.name"></h3>
+        <p class="todo-card__desc" data-i18n="todo.sf.4.desc"></p>
+      </div>
+
+      <div class="todo-card">
+        <span class="todo-card__num">05</span>
+        <h3 class="todo-card__name" data-i18n="todo.sf.5.name"></h3>
+        <p class="todo-card__desc" data-i18n="todo.sf.5.desc"></p>
+      </div>
+
+      <div class="todo-card">
+        <span class="todo-card__num">06</span>
+        <h3 class="todo-card__name" data-i18n="todo.sf.6.name"></h3>
+        <p class="todo-card__desc" data-i18n="todo.sf.6.desc"></p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BEYOND SAN FRANCISCO -->
+  <section class="todo-section todo-section--alt">
+    <div class="todo-section__header">
+      <h2 class="section-title" data-i18n="todo.beyond.title"></h2>
+      <p class="todo-section__intro" data-i18n="todo.beyond.sub"></p>
+    </div>
+    <div class="todo-grid">
+
+      <div class="todo-card">
+        <span class="todo-card__num">07</span>
+        <h3 class="todo-card__name" data-i18n="todo.beyond.1.name"></h3>
+        <span class="todo-card__tag" data-i18n="todo.beyond.1.tag"></span>
+        <p class="todo-card__desc" data-i18n="todo.beyond.1.desc"></p>
+      </div>
+
+      <div class="todo-card">
+        <span class="todo-card__num">08</span>
+        <h3 class="todo-card__name" data-i18n="todo.beyond.2.name"></h3>
+        <span class="todo-card__tag" data-i18n="todo.beyond.2.tag"></span>
+        <p class="todo-card__desc" data-i18n="todo.beyond.2.desc"></p>
+      </div>
+
+      <div class="todo-card">
+        <span class="todo-card__num">09</span>
+        <h3 class="todo-card__name" data-i18n="todo.beyond.3.name"></h3>
+        <span class="todo-card__tag" data-i18n="todo.beyond.3.tag"></span>
+        <p class="todo-card__desc" data-i18n="todo.beyond.3.desc"></p>
+      </div>
+
+      <div class="todo-card">
+        <span class="todo-card__num">10</span>
+        <h3 class="todo-card__name" data-i18n="todo.beyond.4.name"></h3>
+        <span class="todo-card__tag" data-i18n="todo.beyond.4.tag"></span>
+        <p class="todo-card__desc" data-i18n="todo.beyond.4.desc"></p>
+      </div>
+
+      <div class="todo-card todo-card--wide">
+        <span class="todo-card__num">+</span>
+        <h3 class="todo-card__name" data-i18n="todo.beyond.5.name"></h3>
+        <span class="todo-card__tag" data-i18n="todo.beyond.5.tag"></span>
+        <p class="todo-card__desc" data-i18n="todo.beyond.5.desc"></p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BACK TO WEDDING -->
+  <section class="todo-footer">
+    <a href="index.html" class="btn--round" data-i18n="nav.program"></a>
+  </section>
+
+  <!-- RSVP MODAL -->
+  <div class="rsvp-modal" id="rsvp-modal" role="dialog" aria-modal="true" hidden>
+    <div class="rsvp-modal__overlay" id="rsvp-modal-overlay"></div>
+    <div class="rsvp-modal__panel">
+      <button class="rsvp-modal__close" id="rsvp-modal-close" aria-label="Close">×</button>
+
+      <div class="rsvp__update-banner" id="rsvp-update-banner" hidden>
+        <span data-i18n="rsvp.form.update-banner"></span>
+      </div>
+
+      <div class="rsvp__success" id="rsvp-success" hidden>
+        <p class="rsvp__success-title" data-i18n="rsvp.form.success-title"></p>
+        <p class="rsvp__success-text" data-i18n="rsvp.form.success-text"></p>
+        <p class="rsvp__success-update" data-i18n="rsvp.form.success-update"></p>
+      </div>
+
+      <form id="rsvp-form" class="rsvp__form" novalidate>
+        <div class="rsvp__row">
+          <input class="rsvp__input" type="text" id="rsvp-name" name="name" required
+                 data-i18n-placeholder="rsvp.form.name" autocomplete="name" />
+          <input class="rsvp__input" type="email" id="rsvp-email" name="email" required
+                 data-i18n-placeholder="rsvp.form.email" autocomplete="email" />
+        </div>
+
+        <fieldset class="rsvp__fieldset">
+          <legend class="rsvp__legend" data-i18n="rsvp.form.attending"></legend>
+          <div class="rsvp__radios">
+            <label class="rsvp__radio">
+              <input type="radio" name="attending" value="yes" />
+              <span data-i18n="rsvp.form.yes"></span>
+            </label>
+            <label class="rsvp__radio">
+              <input type="radio" name="attending" value="no" />
+              <span data-i18n="rsvp.form.no"></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div id="rsvp-details" class="rsvp__details">
+          <fieldset class="rsvp__fieldset">
+            <legend class="rsvp__legend" data-i18n="rsvp.form.events"></legend>
+            <div class="rsvp__checks">
+              <label class="rsvp__check">
+                <input type="checkbox" name="events" value="saturday" />
+                <span data-i18n="rsvp.form.saturday"></span>
+              </label>
+              <label class="rsvp__check">
+                <input type="checkbox" name="events" value="sunday" />
+                <span data-i18n="rsvp.form.sunday"></span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="rsvp__guests">
+            <p class="rsvp__legend" data-i18n="rsvp.form.guests"></p>
+            <div id="rsvp-guest-list"></div>
+            <button type="button" class="rsvp__add-guest" id="rsvp-add-guest">
+              <span aria-hidden="true">+</span>
+              <span data-i18n="rsvp.form.add-guest"></span>
+            </button>
+          </div>
+        </div>
+
+        <textarea class="rsvp__input rsvp__textarea" name="message" id="rsvp-message"
+                  rows="3" data-i18n-placeholder="rsvp.form.message"></textarea>
+
+        <p class="rsvp__error" id="rsvp-error"></p>
+
+        <div class="rsvp__submit-wrap">
+          <button type="submit" class="rsvp__submit" id="rsvp-submit">
+            <span data-i18n="rsvp.form.submit"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- PASSWORD GATE -->
+  <div id="gate" class="gate" style="display:none">
+    <div class="gate__box">
+      <div class="lang-switcher lang-switcher--gate">
+        <button class="lang-toggle" id="gate-lang-btn"></button>
+      </div>
+      <h2 class="gate__title">Norika &amp; Antoine</h2>
+      <p class="gate__sub" data-i18n="gate.sub"></p>
+      <form class="gate__form" id="gate-form">
+        <div class="gate__field">
+          <input class="gate__input" id="gate-input" type="text" data-i18n-placeholder="gate.placeholder" autocomplete="off" />
+          <span class="gate__hint" tabindex="0">?</span>
+        </div>
+        <button class="gate__btn" type="submit" data-i18n="gate.btn"></button>
+      </form>
+      <p class="gate__error" id="gate-error"></p>
+    </div>
+  </div>
+
+  <script src="translations.js"></script>
+  <script src="app.js"></script>
+  <script src="rsvp.js"></script>
+</body>
+</html>

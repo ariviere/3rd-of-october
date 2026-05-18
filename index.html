@@ -20,10 +20,12 @@
   <nav class="nav" id="main-nav">
     <a class="nav__logo" href="#">N &amp; A</a>
     <div class="nav__links">
-      <a class="nav__link" href="#wedding"       data-i18n="nav.program"></a>
-      <a class="nav__link" href="#story"         data-i18n="nav.story"></a>
-      <a class="nav__link" href="#getting-there" data-i18n="nav.travel"></a>
-      <a class="nav__link" href="#more"          data-i18n="nav.faq"></a>
+      <a class="nav__link" href="#wedding"          data-i18n="nav.program"></a>
+      <a class="nav__link" href="#story"            data-i18n="nav.story"></a>
+      <a class="nav__link" href="#getting-there"    data-i18n="nav.travel"></a>
+      <a class="nav__link" href="things-to-do.html" data-i18n="nav.todo" data-lang-only="fr"></a>
+      <a class="nav__link" href="#registry"         data-i18n="nav.registry"></a>
+      <a class="nav__link" href="#more"             data-i18n="nav.faq"></a>
     </div>
     <div class="nav__right">
       <button class="nav__rsvp" data-rsvp-open data-i18n="rsvp.btn"></button>
@@ -39,10 +41,12 @@
   <!-- HAMBURGER MENU PANEL -->
   <div class="nav__menu" id="nav-menu" aria-hidden="true">
     <div class="nav__menu-inner">
-      <a class="nav__menu-link" href="#wedding"      data-i18n="nav.program"></a>
-      <a class="nav__menu-link" href="#story"        data-i18n="nav.story"></a>
-      <a class="nav__menu-link" href="#getting-there" data-i18n="nav.travel"></a>
-      <a class="nav__menu-link" href="#more"         data-i18n="nav.faq"></a>
+      <a class="nav__menu-link" href="#wedding"          data-i18n="nav.program"></a>
+      <a class="nav__menu-link" href="#story"            data-i18n="nav.story"></a>
+      <a class="nav__menu-link" href="#getting-there"    data-i18n="nav.travel"></a>
+      <a class="nav__menu-link" href="things-to-do.html" data-i18n="nav.todo" data-lang-only="fr"></a>
+      <a class="nav__menu-link" href="#registry"         data-i18n="nav.registry"></a>
+      <a class="nav__menu-link" href="#more"             data-i18n="nav.faq"></a>
       <button class="btn--round nav__menu-rsvp" data-rsvp-open data-i18n="rsvp.btn"></button>
     </div>
   </div>
@@ -227,39 +231,78 @@
     </div>
   </div>
 
+  <!-- REGISTRY -->
+  <section class="registry" id="registry">
+    <div class="registry__inner">
+      <h2 class="section-title" data-i18n="registry.title"></h2>
+      <p class="registry__text" data-i18n="registry.text"></p>
+
+      <div class="registry__payment">
+        <!-- TODO: replace VENMO_USERNAME with your Venmo @username -->
+        <a class="registry__method" href="https://venmo.com/u/VENMO_USERNAME" target="_blank" rel="noopener">
+          <span data-i18n="registry.venmo"></span>
+        </a>
+        <!-- TODO: save your Venmo QR code as images/venmo-qr.png -->
+        <div class="registry__qr">
+          <img src="images/venmo-qr.png" alt="Venmo QR code" class="registry__qr-img" />
+          <p class="registry__qr-caption" data-i18n="registry.qr.caption"></p>
+        </div>
+      </div>
+
+      <div class="registry__divider"></div>
+
+      <div class="registry__note">
+        <h3 class="registry__note-title" data-i18n="registry.note.title"></h3>
+        <form class="registry__form" id="registry-form" novalidate>
+          <input class="rsvp__input" type="text" name="name" id="registry-name" required
+                 data-i18n-placeholder="registry.note.name" autocomplete="name" />
+          <textarea class="rsvp__input rsvp__textarea" name="message" id="registry-message"
+                    rows="3" data-i18n-placeholder="registry.note.message"></textarea>
+          <p class="rsvp__error" id="registry-error"></p>
+          <div class="rsvp__submit-wrap">
+            <button type="submit" class="rsvp__submit" id="registry-submit">
+              <span data-i18n="registry.note.submit"></span>
+            </button>
+          </div>
+        </form>
+        <p class="registry__note-success" id="registry-success" hidden data-i18n="registry.note.success"></p>
+      </div>
+    </div>
+  </section>
+
   <!-- QUESTIONS -->
   <section class="questions" id="more">
     <h2 class="section-title" data-i18n="questions.title"></h2>
 
-    <!-- FAQ accordion -->
+    <!-- FAQ -->
     <div class="faq">
       <div class="faq__item">
-        <button class="faq__q" data-i18n="faq.1.q"></button>
-        <div class="faq__a-wrap"><p class="faq__a" data-i18n="faq.1.a"></p></div>
+        <h3 class="faq__q" data-i18n="faq.1.q"></h3>
+        <p class="faq__a" data-i18n="faq.1.a"></p>
       </div>
       <div class="faq__item">
-        <button class="faq__q" data-i18n="faq.2.q"></button>
-        <div class="faq__a-wrap"><p class="faq__a" data-i18n="faq.2.a"></p></div>
+        <h3 class="faq__q" data-i18n="faq.2.q"></h3>
+        <p class="faq__a" data-i18n="faq.2.a"></p>
       </div>
       <div class="faq__item">
-        <button class="faq__q" data-i18n="faq.3.q"></button>
-        <div class="faq__a-wrap"><p class="faq__a" data-i18n="faq.3.a"></p></div>
+        <h3 class="faq__q" data-i18n="faq.3.q"></h3>
+        <p class="faq__a" data-i18n="faq.3.a"></p>
       </div>
       <div class="faq__item">
-        <button class="faq__q" data-i18n="faq.4.q"></button>
-        <div class="faq__a-wrap"><p class="faq__a" data-i18n="faq.4.a"></p></div>
+        <h3 class="faq__q" data-i18n="faq.4.q"></h3>
+        <p class="faq__a" data-i18n="faq.4.a"></p>
       </div>
       <div class="faq__item">
-        <button class="faq__q" data-i18n="faq.5.q"></button>
-        <div class="faq__a-wrap"><p class="faq__a" data-i18n="faq.5.a"></p></div>
+        <h3 class="faq__q" data-i18n="faq.5.q"></h3>
+        <p class="faq__a" data-i18n="faq.5.a"></p>
       </div>
       <div class="faq__item">
-        <button class="faq__q" data-i18n="faq.6.q"></button>
-        <div class="faq__a-wrap"><p class="faq__a" data-i18n="faq.6.a"></p></div>
+        <h3 class="faq__q" data-i18n="faq.6.q"></h3>
+        <p class="faq__a" data-i18n="faq.6.a"></p>
       </div>
       <div class="faq__item">
-        <button class="faq__q" data-i18n="faq.7.q"></button>
-        <div class="faq__a-wrap"><p class="faq__a" data-i18n="faq.7.a"></p></div>
+        <h3 class="faq__q" data-i18n="faq.7.q"></h3>
+        <p class="faq__a" data-i18n-html="faq.7.a"></p>
       </div>
     </div>
 

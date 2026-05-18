@@ -1,5 +1,5 @@
 /**
- * Wedding RSVP – Cloudflare Worker
+ * Wedding RSVP + Registry – Cloudflare Worker
  *
  * Environment variables (Worker Settings → Variables → add as Secrets):
  *   AIRTABLE_TOKEN    Airtable Personal Access Token
@@ -8,18 +8,21 @@
  *   FROM_EMAIL        Sender address verified in Resend, e.g. rsvp@yourdomain.com
  *   SITE_URL          Your wedding site URL, e.g. https://you.github.io/wedding
  *
- * Airtable table: "Table 1" (or rename and update AIRTABLE_TABLE below)
- * Fields: Name, Email, Attending, Events, Guests, Message, Submitted At, Token
- *   → Add a new "Token" field (Single line text) to your existing table
+ * Airtable tables:
+ *   "RSVPs"        — Fields: Name, Email, Attending, Events, Guests, Message, Submitted At, Token
+ *   "GiftMessages" — Fields: Name, Message, Submitted At  (create this table for registry notes)
  */
 
-const AIRTABLE_TABLE = 'RSVPs';
+const AIRTABLE_TABLE          = 'RSVPs';
+const AIRTABLE_REGISTRY_TABLE = 'GiftMessages';
 
 export default {
   async fetch(request, env) {
     if (request.method === 'OPTIONS') return cors(null, 204);
 
     const url = new URL(request.url);
+
+    if (url.pathname === '/registry') return handleRegistry(request, env);
 
     // GET /?token=... — retrieve existing RSVP so the form can pre-fill
     if (request.method === 'GET') {
@@ -115,6 +118,43 @@ export default {
     return cors(JSON.stringify({ ok: true }), 200);
   },
 };
+
+/* ── Registry: save a gift note ── */
+
+async function handleRegistry(request, env) {
+  if (request.method !== 'POST') {
+    return cors(JSON.stringify({ error: 'Method not allowed' }), 405);
+  }
+
+  let body;
+  try { body = await request.json(); }
+  catch { return cors(JSON.stringify({ error: 'Invalid JSON' }), 400); }
+
+  const { name, message = '' } = body;
+  if (!name) return cors(JSON.stringify({ error: 'Name is required' }), 400);
+
+  const fields = {
+    Name:           name,
+    Message:        message,
+    'Submitted At': new Date().toISOString(),
+  };
+
+  const res = await fetch(
+    `https://api.airtable.com/v0/${env.AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_REGISTRY_TABLE)}`,
+    {
+      method: 'POST',
+      headers: airtableHeaders(env),
+      body: JSON.stringify({ fields }),
+    }
+  );
+
+  if (!res.ok) {
+    const detail = await res.text();
+    return cors(JSON.stringify({ error: 'Database error', detail }), 500);
+  }
+
+  return cors(JSON.stringify({ ok: true }), 200);
+}
 
 /* ── Email ── */
 

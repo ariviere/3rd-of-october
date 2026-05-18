@@ -786,41 +786,121 @@ body.modal-open { overflow: hidden; }
    REGISTRY
    ============================================================ */
 .registry {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6rem;
   padding: 5.5rem 0;
-}
-
-.registry__photo-wrap {
-  position: relative;
-  flex-shrink: 0;
-  width: clamp(160px, 18vw, 240px);
-}
-.registry__img {
-  width: 100%;
-  height: clamp(200px, 26vw, 320px);
-  object-fit: cover;
-  transform: rotate(-2deg);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.1);
-}
-.registry__leaf {
-  position: absolute;
-  top: -2.5rem;
-  right: -2rem;
-  width: 60px;
-  height: auto;
-  object-fit: contain;
-  pointer-events: none;
-}
-
-.registry__content {
-  max-width: 360px;
   text-align: center;
 }
-.registry__content .section-title { color: var(--green); }
-.registry__content p { margin-bottom: 2rem; }
+
+.registry__inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.registry__inner .section-title {
+  color: var(--green);
+  margin-bottom: 1rem;
+}
+
+.registry__text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-bottom: 2.8rem;
+}
+
+/* ── payment ── */
+.registry__payment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  margin-bottom: 3rem;
+}
+
+.registry__method {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.8rem 1.6rem;
+  border: 1px solid var(--green);
+  border-radius: 50px;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  text-decoration: none;
+}
+
+.registry__method:hover {
+  background: var(--green);
+  color: #fff;
+}
+
+.registry__method-arrow {
+  font-size: 0.9rem;
+  display: inline-block;
+  margin-left: 0.3rem;
+}
+
+/* ── QR code ── */
+.registry__qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.registry__qr-img {
+  width: clamp(120px, 18vw, 160px);
+  height: auto;
+  border: 6px solid #fff;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+  border-radius: 4px;
+}
+
+.registry__qr-caption {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #aaa;
+}
+
+/* ── divider ── */
+.registry__divider {
+  width: 60px;
+  height: 1px;
+  background: #e0d4cc;
+  margin: 0 auto 3rem;
+}
+
+/* ── gift note form ── */
+.registry__note-title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  letter-spacing: 0.05em;
+  color: var(--text);
+  margin-bottom: 1.6rem;
+}
+
+.registry__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.registry__note-success {
+  font-size: 1.15rem;
+  color: var(--green);
+  margin-top: 1.8rem;
+  letter-spacing: 0.02em;
+}
 
 /* ============================================================
    QUESTIONS
@@ -842,55 +922,36 @@ body.modal-open { overflow: hidden; }
 .questions__contact .name  { color: var(--text); font-weight: 400; }
 .questions__contact .phone { color: #888; }
 
-/* FAQ accordion */
+/* FAQ */
 .faq {
-  max-width: 640px;
+  max-width: 960px;
   margin: 0 auto 3.5rem;
   text-align: left;
-  border-top: 1px solid #e0d4cc;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3rem;
 }
-.faq__item { border-bottom: 1px solid #e0d4cc; }
+.faq__item {
+  padding: 2rem 0;
+  border-bottom: 1px solid #e0d4cc;
+}
+.faq__item:nth-child(-n+2) { border-top: 1px solid #e0d4cc; }
 .faq__q {
-  width: 100%;
-  background: none;
-  border: none;
-  padding: 1.25rem 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
   font-family: var(--font-body);
-  font-size: 1.3rem;
-  font-weight: 400;
+  font-size: 1.1rem;
+  font-weight: 500;
   color: var(--text);
-  cursor: pointer;
-  text-align: left;
-}
-.faq__q::after {
-  content: '+';
-  flex-shrink: 0;
-  font-size: 1.2rem;
-  font-weight: 300;
-  color: var(--green);
-  transition: transform 0.25s ease;
-  line-height: 1;
-}
-.faq__item.open .faq__q::after {
-  transform: rotate(45deg);
-}
-.faq__a-wrap {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-}
-.faq__item.open .faq__a-wrap {
-  max-height: 300px;
+  margin-bottom: 0.65rem;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
 }
 .faq__a {
-  padding-bottom: 1.25rem;
-  font-size: 1.25rem;
-  line-height: 1.75;
+  font-size: 1rem;
+  line-height: 1.8;
   color: var(--muted);
+  font-weight: 300;
+  padding-left: 1rem;
+  border-left: 2px solid var(--blush);
 }
 .questions__sub { margin-top: 0.5rem; }
 
@@ -963,7 +1024,7 @@ body.modal-open { overflow: hidden; }
   .getting-there__grid { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
   .getting-there__divider { width: 60px; height: 1px; margin: 0 auto; }
 
-  .registry           { flex-direction: column; text-align: center; }
+  .registry__qr-img   { width: clamp(100px, 28vw, 140px); }
 
   .questions__contacts { flex-direction: column; gap: 0.8rem; align-items: center; }
 }
@@ -1016,7 +1077,9 @@ body.modal-open { overflow: hidden; }
 
   /* questions / faq */
   .questions { padding: 3rem 0; }
-  .faq { margin-bottom: 2rem; }
+  .faq { grid-template-columns: 1fr; margin-bottom: 2rem; }
+  .faq__item:nth-child(-n+2) { border-top: none; }
+  .faq__item:first-child { border-top: 1px solid #e0d4cc; }
 }
 
 /* ============================================================
@@ -1168,4 +1231,185 @@ body.modal-open { overflow: hidden; }
   color: #b55 !important;
   letter-spacing: 0.04em;
   min-height: 1.2em;
+}
+
+/* ============================================================
+   NAV — active link state
+   ============================================================ */
+.nav__link--active,
+.nav__menu-link--active {
+  color: var(--green);
+}
+
+/* ============================================================
+   THINGS TO DO — page banner
+   ============================================================ */
+.todo-banner {
+  background: var(--green);
+  padding: 7rem 0 6rem;
+  text-align: center;
+  margin-top: var(--nav-h);
+  position: relative;
+  overflow: hidden;
+}
+.todo-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('https://static.wixstatic.com/media/c837a6_7e31080dae74484894eb56ae23e08252~mv2.png/v1/fill/w_800,h_600,al_c,q_85,enc_auto,quality_auto/gettyimages-1218386385-2048x2048_cut.png') center/cover;
+  opacity: 0.12;
+  mix-blend-mode: luminosity;
+}
+.todo-banner__content {
+  position: relative;
+  z-index: 1;
+  max-width: 560px;
+  margin: 0 auto;
+}
+.todo-banner__title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  color: #fff;
+  letter-spacing: 0.06em;
+  margin-bottom: 1rem;
+}
+.todo-banner__sub {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.78);
+  letter-spacing: 0.04em;
+  line-height: 1.7;
+}
+
+/* ============================================================
+   THINGS TO DO — sections
+   ============================================================ */
+.todo-section {
+  padding: 5.5rem 0 6rem;
+  background: var(--cream);
+}
+.todo-section--alt {
+  background: #fff;
+}
+
+.todo-section__header {
+  text-align: center;
+  max-width: 580px;
+  margin: 0 auto 3.5rem;
+}
+.todo-section__header .section-title {
+  color: var(--green);
+  margin-bottom: 0.8rem;
+}
+.todo-section__intro {
+  font-size: 1.1rem;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+/* ============================================================
+   THINGS TO DO — card grid
+   ============================================================ */
+.todo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.todo-card {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 4px;
+  padding: 2rem 2rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.todo-section--alt .todo-card {
+  background: var(--cream);
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+.todo-card:hover {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.09);
+  transform: translateY(-2px);
+}
+
+.todo-card--wide {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.45rem 1.6rem;
+}
+.todo-card--wide .todo-card__num { flex-shrink: 0; }
+.todo-card--wide .todo-card__desc {
+  flex-basis: 100%;
+  margin-top: 0.1rem;
+}
+
+.todo-card__num {
+  font-family: var(--font-display);
+  font-weight: 200;
+  font-size: 1.6rem;
+  color: rgba(0, 0, 0, 0.12);
+  line-height: 1;
+  margin-bottom: 0.2rem;
+}
+
+.todo-card__name {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.3rem;
+  color: var(--green);
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+}
+
+.todo-card__tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #aaa;
+  margin-bottom: 0.25rem;
+}
+
+.todo-card__desc {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ============================================================
+   THINGS TO DO — footer CTA
+   ============================================================ */
+.todo-footer {
+  background: var(--cream);
+  padding: 4rem 0 5rem;
+  text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* ============================================================
+   THINGS TO DO — responsive
+   ============================================================ */
+@media (max-width: 768px) {
+  .todo-banner { padding: 5rem 0 4rem; }
+
+  .todo-grid { grid-template-columns: 1fr; }
+  .todo-card--wide { flex-direction: column; gap: 0.45rem; }
+  .todo-card--wide .todo-card__desc { flex-basis: auto; }
+}
+
+@media (max-width: 480px) {
+  .todo-banner { padding: 4rem 0 3rem; }
+  .todo-banner__title { font-size: 2.2rem; }
+
+  .todo-section { padding: 3.5rem 0 4rem; }
+  .todo-card { padding: 1.5rem 1.4rem 1.7rem; }
 }
