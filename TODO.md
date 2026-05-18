@@ -1,2 +1,4 @@
-put registry/note closer together, they feel disconnected
-add query param for FR/EN
+# Done
+
+- Registry payment and note form spacing tightened
+- Shareable `?lang=fr` / `?lang=en` links (URL sync, nav, RSVP emails)
