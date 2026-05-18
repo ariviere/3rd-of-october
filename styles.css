@@ -1225,6 +1225,15 @@ body.modal-open { overflow: hidden; }
 .gate__hint:hover::after,
 .gate__hint:focus::after { opacity: 1; }
 
+@media (max-width: 480px) {
+  .gate__hint::after {
+    left: 50%;
+    top: auto;
+    bottom: calc(100% + 8px);
+    transform: translateX(-50%);
+  }
+}
+
 .gate__error {
   margin-top: 1rem;
   font-size: 0.78rem;

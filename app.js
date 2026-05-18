@@ -56,7 +56,7 @@
   document.addEventListener('submit', function (e) {
     if (e.target.id !== 'gate-form') return;
     e.preventDefault();
-    const val = document.getElementById('gate-input').value;
+    const val = document.getElementById('gate-input').value.trim().toLowerCase();
     if (val === CORRECT) {
       unlock();
     } else {
