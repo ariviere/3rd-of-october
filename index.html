@@ -237,35 +237,39 @@
       <h2 class="section-title" data-i18n="registry.title"></h2>
       <p class="registry__text" data-i18n="registry.text"></p>
 
-      <div class="registry__payment">
-        <!-- TODO: replace VENMO_USERNAME with your Venmo @username -->
-        <a class="registry__method" href="https://venmo.com/u/VENMO_USERNAME" target="_blank" rel="noopener">
-          <span data-i18n="registry.venmo"></span>
-        </a>
-        <!-- TODO: save your Venmo QR code as images/venmo-qr.png -->
-        <div class="registry__qr">
-          <img src="images/venmo-qr.png" alt="Venmo QR code" class="registry__qr-img" />
-          <p class="registry__qr-caption" data-i18n="registry.qr.caption"></p>
-        </div>
-      </div>
-
-      <div class="registry__divider"></div>
-
-      <div class="registry__note">
-        <h3 class="registry__note-title" data-i18n="registry.note.title"></h3>
-        <form class="registry__form" id="registry-form" novalidate>
-          <input class="rsvp__input" type="text" name="name" id="registry-name" required
-                 data-i18n-placeholder="registry.note.name" autocomplete="name" />
-          <textarea class="rsvp__input rsvp__textarea" name="message" id="registry-message"
-                    rows="3" data-i18n-placeholder="registry.note.message"></textarea>
-          <p class="rsvp__error" id="registry-error"></p>
-          <div class="rsvp__submit-wrap">
-            <button type="submit" class="rsvp__submit" id="registry-submit">
-              <span data-i18n="registry.note.submit"></span>
-            </button>
+      <div class="registry__card">
+        <div class="registry__contribute">
+          <p class="registry__step" data-i18n="registry.step.pay"></p>
+          <p class="registry__step-hint" data-i18n="registry.step.pay-hint"></p>
+          <div class="registry__pay-options">
+            <!-- TODO: replace VENMO_USERNAME with your Venmo @username -->
+            <a class="registry__method" href="https://venmo.com/u/VENMO_USERNAME" target="_blank" rel="noopener">
+              <span data-i18n="registry.venmo"></span>
+            </a>
+            <!-- TODO: save your Venmo QR code as images/venmo-qr.png -->
+            <div class="registry__qr">
+              <img src="images/venmo-qr.png" alt="Venmo QR code" class="registry__qr-img" />
+              <p class="registry__qr-caption" data-i18n="registry.qr.caption"></p>
+            </div>
           </div>
-        </form>
-        <p class="registry__note-success" id="registry-success" hidden data-i18n="registry.note.success"></p>
+        </div>
+
+        <div class="registry__message">
+          <p class="registry__step" data-i18n="registry.step.message"></p>
+          <form class="registry__form" id="registry-form" novalidate>
+            <input class="rsvp__input" type="text" name="name" id="registry-name" required
+                   data-i18n-placeholder="registry.note.name" autocomplete="name" />
+            <textarea class="rsvp__input rsvp__textarea" name="message" id="registry-message"
+                      rows="3" data-i18n-placeholder="registry.note.message"></textarea>
+            <p class="rsvp__error" id="registry-error"></p>
+            <div class="rsvp__submit-wrap">
+              <button type="submit" class="rsvp__submit" id="registry-submit">
+                <span data-i18n="registry.note.submit"></span>
+              </button>
+            </div>
+          </form>
+          <p class="registry__note-success" id="registry-success" hidden data-i18n="registry.note.success"></p>
+        </div>
       </div>
     </div>
   </section>
