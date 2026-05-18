@@ -804,7 +804,7 @@ body.modal-open { overflow: hidden; }
   font-size: 1.2rem;
   line-height: 1.8;
   color: var(--muted);
-  margin-bottom: 2.8rem;
+  margin-bottom: 2.2rem;
 }
 
 /* ── payment ── */
@@ -812,8 +812,8 @@ body.modal-open { overflow: hidden; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.6rem;
-  margin-bottom: 3rem;
+  gap: 1.35rem;
+  margin-bottom: 1.7rem;
 }
 
 .registry__method {
@@ -874,10 +874,15 @@ body.modal-open { overflow: hidden; }
   width: 60px;
   height: 1px;
   background: #e0d4cc;
-  margin: 0 auto 3rem;
+  margin: 0 auto 1.8rem;
 }
 
 /* ── gift note form ── */
+.registry__note {
+  max-width: 440px;
+  margin: 0 auto;
+}
+
 .registry__note-title {
   font-family: var(--font-display);
   font-weight: 300;
