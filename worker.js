@@ -159,7 +159,8 @@ async function handleRegistry(request, env) {
 /* ── Email ── */
 
 async function sendEmail({ env, to, name, attending, events, guests, token, lang }) {
-  const editUrl = `${env.SITE_URL}?rsvp=${token}`;
+  const editParams = new URLSearchParams({ rsvp: token, lang: lang === 'fr' ? 'fr' : 'en' });
+  const editUrl = `${env.SITE_URL}?${editParams}`;
   const isFr    = lang === 'fr';
   const isYes   = attending === 'yes';
 

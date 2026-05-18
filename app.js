@@ -1,4 +1,49 @@
 (function () {
+  /* ── language helpers ── */
+  function getLang() {
+    const params = new URLSearchParams(window.location.search);
+    const p = params.get('lang');
+    if (p === 'fr' || p === 'en') return p;
+    return localStorage.getItem('wedding_lang') || 'en';
+  }
+
+  function setLangInUrl(lang) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('lang', lang);
+    history.replaceState(null, '', url);
+  }
+
+  function hrefWithLang(href, lang) {
+    if (!href || /^https?:\/\//i.test(href) || href.startsWith('mailto:')) return href;
+
+    const hashIdx = href.indexOf('#');
+    const hash = hashIdx >= 0 ? href.slice(hashIdx) : '';
+    const pathPart = hashIdx >= 0 ? href.slice(0, hashIdx) : href;
+
+    if (pathPart.startsWith('#')) {
+      const u = new URL(window.location.href);
+      u.searchParams.set('lang', lang);
+      const file = u.pathname.split('/').pop() || 'index.html';
+      return file + u.search + href;
+    }
+
+    const u = new URL(pathPart || window.location.pathname.split('/').pop(), window.location.href);
+    u.searchParams.set('lang', lang);
+    const file = u.pathname.split('/').pop();
+    return file + u.search + hash;
+  }
+
+  function patchNavLinks(lang) {
+    document.querySelectorAll('a[href]').forEach(function (a) {
+      const href = a.getAttribute('href');
+      if (!href || /^https?:\/\//i.test(href) || href.startsWith('mailto:')) return;
+      if (!a.dataset.hrefBase) a.dataset.hrefBase = href;
+      a.href = hrefWithLang(a.dataset.hrefBase, lang);
+    });
+  }
+
+  window.getWeddingLang = getLang;
+
   /* ── apply language ── */
   function applyLang(lang) {
     localStorage.setItem('wedding_lang', lang);
@@ -27,10 +72,12 @@
       btn.dataset.lang = lang === 'en' ? 'fr' : 'en';
     });
 
-    // show/hide elements restricted to a specific language
     document.querySelectorAll('[data-lang-only]').forEach(el => {
       el.style.display = el.dataset.langOnly === lang ? '' : 'none';
     });
+
+    setLangInUrl(lang);
+    patchNavLinks(lang);
   }
 
   /* ── password gate ── */
@@ -47,6 +94,7 @@
     document.documentElement.style.visibility = 'visible';
   } else {
     document.addEventListener('DOMContentLoaded', function () {
+      applyLang(getLang());
       document.getElementById('gate').style.display = 'flex';
       document.documentElement.style.visibility = 'visible';
       document.getElementById('gate-input').focus();
@@ -60,7 +108,7 @@
     if (val === CORRECT) {
       unlock();
     } else {
-      const lang = localStorage.getItem('wedding_lang') || 'en';
+      const lang = getLang();
       const err  = document.getElementById('gate-error');
       err.textContent = T[lang]['gate.error'];
       document.getElementById('gate-input').value = '';
@@ -79,6 +127,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     const hamburger = document.getElementById('nav-hamburger');
     const navMenu   = document.getElementById('nav-menu');
+    if (!hamburger || !navMenu) return;
 
     function toggleMenu(open) {
       const isOpen = open !== undefined ? open : !hamburger.classList.contains('is-open');
@@ -93,21 +142,18 @@
       toggleMenu();
     });
 
-    // close when a menu link or RSVP button is clicked
     navMenu.addEventListener('click', function (e) {
       if (e.target.closest('.nav__menu-link') || e.target.closest('[data-rsvp-open]')) {
         toggleMenu(false);
       }
     });
 
-    // close on outside click
     document.addEventListener('click', function (e) {
       if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
         toggleMenu(false);
       }
     });
 
-    // hide nav on scroll down, reveal on scroll up (mobile only)
     const nav = document.getElementById('main-nav');
     let lastY = window.scrollY;
     window.addEventListener('scroll', function () {
@@ -133,7 +179,7 @@
     if (!form) return;
 
     function t(key) {
-      var lang = localStorage.getItem('wedding_lang') || 'en';
+      var lang = getLang();
       return (T[lang] && T[lang][key]) || (T.en && T.en[key]) || '';
     }
 
@@ -167,19 +213,19 @@
   });
 
   /* ── init ── */
-  document.addEventListener('DOMContentLoaded', function () {
-    const params   = new URLSearchParams(window.location.search);
-    const paramLang = params.get('lang');
-    const validLang = paramLang === 'fr' || paramLang === 'en' ? paramLang : null;
-    const lang = validLang || localStorage.getItem('wedding_lang') || 'en';
-
-    // redirect if this page is restricted to a specific language
+  function initSite() {
+    const lang = getLang();
     const restrict = document.body.dataset.langRestrict;
     if (restrict && lang !== restrict) {
-      window.location.href = 'index.html';
+      window.location.href = 'index.html?lang=' + lang;
       return;
     }
-
     applyLang(lang);
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSite);
+  } else {
+    initSite();
+  }
 })();

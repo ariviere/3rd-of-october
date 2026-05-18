@@ -4,7 +4,13 @@
 
   var guestCount = 0;
 
-  function getLang() { return localStorage.getItem('wedding_lang') || 'en'; }
+  function getLang() {
+    if (typeof window.getWeddingLang === 'function') return window.getWeddingLang();
+    var params = new URLSearchParams(window.location.search);
+    var p = params.get('lang');
+    if (p === 'fr' || p === 'en') return p;
+    return localStorage.getItem('wedding_lang') || 'en';
+  }
 
   function t(key) {
     var lang = getLang();
