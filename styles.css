@@ -398,25 +398,18 @@ p {
 }
 
 /*
-  7 photos spread across the board in 3 loose rows:
-  row 1 (top):    #1  #2  #3
-  row 2 (middle): #4     #5
-  row 3 (bottom): #6  #7
-  positions are % of .story__board
-*/
-/*
-  7 photos in 2 rows, vertically centered in the 820px board.
-  Vertical row-start gap (~20%) matches horizontal photo-start gap (~24% of board width).
+  8 photos in 2 rows, vertically centered in the 820px board.
   row 1 (top):    #1  #2  #3  #4
-  row 2 (bottom): #5  #6  #7
+  row 2 (bottom): #5  #6  #7  #8
 */
 .polaroid--1 { top: 18%;  left: calc(50% - 463px); transform: rotate(-5.5deg); }
 .polaroid--2 { top: 17%;  left: calc(50% - 243px); transform: rotate( 3.5deg); }
 .polaroid--3 { top: 19%;  left: calc(50% -  23px); transform: rotate(-3deg);   }
 .polaroid--4 { top: 16%;  left: calc(50% + 197px); transform: rotate( 4.5deg); }
-.polaroid--5 { top: 45%;  left: calc(50% - 353px); transform: rotate( 3deg);   }
-.polaroid--6 { top: 44%;  left: calc(50% - 133px); transform: rotate(-4deg);   }
-.polaroid--7 { top: 46%;  left: calc(50% +  87px); transform: rotate( 2.5deg); }
+.polaroid--5 { top: 45%;  left: calc(50% - 463px); transform: rotate( 3deg);   }
+.polaroid--6 { top: 44%;  left: calc(50% - 243px); transform: rotate(-4deg);   }
+.polaroid--7 { top: 46%;  left: calc(50% -  23px); transform: rotate( 2.5deg); }
+.polaroid--8 { top: 43%;  left: calc(50% + 197px); transform: rotate(-3.5deg); }
 
 .polaroid--1:hover { transform: rotate(-5.5deg) scale(1.06); }
 .polaroid--2:hover { transform: rotate( 3.5deg) scale(1.06); }
@@ -425,6 +418,7 @@ p {
 .polaroid--5:hover { transform: rotate( 3deg)   scale(1.06); }
 .polaroid--6:hover { transform: rotate(-4deg)   scale(1.06); }
 .polaroid--7:hover { transform: rotate( 2.5deg) scale(1.06); }
+.polaroid--8:hover { transform: rotate(-3.5deg) scale(1.06); }
 
 /* ============================================================
    GETTING THERE
@@ -1045,6 +1039,7 @@ body.modal-open { overflow: hidden; }
   .polaroid--5 { transform: rotate(-2.5deg) !important; }
   .polaroid--6 { transform: rotate( 2deg) !important; }
   .polaroid--7 { transform: rotate(-1.5deg) !important; }
+  .polaroid--8 { transform: rotate( 2.5deg) !important; }
 
   .getting-there__grid { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
   .getting-there__divider { width: 60px; height: 1px; margin: 0 auto; }

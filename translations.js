@@ -36,11 +36,11 @@ const T = {
     'questions.sub':   'Still have questions? Drop us an email',
 
     'faq.1.q': 'What is the dress code?',
-    'faq.1.a': 'Cocktail attire — elegant but comfortable. Dresses, suits, or dressy separates are all wonderful. Bay Area evenings in October can be cool, so a light layer is always a smart idea.',
+    'faq.1.a': 'Cocktail attire — dress up as much as you want! Bay Area evenings can get chilly quickly. We recommend bringing layers.',
     'faq.2.q': 'Are children welcome?',
-    'faq.2.a': 'Yes, of course! Don\'t forget to add them to the RSVP.',
+    'faq.2.a': 'Yes! Don\'t forget to add them to the RSVP.',
     'faq.3.q': 'Can I bring a plus one?',
-    'faq.3.a': 'Yes! Just make sure to add them when you fill out your RSVP so we can plan accordingly.',
+    'faq.3.a': 'Yes! Just make sure to add them when you fill out your RSVP.',
     'faq.4.q': 'Is there parking at the wedding venue?',
     'faq.4.a': 'Yes! The Brazilian Room has free on-site parking. Uber and Lyft work great too.',
     'faq.5.q': 'What if I have dietary restrictions or allergies?',
@@ -166,7 +166,7 @@ const T = {
     'questions.sub':   'Vous avez encore des questions ? Envoyez-nous un email',
 
     'faq.1.q': 'Quelle est la tenue vestimentaire ?',
-    'faq.1.a': 'Tenue de cocktail — élégante mais confortable. Robes, costumes ou ensembles habillés sont parfaits. Les soirées d’octobre à la Bay Area peuvent être fraîches.',
+    'faq.1.a': 'Tenue élégante. Les soirées peuvent être fraîches donc prévoyez quelque chose de chaud au cas où.',
     'faq.2.q': 'Les enfants sont-ils les bienvenus ?',
     'faq.2.a': 'Oui, bien sûr ! N’oubliez pas de les ajouter au RSVP.',
     'faq.3.q': 'Puis-je venir accompagné(e) ?',
