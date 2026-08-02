@@ -190,11 +190,12 @@
       })
       .then(function () {
         var isYes = attending === 'yes';
-        // swap in correct success message
         document.querySelector('#rsvp-success .rsvp__success-title').textContent =
           t(isYes ? 'rsvp.form.success-title' : 'rsvp.form.success-title-no');
         document.querySelector('#rsvp-success .rsvp__success-text').textContent =
           t(isYes ? 'rsvp.form.success-text' : 'rsvp.form.success-text-no');
+        document.querySelector('#rsvp-success .rsvp__success-update').textContent =
+          t('rsvp.form.success-update');
 
         document.getElementById('rsvp-form').hidden    = true;
         document.getElementById('rsvp-success').hidden = false;

@@ -593,6 +593,7 @@ body.modal-open { overflow: hidden; }
 
 /* ── form layout ── */
 .rsvp__form { display: flex; flex-direction: column; gap: 1.6rem; }
+.rsvp__form[hidden] { display: none !important; }
 
 .rsvp__row {
   display: grid;
