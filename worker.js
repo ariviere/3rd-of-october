@@ -164,8 +164,8 @@ async function sendEmail({ env, to, name, attending, events, guests, token, lang
   const isYes   = attending === 'yes';
 
   const eventLabels = {
-    saturday: isFr ? 'Sam. 2 oct. — Apéritif à Marina Green'    : 'Sat Oct 2 — Welcome drinks at Marina Green',
-    sunday:   isFr ? 'Dim. 3 oct. — Mariage au Brazilian Room'  : 'Sun Oct 3 — Wedding at Brazilian Room',
+    saturday: isFr ? 'Sam. 2 oct. — Apéro de bienvenue — Lieu à venir'    : 'Sat Oct 2 — Welcome drinks — Location TBA',
+    sunday:   isFr ? 'Dim. 3 oct. — Mariage à la Brazilian Room'  : 'Sun Oct 3 — Wedding at the Brazilian Room',
   };
 
   const guestLines = guests.length

@@ -21,7 +21,6 @@
     <a class="nav__logo" href="#">N &amp; A</a>
     <div class="nav__links">
       <a class="nav__link" href="#wedding"          data-i18n="nav.program"></a>
-      <a class="nav__link" href="#story"            data-i18n="nav.story"></a>
       <a class="nav__link" href="#getting-there"    data-i18n="nav.travel"></a>
       <a class="nav__link" href="things-to-do.html" data-i18n="nav.todo" data-lang-only="fr"></a>
       <a class="nav__link" href="#registry"         data-i18n="nav.registry"></a>
@@ -42,7 +41,6 @@
   <div class="nav__menu" id="nav-menu" aria-hidden="true">
     <div class="nav__menu-inner">
       <a class="nav__menu-link" href="#wedding"          data-i18n="nav.program"></a>
-      <a class="nav__menu-link" href="#story"            data-i18n="nav.story"></a>
       <a class="nav__menu-link" href="#getting-there"    data-i18n="nav.travel"></a>
       <a class="nav__menu-link" href="things-to-do.html" data-i18n="nav.todo" data-lang-only="fr"></a>
       <a class="nav__menu-link" href="#registry"         data-i18n="nav.registry"></a>
@@ -79,12 +77,12 @@
   <section class="program" id="wedding">
     <div class="program__day">
       <div class="program__photo-wrap program__photo-wrap--left">
-        <img src="images/marina_green.png" alt="Marina Green, San Francisco" class="program__photo" />
+        <img src="images/sf_bay.jpg" alt="San Francisco Bay Area" class="program__photo" />
       </div>
       <span class="program__date" data-i18n="program.date1"></span>
       <h3 class="program__day-title" data-i18n="program.welcoming"></h3>
       <div class="program__events">
-        <p class="program__event"><strong>Marina Green</strong>, San Francisco</p>
+        <p class="program__event" data-i18n-html="program.location1"></p>
         <p class="program__event" data-i18n-html="program.drinks"></p>
         <p class="program__event program__event--note" data-i18n="program.layer"></p>
       </div>
@@ -242,11 +240,9 @@
           <p class="registry__step" data-i18n="registry.step.pay"></p>
           <p class="registry__step-hint" data-i18n="registry.step.pay-hint"></p>
           <div class="registry__pay-options">
-            <!-- TODO: replace VENMO_USERNAME with your Venmo @username -->
-            <a class="registry__method" href="https://venmo.com/u/VENMO_USERNAME" target="_blank" rel="noopener">
+            <a class="registry__method" href="https://venmo.com/u/Antoine-Rvr" target="_blank" rel="noopener">
               <span data-i18n="registry.venmo"></span>
             </a>
-            <!-- TODO: save your Venmo QR code as images/venmo-qr.png -->
             <div class="registry__qr">
               <img src="images/venmo-qr.png" alt="Venmo QR code" class="registry__qr-img" />
               <p class="registry__qr-caption" data-i18n="registry.qr.caption"></p>
