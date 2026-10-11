@@ -164,8 +164,8 @@ async function sendEmail({ env, to, name, attending, events, guests, token, lang
   const isYes   = attending === 'yes';
 
   const eventLabels = {
-    saturday: isFr ? 'Sam. 2 oct. — Apéro de bienvenue — Lieu à venir'    : 'Sat Oct 2 — Welcome drinks — Location TBA',
-    sunday:   isFr ? 'Dim. 3 oct. — Mariage à la Brazilian Room'  : 'Sun Oct 3 — Wedding at the Brazilian Room',
+    wedding: isFr ? 'Sam. 14 août — Mariage à La Poterie' : 'Sat Aug 14 — Wedding at La Poterie',
+    retour:  isFr ? 'Dim. 15 août — Retour (brunch)'              : 'Sun Aug 15 — Retour brunch',
   };
 
   const guestLines = guests.length
@@ -199,7 +199,7 @@ async function sendEmail({ env, to, name, attending, events, guests, token, lang
   const html = `<!DOCTYPE html><html><body style="margin:0;padding:0;background:#FEF7F1;font-family:Georgia,serif">
   <div style="max-width:480px;margin:40px auto;background:#fff;padding:48px 40px;border-radius:4px">
     <h1 style="font-weight:300;color:#5c8a6a;font-size:2rem;margin:0 0 4px;letter-spacing:0.04em">Norika &amp; Antoine</h1>
-    <p style="color:#aaa;margin:0 0 32px;font-size:0.85rem;letter-spacing:0.1em">October 3rd, 2027 &middot; Berkeley, CA</p>
+    <p style="color:#aaa;margin:0 0 32px;font-size:0.85rem;letter-spacing:0.1em">${isFr ? '14 août 2027' : 'August 14th, 2027'} &middot; La Poterie</p>
     ${bodyHtml}
     <div style="border-top:1px solid #eee;margin:32px 0"></div>
     <p style="color:#aaa;font-size:0.85rem;margin:0">${editNote} <a href="${editUrl}" style="color:#5c8a6a">${editLabel}</a></p>

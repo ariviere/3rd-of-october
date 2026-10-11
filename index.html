@@ -7,7 +7,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="favicon.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=6" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=Fahkwang:wght@200;300&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
@@ -25,8 +25,9 @@
     <div class="nav__links">
       <a class="nav__link" href="#wedding"          data-i18n="nav.program"></a>
       <a class="nav__link" href="#getting-there"    data-i18n="nav.travel"></a>
-      <a class="nav__link" href="things-to-do.html" data-i18n="nav.todo" data-lang-only="fr"></a>
-      <a class="nav__link" href="#registry"         data-i18n="nav.registry"></a>
+      <a class="nav__link" href="lodging.html"      data-i18n="nav.lodging"></a>
+      <a class="nav__link" href="things-to-do.html" data-i18n="nav.todo"></a>
+      <a class="nav__link" href="#registry"         data-i18n="nav.registry" hidden></a>
       <a class="nav__link" href="#more"             data-i18n="nav.faq"></a>
     </div>
     <div class="nav__right">
@@ -45,8 +46,9 @@
     <div class="nav__menu-inner">
       <a class="nav__menu-link" href="#wedding"          data-i18n="nav.program"></a>
       <a class="nav__menu-link" href="#getting-there"    data-i18n="nav.travel"></a>
-      <a class="nav__menu-link" href="things-to-do.html" data-i18n="nav.todo" data-lang-only="fr"></a>
-      <a class="nav__menu-link" href="#registry"         data-i18n="nav.registry"></a>
+      <a class="nav__menu-link" href="lodging.html"      data-i18n="nav.lodging"></a>
+      <a class="nav__menu-link" href="things-to-do.html" data-i18n="nav.todo"></a>
+      <a class="nav__menu-link" href="#registry"         data-i18n="nav.registry" hidden></a>
       <a class="nav__menu-link" href="#more"             data-i18n="nav.faq"></a>
       <button class="btn--round nav__menu-rsvp" data-rsvp-open data-i18n="rsvp.btn"></button>
     </div>
@@ -64,7 +66,7 @@
       </div>
     </div>
     <div class="hero__right">
-      <img src="images/sf.jpg" alt="" />
+      <img src="images/nantes.jpg?v=2" alt="Nantes and the Loire" />
     </div>
     <div class="hero__couple">
       <img src="images/japan.jpeg" alt="Norika and Antoine" />
@@ -80,27 +82,25 @@
   <section class="program" id="wedding">
     <div class="program__day">
       <div class="program__photo-wrap program__photo-wrap--left">
-        <img src="images/sf_bay.jpg" alt="San Francisco Bay Area" class="program__photo" />
+        <img src="images/poterie.jpg?v=3" alt="La Poterie" class="program__photo program__photo--wide" />
       </div>
       <span class="program__date" data-i18n="program.date1"></span>
-      <h3 class="program__day-title" data-i18n="program.welcoming"></h3>
+      <h3 class="program__day-title" data-i18n="program.wedding"></h3>
       <div class="program__events">
-        <p class="program__event" data-i18n-html="program.location1"></p>
-        <p class="program__event" data-i18n-html="program.drinks"></p>
-        <p class="program__event program__event--note" data-i18n="program.layer"></p>
+        <p class="program__event" data-i18n-html="program.venue"></p>
+        <p class="program__event" data-i18n-html="program.ceremony"></p>
+        <p class="program__event program__event--note" data-i18n="program.note"></p>
       </div>
     </div>
 
     <div class="program__day">
       <div class="program__photo-wrap program__photo-wrap--right">
-        <img src="images/brazilian_room_house.jpeg" alt="Brazilian Room, Berkeley" class="program__photo" />
+        <img src="images/brunch.jpg" alt="Brunch on the terrace" class="program__photo" />
       </div>
       <span class="program__date" data-i18n="program.date2"></span>
-      <h3 class="program__day-title" data-i18n="program.wedding"></h3>
+      <h3 class="program__day-title" data-i18n="program.retour"></h3>
       <div class="program__events">
-        <p class="program__event"><strong>Brazilian Room</strong>, Berkeley</p>
-        <p class="program__event" data-i18n-html="program.ceremony"></p>
-        <p class="program__event" data-i18n-html="program.afterparty"></p>
+        <p class="program__event" data-i18n="program.brunch"></p>
       </div>
     </div>
   </section>
@@ -122,16 +122,30 @@
   <!-- GETTING THERE -->
   <section class="getting-there" id="getting-there">
     <h2 class="section-title" data-i18n="getting-there.title"></h2>
-    <div class="getting-there__grid">
-      <div class="getting-there__item">
-        <h3 data-i18n="getting-there.air.title"></h3>
-        <p data-i18n-html="getting-there.air.text"></p>
-      </div>
-      <div class="getting-there__divider"></div>
-      <div class="getting-there__item">
-        <h3 data-i18n="getting-there.lodging.title"></h3>
-        <p data-i18n-html="getting-there.lodging.text"></p>
-      </div>
+    <div class="getting-there__item">
+      <h3 data-i18n="getting-there.air.title"></h3>
+      <label class="getting-there__origin">
+        <select id="travel-origin">
+          <option value="us" data-i18n="getting-there.from.us"></option>
+          <option value="jp" data-i18n="getting-there.from.jp"></option>
+        </select>
+      </label>
+      <ul class="getting-there__routes" data-origin="us">
+        <li>
+          <span data-i18n-html="getting-there.route.1"></span>
+          <span class="getting-there__alt" data-i18n-html="getting-there.route.train"></span>
+        </li>
+        <li data-i18n-html="getting-there.route.2"></li>
+        <li data-i18n-html="getting-there.route.3"></li>
+      </ul>
+      <ul class="getting-there__routes" data-origin="jp" hidden>
+        <li>
+          <span data-i18n-html="getting-there.jp.1"></span>
+          <span class="getting-there__alt" data-i18n-html="getting-there.route.train"></span>
+        </li>
+        <li data-i18n-html="getting-there.jp.2"></li>
+      </ul>
+      <a class="btn--round" href="lodging.html" data-i18n="nav.lodging"></a>
     </div>
   </section>
 
@@ -193,12 +207,12 @@
             <legend class="rsvp__legend" data-i18n="rsvp.form.events"></legend>
             <div class="rsvp__checks">
               <label class="rsvp__check">
-                <input type="checkbox" name="events" value="saturday" />
-                <span data-i18n="rsvp.form.saturday"></span>
+                <input type="checkbox" name="events" value="wedding" />
+                <span data-i18n="rsvp.form.wedding"></span>
               </label>
               <label class="rsvp__check">
-                <input type="checkbox" name="events" value="sunday" />
-                <span data-i18n="rsvp.form.sunday"></span>
+                <input type="checkbox" name="events" value="retour" />
+                <span data-i18n="rsvp.form.retour"></span>
               </label>
             </div>
           </fieldset>
@@ -232,7 +246,7 @@
   </div>
 
   <!-- REGISTRY -->
-  <section class="registry" id="registry">
+  <section class="registry" id="registry" hidden>
     <div class="registry__inner">
       <h2 class="section-title" data-i18n="registry.title"></h2>
       <p class="registry__text" data-i18n="registry.text"></p>
@@ -330,7 +344,7 @@
   </div>
 
   <script src="translations.js"></script>
-  <script src="app.js"></script>
+  <script src="app.js?v=2"></script>
   <script src="rsvp.js"></script>
 </body>
 </html>

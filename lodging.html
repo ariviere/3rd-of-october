@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lodging | Norika &amp; Antoine</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="stylesheet" href="styles.css?v=5" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=Fahkwang:wght@200;300&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
+  <script>
+    if (localStorage.getItem('wedding_auth') !== '1') {
+      document.documentElement.style.visibility = 'hidden';
+    }
+  </script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="main-nav">
+    <a class="nav__logo" href="index.html">N &amp; A</a>
+    <div class="nav__links">
+      <a class="nav__link" href="index.html#wedding"      data-i18n="nav.program"></a>
+      <a class="nav__link" href="index.html#getting-there" data-i18n="nav.travel"></a>
+      <a class="nav__link nav__link--active" href="lodging.html" data-i18n="nav.lodging"></a>
+      <a class="nav__link" href="things-to-do.html" data-i18n="nav.todo"></a>
+      <a class="nav__link" href="index.html#more"         data-i18n="nav.faq"></a>
+    </div>
+    <div class="nav__right">
+      <button class="nav__rsvp" data-rsvp-open data-i18n="rsvp.btn"></button>
+      <button class="lang-toggle" id="main-lang-btn"></button>
+      <button class="nav__hamburger" id="nav-hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HAMBURGER MENU PANEL -->
+  <div class="nav__menu" id="nav-menu" aria-hidden="true">
+    <div class="nav__menu-inner">
+      <a class="nav__menu-link" href="index.html#wedding"       data-i18n="nav.program"></a>
+      <a class="nav__menu-link" href="index.html#getting-there" data-i18n="nav.travel"></a>
+      <a class="nav__menu-link nav__menu-link--active" href="lodging.html" data-i18n="nav.lodging"></a>
+      <a class="nav__menu-link" href="things-to-do.html" data-i18n="nav.todo"></a>
+      <a class="nav__menu-link" href="index.html#more"          data-i18n="nav.faq"></a>
+      <button class="btn--round nav__menu-rsvp" data-rsvp-open data-i18n="rsvp.btn"></button>
+    </div>
+  </div>
+
+  <!-- PAGE BANNER -->
+  <section class="todo-banner">
+    <div class="todo-banner__content">
+      <h1 class="todo-banner__title" data-i18n="lodging.hero.title"></h1>
+      <p class="todo-banner__sub" data-i18n="lodging.hero.sub"></p>
+    </div>
+  </section>
+
+  <section class="todo-section">
+    <div class="todo-section__header">
+      <h2 class="section-title" data-i18n="lodging.hotels"></h2>
+    </div>
+    <div class="stay-grid">
+      <article class="stay-card">
+        <div class="stay-card__head"><h3>Westotel</h3><span class="stay-card__stars">4*</span></div>
+        <p class="stay-card__place">La Chapelle-sur-Erdre</p>
+        <p class="stay-card__addr">34, rue de la Vrière</p>
+        <p class="stay-card__note" data-i18n="lodging.far.westotel"></p>
+        <p class="stay-card__links"><a href="tel:+33251813636">+33 2 51 81 36 36</a><a href="https://www.westotel.com" target="_blank" rel="noopener">westotel.com</a></p>
+      </article>
+      <article class="stay-card">
+        <div class="stay-card__head"><h3>Best Western Hôtel de la Régate</h3><span class="stay-card__stars">4*</span></div>
+        <p class="stay-card__place">Nantes</p>
+        <p class="stay-card__addr">155, route de Gachet</p>
+        <p class="stay-card__note" data-i18n="lodging.far.regate"></p>
+        <p class="stay-card__note" data-i18n="lodging.regate"></p>
+        <p class="stay-card__links"><a href="tel:+33240502222">+33 2 40 50 22 22</a><a href="https://www.hotel-nantes-laregate.com" target="_blank" rel="noopener">hotel-nantes-laregate.com</a></p>
+      </article>
+      <article class="stay-card">
+        <div class="stay-card__head"><h3>Quintessia Resort</h3><span class="stay-card__stars">4*</span></div>
+        <p class="stay-card__place">Orvault</p>
+        <p class="stay-card__addr">24, chemin Marais du Cens</p>
+        <p class="stay-card__note" data-i18n="lodging.far.quintessia"></p>
+        <p class="stay-card__links"><a href="tel:+33240768402">+33 2 40 76 84 02</a><a href="https://www.quintessia.fr" target="_blank" rel="noopener">quintessia.fr</a></p>
+      </article>
+      <article class="stay-card">
+        <div class="stay-card__head"><h3>Hôtel La Pérouse</h3><span class="stay-card__stars">4*</span></div>
+        <p class="stay-card__place">Nantes</p>
+        <p class="stay-card__addr">3, allée Duquesne</p>
+        <p class="stay-card__note" data-i18n="lodging.far.perouse"></p>
+        <p class="stay-card__note" data-i18n="lodging.perouse"></p>
+        <p class="stay-card__links"><a href="tel:+33240897500">+33 2 40 89 75 00</a><a href="https://www.hotel-laperouse.fr" target="_blank" rel="noopener">hotel-laperouse.fr</a></p>
+      </article>
+      <article class="stay-card">
+        <div class="stay-card__head"><h3>Okko Hotels</h3><span class="stay-card__stars">4*</span></div>
+        <p class="stay-card__place">Nantes</p>
+        <p class="stay-card__addr">15 bis, rue de Strasbourg</p>
+        <p class="stay-card__note" data-i18n="lodging.far.okko"></p>
+        <p class="stay-card__note" data-i18n="lodging.okko"></p>
+        <p class="stay-card__links"><a href="tel:+33252200070">+33 2 52 20 00 70</a><a href="https://www.okkohotels.com" target="_blank" rel="noopener">okkohotels.com</a></p>
+      </article>
+      <article class="stay-card">
+        <div class="stay-card__head"><h3>Oceania Hôtel de France</h3><span class="stay-card__stars">4*</span></div>
+        <p class="stay-card__place">Nantes</p>
+        <p class="stay-card__addr">24, rue Crébillon</p>
+        <p class="stay-card__note" data-i18n="lodging.far.oceania"></p>
+        <p class="stay-card__note" data-i18n="lodging.oceania"></p>
+        <p class="stay-card__links"><a href="tel:+33240735791">+33 2 40 73 57 91</a><a href="https://www.oceaniahotels.com/oceania-hotel-de-france-nantes" target="_blank" rel="noopener">oceaniahotels.com</a></p>
+      </article>
+      <article class="stay-card">
+        <div class="stay-card__head"><h3>Sure Hotel by Best Western</h3><span class="stay-card__stars">3*</span></div>
+        <p class="stay-card__place">Nantes</p>
+        <p class="stay-card__addr">27, rue du Chemin Rouge</p>
+        <p class="stay-card__note" data-i18n="lodging.far.sure"></p>
+        <p class="stay-card__note" data-i18n="lodging.sure"></p>
+        <p class="stay-card__links"><a href="tel:+33214000789">+33 2 14 00 07 89</a><a href="https://www.nantesbeaujoire.com" target="_blank" rel="noopener">nantesbeaujoire.com</a></p>
+      </article>
+      <article class="stay-card">
+        <div class="stay-card__head"><h3>Brit Hotel Nantes Beaujoire</h3><span class="stay-card__stars">3*</span></div>
+        <p class="stay-card__place">Nantes</p>
+        <p class="stay-card__addr">45, boulevard des Batignolles</p>
+        <p class="stay-card__note" data-i18n="lodging.far.brit"></p>
+        <p class="stay-card__note" data-i18n="lodging.brit"></p>
+        <p class="stay-card__links"><a href="tel:+33240500707">+33 2 40 50 07 07</a><a href="https://www.hotel-nantes-beaujoire.brithotel.fr" target="_blank" rel="noopener">brithotel.fr</a></p>
+      </article>
+    </div>
+  </section>
+
+  <section class="todo-section todo-section--alt">
+    <div class="todo-section__header">
+      <h2 class="section-title" data-i18n="lodging.homes"></h2>
+    </div>
+    <div class="stay-grid">
+      <article class="stay-card">
+        <div class="stay-card__head"><h3>La Villa du Bois</h3></div>
+        <p class="stay-card__place">La Chapelle-sur-Erdre</p>
+        <p class="stay-card__note" data-i18n="lodging.far.villa"></p>
+        <p class="stay-card__note" data-i18n="lodging.villa"></p>
+        <p class="stay-card__links"><a href="tel:+33686163641">+33 6 86 16 36 41</a><a href="https://lavilladubois44.wixsite.com/lavilladubois44" target="_blank" rel="noopener">lavilladubois44</a></p>
+      </article>
+      <article class="stay-card">
+        <div class="stay-card__head"><h3>Azimut</h3></div>
+        <p class="stay-card__place">La Chapelle-sur-Erdre</p>
+        <p class="stay-card__note" data-i18n="lodging.far.azimut"></p>
+        <p class="stay-card__note" data-i18n="lodging.azimut"></p>
+        <p class="stay-card__links"><a href="tel:+33626096764">+33 6 26 09 67 64</a><a href="https://www.chambredhote-azimut.fr/" target="_blank" rel="noopener">chambredhote-azimut.fr</a></p>
+      </article>
+      <article class="stay-card">
+        <div class="stay-card__head"><h3>Les Arbres Rouges</h3></div>
+        <p class="stay-card__place">Sucé-sur-Erdre</p>
+        <p class="stay-card__note" data-i18n="lodging.far.arbres"></p>
+        <p class="stay-card__note" data-i18n="lodging.arbres"></p>
+        <p class="stay-card__links"><a href="tel:+33251811500">+33 2 51 81 15 00</a><a href="https://www.lesarbresrouges.com" target="_blank" rel="noopener">lesarbresrouges.com</a></p>
+      </article>
+      <article class="stay-card">
+        <div class="stay-card__head"><h3>La Perruche sur Erdre</h3></div>
+        <p class="stay-card__place">Sucé-sur-Erdre</p>
+        <p class="stay-card__note" data-i18n="lodging.far.perruche"></p>
+        <p class="stay-card__note" data-i18n="lodging.perruche"></p>
+        <p class="stay-card__links"><a href="tel:+33660975917">+33 6 60 97 59 17</a><a href="https://laperruchesurerdre.wordpress.com" target="_blank" rel="noopener">laperruchesurerdre</a></p>
+      </article>
+    </div>
+  </section>
+
+  <!-- BACK TO WEDDING -->
+  <section class="todo-footer">
+    <a href="index.html" class="btn--round" data-i18n="nav.program"></a>
+  </section>
+
+  <!-- RSVP MODAL -->
+  <div class="rsvp-modal" id="rsvp-modal" role="dialog" aria-modal="true" hidden>
+    <div class="rsvp-modal__overlay" id="rsvp-modal-overlay"></div>
+    <div class="rsvp-modal__panel">
+      <button class="rsvp-modal__close" id="rsvp-modal-close" aria-label="Close">×</button>
+
+      <div class="rsvp__update-banner" id="rsvp-update-banner" hidden>
+        <span data-i18n="rsvp.form.update-banner"></span>
+      </div>
+
+      <div class="rsvp__success" id="rsvp-success" hidden>
+        <p class="rsvp__success-title" data-i18n="rsvp.form.success-title"></p>
+        <p class="rsvp__success-text" data-i18n="rsvp.form.success-text"></p>
+        <p class="rsvp__success-update" data-i18n="rsvp.form.success-update"></p>
+      </div>
+
+      <form id="rsvp-form" class="rsvp__form" novalidate>
+        <div class="rsvp__row">
+          <input class="rsvp__input" type="text" id="rsvp-name" name="name" required
+                 data-i18n-placeholder="rsvp.form.name" autocomplete="name" />
+          <input class="rsvp__input" type="email" id="rsvp-email" name="email" required
+                 data-i18n-placeholder="rsvp.form.email" autocomplete="email" />
+        </div>
+
+        <fieldset class="rsvp__fieldset">
+          <legend class="rsvp__legend" data-i18n="rsvp.form.attending"></legend>
+          <div class="rsvp__radios">
+            <label class="rsvp__radio">
+              <input type="radio" name="attending" value="yes" />
+              <span data-i18n="rsvp.form.yes"></span>
+            </label>
+            <label class="rsvp__radio">
+              <input type="radio" name="attending" value="no" />
+              <span data-i18n="rsvp.form.no"></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div id="rsvp-details" class="rsvp__details">
+          <fieldset class="rsvp__fieldset">
+            <legend class="rsvp__legend" data-i18n="rsvp.form.events"></legend>
+            <div class="rsvp__checks">
+              <label class="rsvp__check">
+                <input type="checkbox" name="events" value="wedding" />
+                <span data-i18n="rsvp.form.wedding"></span>
+              </label>
+              <label class="rsvp__check">
+                <input type="checkbox" name="events" value="retour" />
+                <span data-i18n="rsvp.form.retour"></span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="rsvp__guests">
+            <p class="rsvp__legend" data-i18n="rsvp.form.guests"></p>
+            <div id="rsvp-guest-list"></div>
+            <button type="button" class="rsvp__add-guest" id="rsvp-add-guest">
+              <span aria-hidden="true">+</span>
+              <span data-i18n="rsvp.form.add-guest"></span>
+            </button>
+          </div>
+        </div>
+
+        <textarea class="rsvp__input rsvp__textarea" name="message" id="rsvp-message"
+                  rows="3" data-i18n-placeholder="rsvp.form.message"></textarea>
+
+        <p class="rsvp__error" id="rsvp-error"></p>
+
+        <div class="rsvp__submit-wrap">
+          <button type="submit" class="rsvp__submit" id="rsvp-submit">
+            <span data-i18n="rsvp.form.submit"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- PASSWORD GATE -->
+  <div id="gate" class="gate" style="display:none">
+    <div class="gate__box">
+      <div class="lang-switcher lang-switcher--gate">
+        <button class="lang-toggle" id="gate-lang-btn"></button>
+      </div>
+      <h2 class="gate__title">Norika &amp; Antoine</h2>
+      <p class="gate__sub" data-i18n="gate.sub"></p>
+      <form class="gate__form" id="gate-form">
+        <div class="gate__field">
+          <input class="gate__input" id="gate-input" type="text" data-i18n-placeholder="gate.placeholder" autocomplete="off" />
+          <span class="gate__hint" tabindex="0">?</span>
+        </div>
+        <button class="gate__btn" type="submit" data-i18n="gate.btn"></button>
+      </form>
+      <p class="gate__error" id="gate-error"></p>
+    </div>
+  </div>
+
+  <script src="translations.js"></script>
+  <script src="app.js"></script>
+  <script src="rsvp.js"></script>
+</body>
+</html>

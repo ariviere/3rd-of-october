@@ -7,7 +7,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="favicon.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=5" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=Fahkwang:wght@200;300&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
@@ -17,7 +17,7 @@
     }
   </script>
 </head>
-<body data-lang-restrict="fr">
+<body>
 
   <!-- NAV -->
   <nav class="nav" id="main-nav">
@@ -25,6 +25,7 @@
     <div class="nav__links">
       <a class="nav__link" href="index.html#wedding"      data-i18n="nav.program"></a>
       <a class="nav__link" href="index.html#getting-there" data-i18n="nav.travel"></a>
+      <a class="nav__link" href="lodging.html" data-i18n="nav.lodging"></a>
       <a class="nav__link nav__link--active" href="things-to-do.html" data-i18n="nav.todo"></a>
       <a class="nav__link" href="index.html#more"         data-i18n="nav.faq"></a>
     </div>
@@ -44,6 +45,7 @@
     <div class="nav__menu-inner">
       <a class="nav__menu-link" href="index.html#wedding"       data-i18n="nav.program"></a>
       <a class="nav__menu-link" href="index.html#getting-there" data-i18n="nav.travel"></a>
+      <a class="nav__menu-link" href="lodging.html" data-i18n="nav.lodging"></a>
       <a class="nav__menu-link nav__menu-link--active" href="things-to-do.html" data-i18n="nav.todo"></a>
       <a class="nav__menu-link" href="index.html#more"          data-i18n="nav.faq"></a>
       <button class="btn--round nav__menu-rsvp" data-rsvp-open data-i18n="rsvp.btn"></button>
@@ -54,100 +56,156 @@
   <section class="todo-banner">
     <div class="todo-banner__content">
       <h1 class="todo-banner__title" data-i18n="todo.hero.title"></h1>
-      <p class="todo-banner__sub" data-i18n="todo.hero.sub"></p>
     </div>
   </section>
 
-  <!-- IN SAN FRANCISCO -->
+  <!-- IN NANTES -->
   <section class="todo-section">
     <div class="todo-section__header">
-      <h2 class="section-title" data-i18n="todo.sf.title"></h2>
-      <p class="todo-section__intro" data-i18n="todo.sf.sub"></p>
+      <h2 class="section-title" data-i18n="todo.near.title"></h2>
     </div>
     <div class="todo-grid">
-
-      <div class="todo-card">
-        <span class="todo-card__num">01</span>
-        <h3 class="todo-card__name" data-i18n="todo.sf.1.name"></h3>
-        <p class="todo-card__desc" data-i18n="todo.sf.1.desc"></p>
-      </div>
-
-      <div class="todo-card">
-        <span class="todo-card__num">02</span>
-        <h3 class="todo-card__name" data-i18n="todo.sf.2.name"></h3>
-        <p class="todo-card__desc" data-i18n="todo.sf.2.desc"></p>
-      </div>
-
-      <div class="todo-card">
-        <span class="todo-card__num">03</span>
-        <h3 class="todo-card__name" data-i18n="todo.sf.3.name"></h3>
-        <p class="todo-card__desc" data-i18n="todo.sf.3.desc"></p>
-      </div>
-
-      <div class="todo-card">
-        <span class="todo-card__num">04</span>
-        <h3 class="todo-card__name" data-i18n="todo.sf.4.name"></h3>
-        <p class="todo-card__desc" data-i18n="todo.sf.4.desc"></p>
-      </div>
-
-      <div class="todo-card">
-        <span class="todo-card__num">05</span>
-        <h3 class="todo-card__name" data-i18n="todo.sf.5.name"></h3>
-        <p class="todo-card__desc" data-i18n="todo.sf.5.desc"></p>
-      </div>
-
-      <div class="todo-card">
-        <span class="todo-card__num">06</span>
-        <h3 class="todo-card__name" data-i18n="todo.sf.6.name"></h3>
-        <p class="todo-card__desc" data-i18n="todo.sf.6.desc"></p>
-      </div>
-
+      <article class="todo-card" tabindex="0">
+        <img class="todo-card__photo" src="images/todo/voyage.jpg?v=4" alt="Le Voyage à Nantes" />
+        <div class="todo-card__body">
+          <h3 class="todo-card__name" data-i18n="todo.near.1.name"></h3>
+          <div class="todo-card__tip">
+          <p class="todo-card__desc" data-i18n="todo.near.1.desc"></p>
+          </div>
+        </div>
+      </article>
+      <article class="todo-card" tabindex="0">
+        <img class="todo-card__photo todo-card__photo--high" src="images/todo/machines.jpg" alt="Les Machines de l'île" />
+        <div class="todo-card__body">
+          <h3 class="todo-card__name" data-i18n="todo.near.2.name"></h3>
+          <div class="todo-card__tip">
+          <p class="todo-card__desc" data-i18n="todo.near.2.desc"></p>
+          </div>
+        </div>
+      </article>
+      <article class="todo-card" tabindex="0">
+        <img class="todo-card__photo" src="images/todo/pommeraye.jpg?v=4" alt="Passage Pommeraye" />
+        <div class="todo-card__body">
+          <h3 class="todo-card__name" data-i18n="todo.near.3.name"></h3>
+          <div class="todo-card__tip">
+          <p class="todo-card__desc" data-i18n="todo.near.3.desc"></p>
+          </div>
+        </div>
+      </article>
+      <article class="todo-card" tabindex="0">
+        <img class="todo-card__photo" src="images/todo/chateau.jpg?v=4" alt="Château des ducs de Bretagne" />
+        <div class="todo-card__body">
+          <h3 class="todo-card__name" data-i18n="todo.near.4.name"></h3>
+          <div class="todo-card__tip">
+          <p class="todo-card__desc" data-i18n="todo.near.4.desc"></p>
+          </div>
+        </div>
+      </article>
+      <article class="todo-card" tabindex="0">
+        <img class="todo-card__photo" src="images/todo/trentemoult.jpg" alt="Trentemoult" />
+        <div class="todo-card__body">
+          <h3 class="todo-card__name" data-i18n="todo.near.5.name"></h3>
+          <div class="todo-card__tip">
+          <p class="todo-card__desc" data-i18n="todo.near.5.desc"></p>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
-  <!-- BEYOND SAN FRANCISCO -->
+  <!-- THE COAST -->
   <section class="todo-section todo-section--alt">
     <div class="todo-section__header">
-      <h2 class="section-title" data-i18n="todo.beyond.title"></h2>
-      <p class="todo-section__intro" data-i18n="todo.beyond.sub"></p>
+      <h2 class="section-title" data-i18n="todo.coast.title"></h2>
+      <p class="todo-section__intro" data-i18n="todo.coast.sub"></p>
     </div>
     <div class="todo-grid">
+      <article class="todo-card" tabindex="0">
+        <img class="todo-card__photo" src="images/todo/guerande.jpg?v=4" alt="Marais salants de Guérande" />
+        <div class="todo-card__body">
+          <h3 class="todo-card__name" data-i18n="todo.coast.1.name"></h3>
+          <div class="todo-card__tip">
+          <p class="todo-card__desc" data-i18n="todo.coast.1.desc"></p>
+          </div>
+        </div>
+      </article>
+      <article class="todo-card" tabindex="0">
+        <img class="todo-card__photo" src="images/todo/pornichet.jpg" alt="La Baule and Pornichet" />
+        <div class="todo-card__body">
+          <h3 class="todo-card__name" data-i18n="todo.coast.2.name"></h3>
+          <div class="todo-card__tip">
+          <p class="todo-card__desc" data-i18n="todo.coast.2.desc"></p>
+          </div>
+        </div>
+      </article>
+      <article class="todo-card" tabindex="0">
+        <img class="todo-card__photo" src="images/todo/croisic.jpg" alt="Le Croisic" />
+        <div class="todo-card__body">
+          <h3 class="todo-card__name" data-i18n="todo.coast.3.name"></h3>
+          <div class="todo-card__tip">
+          <p class="todo-card__desc" data-i18n="todo.coast.3.desc"></p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
 
-      <div class="todo-card">
-        <span class="todo-card__num">07</span>
-        <h3 class="todo-card__name" data-i18n="todo.beyond.1.name"></h3>
-        <span class="todo-card__tag" data-i18n="todo.beyond.1.tag"></span>
-        <p class="todo-card__desc" data-i18n="todo.beyond.1.desc"></p>
-      </div>
-
-      <div class="todo-card">
-        <span class="todo-card__num">08</span>
-        <h3 class="todo-card__name" data-i18n="todo.beyond.2.name"></h3>
-        <span class="todo-card__tag" data-i18n="todo.beyond.2.tag"></span>
-        <p class="todo-card__desc" data-i18n="todo.beyond.2.desc"></p>
-      </div>
-
-      <div class="todo-card">
-        <span class="todo-card__num">09</span>
-        <h3 class="todo-card__name" data-i18n="todo.beyond.3.name"></h3>
-        <span class="todo-card__tag" data-i18n="todo.beyond.3.tag"></span>
-        <p class="todo-card__desc" data-i18n="todo.beyond.3.desc"></p>
-      </div>
-
-      <div class="todo-card">
-        <span class="todo-card__num">10</span>
-        <h3 class="todo-card__name" data-i18n="todo.beyond.4.name"></h3>
-        <span class="todo-card__tag" data-i18n="todo.beyond.4.tag"></span>
-        <p class="todo-card__desc" data-i18n="todo.beyond.4.desc"></p>
-      </div>
-
-      <div class="todo-card todo-card--wide">
-        <span class="todo-card__num">+</span>
-        <h3 class="todo-card__name" data-i18n="todo.beyond.5.name"></h3>
-        <span class="todo-card__tag" data-i18n="todo.beyond.5.tag"></span>
-        <p class="todo-card__desc" data-i18n="todo.beyond.5.desc"></p>
-      </div>
-
+  <!-- FURTHER INTO FRANCE -->
+  <section class="todo-section">
+    <div class="todo-section__header">
+      <h2 class="section-title" data-i18n="todo.trips.title"></h2>
+    </div>
+    <div class="todo-grid">
+      <article class="todo-card" tabindex="0">
+        <img class="todo-card__photo" src="images/todo/michel.jpg" alt="Mont Saint-Michel" />
+        <div class="todo-card__body">
+          <h3 class="todo-card__name" data-i18n="todo.trips.1.name"></h3>
+          <div class="todo-card__tip">
+          <span class="todo-card__tag" data-i18n="todo.trips.1.tag"></span>
+          <p class="todo-card__desc" data-i18n="todo.trips.1.desc"></p>
+          </div>
+        </div>
+      </article>
+      <article class="todo-card" tabindex="0">
+        <img class="todo-card__photo" src="images/todo/bordeaux.jpg" alt="Vineyards near Saint-Émilion" />
+        <div class="todo-card__body">
+          <h3 class="todo-card__name" data-i18n="todo.trips.2.name"></h3>
+          <div class="todo-card__tip">
+          <span class="todo-card__tag" data-i18n="todo.trips.2.tag"></span>
+          <p class="todo-card__desc" data-i18n="todo.trips.2.desc"></p>
+          </div>
+        </div>
+      </article>
+      <article class="todo-card" tabindex="0">
+        <img class="todo-card__photo" src="images/todo/pilat.jpg" alt="Dune du Pilat" />
+        <div class="todo-card__body">
+          <h3 class="todo-card__name" data-i18n="todo.trips.3.name"></h3>
+          <div class="todo-card__tip">
+          <span class="todo-card__tag" data-i18n="todo.trips.3.tag"></span>
+          <p class="todo-card__desc" data-i18n="todo.trips.3.desc"></p>
+          </div>
+        </div>
+      </article>
+      <article class="todo-card" tabindex="0">
+        <img class="todo-card__photo" src="images/todo/basque.jpg" alt="Biarritz" />
+        <div class="todo-card__body">
+          <h3 class="todo-card__name" data-i18n="todo.trips.4.name"></h3>
+          <div class="todo-card__tip">
+          <span class="todo-card__tag" data-i18n="todo.trips.4.tag"></span>
+          <p class="todo-card__desc" data-i18n="todo.trips.4.desc"></p>
+          </div>
+        </div>
+      </article>
+      <article class="todo-card" tabindex="0">
+        <img class="todo-card__photo" src="images/todo/lascaux.jpg" alt="Lascaux" />
+        <div class="todo-card__body">
+          <h3 class="todo-card__name" data-i18n="todo.trips.5.name"></h3>
+          <div class="todo-card__tip">
+          <span class="todo-card__tag" data-i18n="todo.trips.5.tag"></span>
+          <p class="todo-card__desc" data-i18n="todo.trips.5.desc"></p>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -199,12 +257,12 @@
             <legend class="rsvp__legend" data-i18n="rsvp.form.events"></legend>
             <div class="rsvp__checks">
               <label class="rsvp__check">
-                <input type="checkbox" name="events" value="saturday" />
-                <span data-i18n="rsvp.form.saturday"></span>
+                <input type="checkbox" name="events" value="wedding" />
+                <span data-i18n="rsvp.form.wedding"></span>
               </label>
               <label class="rsvp__check">
-                <input type="checkbox" name="events" value="sunday" />
-                <span data-i18n="rsvp.form.sunday"></span>
+                <input type="checkbox" name="events" value="retour" />
+                <span data-i18n="rsvp.form.retour"></span>
               </label>
             </div>
           </fieldset>

@@ -181,5 +181,14 @@
     }
 
     applyLang(lang);
+
+    const origin = document.getElementById('travel-origin');
+    if (origin) {
+      origin.addEventListener('change', function () {
+        document.querySelectorAll('.getting-there__routes').forEach(list => {
+          list.hidden = list.dataset.origin !== origin.value;
+        });
+      });
+    }
   });
 })();
