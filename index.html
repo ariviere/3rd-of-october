@@ -7,7 +7,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="favicon.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="stylesheet" href="styles.css?v=8" />
+  <link rel="stylesheet" href="styles.css?v=26" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=Fahkwang:wght@200;300&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
@@ -124,28 +124,169 @@
     <h2 class="section-title" data-i18n="getting-there.title"></h2>
     <div class="getting-there__item">
       <h3 data-i18n="getting-there.air.title"></h3>
-      <label class="getting-there__origin">
-        <select id="travel-origin">
-          <option value="us" data-i18n="getting-there.from.us"></option>
-          <option value="jp" data-i18n="getting-there.from.jp"></option>
-        </select>
-      </label>
-      <ul class="getting-there__routes" data-origin="us">
-        <li>
-          <span data-i18n-html="getting-there.route.1"></span>
-          <span class="getting-there__alt" data-i18n-html="getting-there.route.train"></span>
-        </li>
-        <li data-i18n-html="getting-there.route.2"></li>
-        <li data-i18n-html="getting-there.route.3"></li>
-      </ul>
-      <ul class="getting-there__routes" data-origin="jp" hidden>
-        <li>
-          <span data-i18n-html="getting-there.jp.1"></span>
-          <span class="getting-there__alt" data-i18n-html="getting-there.route.train"></span>
-        </li>
-        <li data-i18n-html="getting-there.jp.2"></li>
-      </ul>
-      <a class="btn--round" href="lodging.html" data-i18n="nav.lodging"></a>
+      <p class="trip-pick__label" data-i18n="getting-there.pick"></p>
+      <div class="trip-pick" role="group">
+        <button type="button" class="trip-city" data-city="sfo" aria-pressed="false">
+          <span class="trip-city__name" data-i18n="getting-there.city.sfo"></span>
+        </button>
+        <button type="button" class="trip-city" data-city="tyo" data-montreal="0" aria-pressed="false">
+          <span class="trip-city__name" data-i18n="getting-there.city.tyo"></span>
+        </button>
+        <button type="button" class="trip-city" data-city="lax" aria-pressed="false">
+          <span class="trip-city__name" data-i18n="getting-there.city.lax"></span>
+        </button>
+        <button type="button" class="trip-city" data-city="mia" aria-pressed="false">
+          <span class="trip-city__name" data-i18n="getting-there.city.mia"></span>
+        </button>
+        <button type="button" class="trip-city" data-city="nyc" aria-pressed="false">
+          <span class="trip-city__name" data-i18n="getting-there.city.nyc"></span>
+        </button>
+        <button type="button" class="trip-city" data-city="atl" aria-pressed="false">
+          <span class="trip-city__name" data-i18n="getting-there.city.atl"></span>
+        </button>
+        <button type="button" class="trip-city" data-city="yyz" aria-pressed="false">
+          <span class="trip-city__name" data-i18n="getting-there.city.yyz"></span>
+        </button>
+      </div>
+      <div class="trip-plan" id="trip-plan" hidden>
+        <article class="ticket">
+          <div class="ticket__stub">
+            <span class="ticket__mark" aria-hidden="true">✈️</span>
+            <span data-i18n="getting-there.via.paris"></span>
+          </div>
+          <div class="ticket__body">
+            <div class="ticket__route">
+              <span class="ticket__end">
+                <span class="ticket__city" data-trip-name></span>
+              </span>
+              <span class="ticket__leg ticket__leg--timed">
+                <span class="ticket__dur" data-first="cdg"></span>
+              </span>
+              <span class="ticket__end">
+                <span class="ticket__code">CDG</span>
+                <span class="ticket__place" data-i18n="getting-there.hub.paris"></span>
+              </span>
+              <span class="ticket__leg ticket__leg--timed">
+                <span class="ticket__dur" data-i18n="getting-there.leaf.cdg.fly"></span>
+              </span>
+              <span class="ticket__end">
+                <span class="ticket__code">NTE</span>
+                <span class="ticket__place" data-i18n="getting-there.end"></span>
+              </span>
+            </div>
+            <span class="ticket__airports" data-trip-airports data-hub="cdg" hidden></span>
+          </div>
+        </article>
+        <article class="ticket">
+          <div class="ticket__stub">
+            <span class="ticket__mark" aria-hidden="true">✈️</span>
+            <span data-i18n="getting-there.via.amsterdam"></span>
+          </div>
+          <div class="ticket__body">
+            <div class="ticket__route">
+              <span class="ticket__end">
+                <span class="ticket__city" data-trip-name></span>
+              </span>
+              <span class="ticket__leg ticket__leg--timed">
+                <span class="ticket__dur" data-first="ams"></span>
+              </span>
+              <span class="ticket__end">
+                <span class="ticket__code">AMS</span>
+                <span class="ticket__place" data-i18n="getting-there.hub.amsterdam"></span>
+              </span>
+              <span class="ticket__leg ticket__leg--timed">
+                <span class="ticket__dur" data-i18n="getting-there.leaf.ams"></span>
+              </span>
+              <span class="ticket__end">
+                <span class="ticket__code">NTE</span>
+                <span class="ticket__place" data-i18n="getting-there.end"></span>
+              </span>
+            </div>
+            <span class="ticket__airports" data-trip-airports data-hub="ams" hidden></span>
+          </div>
+        </article>
+        <article class="ticket" data-montreal>
+          <div class="ticket__stub">
+            <span class="ticket__mark" aria-hidden="true">✈️</span>
+            <span data-i18n="getting-there.via.montreal"></span>
+          </div>
+          <div class="ticket__body">
+            <div class="ticket__route">
+              <span class="ticket__end">
+                <span class="ticket__city" data-trip-name></span>
+              </span>
+              <span class="ticket__leg ticket__leg--timed">
+                <span class="ticket__dur" data-first="yul"></span>
+              </span>
+              <span class="ticket__end">
+                <span class="ticket__code">YUL</span>
+                <span class="ticket__place" data-i18n="getting-there.hub.montreal"></span>
+              </span>
+              <span class="ticket__leg ticket__leg--timed">
+                <span class="ticket__dur" data-i18n="getting-there.leaf.yul"></span>
+              </span>
+              <span class="ticket__end">
+                <span class="ticket__code">NTE</span>
+                <span class="ticket__place" data-i18n="getting-there.end"></span>
+              </span>
+            </div>
+          </div>
+        </article>
+      </div>
+      <button type="button" class="trip-train" id="trip-train" aria-expanded="false" aria-controls="train-plan">
+        <span class="trip-train__mark" aria-hidden="true">🚄</span>
+        <span data-i18n="getting-there.train.toggle"></span>
+      </button>
+      <div class="trip-plan" id="train-plan" hidden>
+        <article class="ticket">
+          <div class="ticket__stub">
+            <span class="ticket__mark" aria-hidden="true">🚄</span>
+            <span data-i18n="getting-there.train.stub.airport"></span>
+          </div>
+          <div class="ticket__body">
+            <div class="ticket__route">
+              <span class="ticket__end">
+                <span class="ticket__code">CDG</span>
+              </span>
+              <span class="ticket__leg ticket__leg--timed ticket__leg--train">
+                <span class="ticket__dur" data-i18n="getting-there.leaf.train.cdg"></span>
+              </span>
+              <span class="ticket__end">
+                <span class="ticket__code" data-i18n="getting-there.end"></span>
+              </span>
+            </div>
+            <p class="ticket__note" data-i18n="getting-there.train.cdg.note"></p>
+          </div>
+        </article>
+        <article class="ticket">
+          <div class="ticket__stub">
+            <span class="ticket__mark" aria-hidden="true">🚄</span>
+            <span data-i18n="getting-there.train.stub.city"></span>
+          </div>
+          <div class="ticket__body">
+            <div class="ticket__route">
+              <span class="ticket__end">
+                <span class="ticket__station" data-i18n="getting-there.train.montparnasse"></span>
+              </span>
+              <span class="ticket__leg ticket__leg--timed ticket__leg--train">
+                <span class="ticket__dur" data-i18n="getting-there.leaf.train.montparnasse"></span>
+              </span>
+              <span class="ticket__end">
+                <span class="ticket__code" data-i18n="getting-there.end"></span>
+              </span>
+            </div>
+            <p class="ticket__note" data-i18n="getting-there.train.montparnasse.note"></p>
+          </div>
+        </article>
+        <p class="ticket__note train-plan__note" data-i18n="getting-there.train.note"></p>
+      </div>
+      <a class="stay-link" href="lodging.html">
+        <span class="stay-link__body">
+          <span class="stay-link__title" data-i18n="nav.lodging"></span>
+          <span class="stay-link__text" data-i18n="lodging.hero.sub"></span>
+        </span>
+        <span class="stay-link__go" aria-hidden="true">→</span>
+      </a>
     </div>
   </section>
 
@@ -344,7 +485,7 @@
   </div>
 
   <script src="translations.js"></script>
-  <script src="app.js?v=2"></script>
+  <script src="app.js?v=6"></script>
   <script src="rsvp.js"></script>
 </body>
 </html>
