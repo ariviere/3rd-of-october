@@ -231,6 +231,60 @@
 
     applyLang(lang);
 
+    const couple = document.getElementById('hero-couple');
+    if (couple) {
+      const img = couple.querySelector('img');
+      const frames = [
+        { src: 'images/japan.jpeg', alt: 'Norika and Antoine' },
+        { src: 'images/norika-coco.jpg', alt: 'Norika and Coco' },
+        { src: 'images/roller-coaster.jpg', alt: 'On a roller coaster' },
+        { src: 'images/coco-mocha-tree.jpg', alt: 'Coco and Mocha on the cat tree' },
+      ];
+      frames.forEach(function (frame) {
+        const pre = new Image();
+        pre.src = frame.src;
+      });
+      let index = 0;
+      let busy = false;
+      couple.addEventListener('click', function () {
+        if (busy) return;
+        const frame = frames[(index + 1) % frames.length];
+        const apply = function () {
+          index = (index + 1) % frames.length;
+          img.src = frame.src;
+          img.alt = frame.alt;
+          img.classList.toggle('is-cats', index !== 0);
+        };
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          apply();
+          return;
+        }
+        busy = true;
+        const fadeOut = img.animate(
+          [
+            { opacity: 1, transform: 'scale(1) rotate(0deg)' },
+            { opacity: 0, transform: 'scale(0.9) rotate(-5deg)' },
+          ],
+          { duration: 180, easing: 'ease-in', fill: 'forwards' }
+        );
+        window.setTimeout(function () {
+          fadeOut.cancel();
+          apply();
+          const fadeIn = img.animate(
+            [
+              { opacity: 0, transform: 'scale(0.9) rotate(5deg)' },
+              { opacity: 1, transform: 'scale(1) rotate(0deg)' },
+            ],
+            { duration: 240, easing: 'ease-out', fill: 'forwards' }
+          );
+          window.setTimeout(function () {
+            fadeIn.cancel();
+            busy = false;
+          }, 240);
+        }, 180);
+      });
+    }
+
     const pick = document.querySelector('.trip-pick');
     const plan = document.getElementById('trip-plan');
     if (pick && plan) {
@@ -253,6 +307,7 @@
         plan.classList.remove('is-in');
         void plan.offsetWidth;
         plan.classList.add('is-in');
+        playPlan(plan);
       });
     }
 
@@ -268,6 +323,103 @@
         trainPlan.classList.remove('is-in');
         void trainPlan.offsetWidth;
         trainPlan.classList.add('is-in');
+        playPlan(trainPlan);
+      });
+    }
+
+    const PLANE_FLY_MS = 1700;
+    const TRAIN_FLY_MS = 2700;
+    const PLANE_FADE_MS = 700;
+    const TRAIN_FADE_MS = 1000;
+    function visibleLegs(ticket) {
+      return Array.from(ticket.querySelectorAll('.ticket__leg')).filter(function (leg) {
+        return leg.getClientRects().length > 0;
+      });
+    }
+    function playPlan(root) {
+      root.querySelectorAll('.ticket').forEach(function (ticket) {
+        if (ticket.hidden || !ticket.getClientRects().length) return;
+        playTicket(ticket);
+      });
+    }
+    function playTicket(ticket) {
+      ticket.dataset.run = String((Number(ticket.dataset.run) || 0) + 1);
+      const legs = visibleLegs(ticket);
+      legs.forEach(function (leg) {
+        leg.classList.remove('is-flying', 'is-parked', 'is-fading', 'is-arrived');
+      });
+      if (!legs.length) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        legs.forEach(function (leg) { leg.classList.add('is-arrived'); });
+        return;
+      }
+      void legs[0].offsetWidth;
+      startLeg(ticket, 0);
+    }
+    function startLeg(ticket, index) {
+      const run = ticket.dataset.run;
+      const legs = visibleLegs(ticket);
+      const leg = legs[index];
+      if (!leg) {
+        beginFade(ticket);
+        return;
+      }
+      leg.classList.add('is-flying');
+      window.setTimeout(function () {
+        if (ticket.dataset.run !== run) return;
+        finishLeg(ticket, leg);
+      }, leg.classList.contains('ticket__leg--train') ? TRAIN_FLY_MS : PLANE_FLY_MS);
+    }
+    function finishLeg(ticket, leg) {
+      if (!leg.classList.contains('is-flying')) return;
+      const legs = visibleLegs(ticket);
+      const index = legs.indexOf(leg);
+      leg.classList.remove('is-flying');
+      leg.classList.add('is-parked');
+      if (index === legs.length - 1) beginFade(ticket);
+      else startLeg(ticket, index + 1);
+    }
+    function beginFade(ticket) {
+      const run = ticket.dataset.run;
+      const legs = visibleLegs(ticket);
+      legs.forEach(function (leg) {
+        leg.classList.remove('is-flying', 'is-parked');
+        leg.classList.add('is-fading');
+      });
+      window.setTimeout(function () {
+        if (ticket.dataset.run !== run) return;
+        arrive(ticket);
+      }, ticket.querySelector('.ticket__leg--train') ? TRAIN_FADE_MS : PLANE_FADE_MS);
+    }
+    function arrive(ticket) {
+      visibleLegs(ticket).forEach(function (leg) {
+        if (!leg.classList.contains('is-fading')) return;
+        leg.classList.remove('is-fading');
+        leg.classList.add('is-arrived');
+      });
+    }
+
+    const travel = document.querySelector('.getting-there');
+    if (travel) {
+      travel.addEventListener('click', function (event) {
+        const ticket = event.target.closest('.ticket');
+        if (!ticket) return;
+        playTicket(ticket);
+      });
+      travel.addEventListener('keydown', function (event) {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        const ticket = event.target.closest('.ticket');
+        if (!ticket) return;
+        event.preventDefault();
+        playTicket(ticket);
+      });
+      travel.addEventListener('animationend', function (event) {
+        if (event.animationName !== 'ticket-fly') return;
+        const leg = event.target.closest && event.target.closest('.ticket__leg');
+        if (!leg) return;
+        const ticket = leg.closest('.ticket');
+        if (!ticket) return;
+        finishLeg(ticket, leg);
       });
     }
   });

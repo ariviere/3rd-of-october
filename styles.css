@@ -318,15 +318,25 @@ p {
   width: clamp(160px, 18vw, 260px);
   background: #fff;
   padding: 3px;
+  border: 0;
   border-radius: 5px;
   box-shadow: 0 20px 56px rgba(0,0,0,0.32);
+  cursor: pointer;
+  font: inherit;
+  appearance: none;
+}
+.hero__couple:focus-visible {
+  outline: 2px solid var(--gold-fill, var(--green));
+  outline-offset: 3px;
 }
 .hero__couple img {
   width: 100%;
   height: auto;
   display: block;
+  object-fit: cover;
   object-position: top center;
 }
+.hero__couple img.is-cats { object-position: center; }
 
 /* ============================================================
    TAGLINE
@@ -491,16 +501,16 @@ p {
   padding: 0.7rem 1.15rem;
   font-family: inherit;
   font-size: 1rem;
-  color: var(--green);
+  color: var(--gold);
   background: #fff;
-  border: 1px solid color-mix(in srgb, var(--green) 35%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gold) 55%, transparent);
   border-radius: 999px;
   cursor: pointer;
 }
 .trip-train.is-on {
-  background: var(--green);
-  color: #fff;
-  border-color: var(--green);
+  background: var(--gold-fill);
+  color: var(--on-gold);
+  border-color: var(--gold-fill);
 }
 .trip-train__mark {
   font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
@@ -620,6 +630,11 @@ p {
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 10px 28px rgba(52, 52, 52, 0.06);
+  cursor: pointer;
+}
+.ticket:focus-visible {
+  outline: none;
+  box-shadow: 0 10px 28px rgba(52, 52, 52, 0.06), inset 0 0 0 2px var(--green);
 }
 .ticket__stub {
   position: relative;
@@ -702,17 +717,54 @@ p {
   margin: 0.55rem 0.45rem 0;
   border-top: 1.5px dashed color-mix(in srgb, var(--green) 50%, transparent);
 }
-.ticket__leg::before {
-  content: "✈";
+.ticket__leg--timed { margin-bottom: 0.85rem; }
+.ticket__icon {
   position: absolute;
   top: -0.72rem;
+  left: 0;
   font-size: 0.85rem;
   line-height: 1;
-  animation: ticket-fly 3.4s linear infinite;
+  opacity: 1;
+  transition: opacity 0.5s ease;
 }
-.ticket__leg--timed { margin-bottom: 0.85rem; }
-.ticket__leg--timed::before { animation-duration: 2.4s; }
-.ticket__leg--train::before { content: "🚄"; font-size: 0.75rem; }
+.ticket__leg.is-flying .ticket__icon {
+  animation: ticket-fly 1.6s linear 1 forwards;
+  transition: none;
+}
+.ticket__leg--train.is-flying .ticket__icon {
+  animation-duration: 2.6s;
+}
+.ticket__leg.is-parked .ticket__icon {
+  left: calc(100% - 0.7rem);
+  transition: none;
+}
+.ticket__leg.is-fading .ticket__icon {
+  left: calc(100% - 0.7rem);
+  opacity: 0;
+}
+.ticket__leg.is-arrived .ticket__icon {
+  left: calc(50% - 0.35rem);
+  opacity: 1;
+}
+.ticket__leg--train .ticket__icon {
+  font-size: 0.8rem;
+  /* The emoji nose points left; the leg runs left to right. */
+  transform: scaleX(-1);
+  transition-duration: 0.8s;
+}
+#train-plan .ticket:focus-visible {
+  box-shadow: 0 10px 28px rgba(52, 52, 52, 0.06), inset 0 0 0 2px var(--gold-fill);
+}
+#train-plan .ticket__stub {
+  background: var(--gold-fill);
+  color: var(--on-gold);
+}
+#train-plan .ticket__leg {
+  border-top-color: color-mix(in srgb, var(--gold) 55%, transparent);
+}
+#train-plan .ticket__dur {
+  color: var(--gold);
+}
 .ticket__dur {
   position: absolute;
   top: 0.35rem;
@@ -734,8 +786,17 @@ p {
   to { left: calc(100% - 0.7rem); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .trip-plan.is-in .ticket,
-  .ticket__leg::before { animation: none; }
+  .trip-plan.is-in .ticket { animation: none; }
+  .ticket__icon,
+  .ticket__leg.is-flying .ticket__icon,
+  .ticket__leg.is-parked .ticket__icon,
+  .ticket__leg.is-fading .ticket__icon,
+  .ticket__leg.is-arrived .ticket__icon {
+    animation: none;
+    transition: none;
+    opacity: 1;
+    left: calc(50% - 0.35rem);
+  }
 }
 @media (max-width: 520px) {
   .stay-link { margin-left: 0.85rem; margin-right: 0.85rem; }

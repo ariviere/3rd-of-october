@@ -7,7 +7,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="favicon.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="stylesheet" href="styles.css?v=28" />
+  <link rel="stylesheet" href="styles.css?v=44" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&family=Fahkwang:wght@200;300&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
@@ -68,9 +68,9 @@
     <div class="hero__right">
       <img src="images/nantes.jpg?v=2" alt="Nantes and the Loire" />
     </div>
-    <div class="hero__couple">
+    <button type="button" class="hero__couple" id="hero-couple">
       <img src="images/japan.jpeg" alt="Norika and Antoine" />
-    </div>
+    </button>
   </section>
 
   <!-- TAGLINE -->
@@ -149,7 +149,7 @@
         </button>
       </div>
       <div class="trip-plan" id="trip-plan" hidden>
-        <article class="ticket">
+        <article class="ticket" tabindex="0" role="button">
           <div class="ticket__stub">
             <span class="ticket__mark" aria-hidden="true">✈️</span>
             <span data-i18n="getting-there.via.paris"></span>
@@ -160,6 +160,7 @@
                 <span class="ticket__city" data-trip-name></span>
               </span>
               <span class="ticket__leg ticket__leg--timed">
+                <span class="ticket__icon" aria-hidden="true">✈</span>
                 <span class="ticket__dur" data-first="cdg"></span>
               </span>
               <span class="ticket__end">
@@ -167,6 +168,7 @@
                 <span class="ticket__place" data-i18n="getting-there.hub.paris"></span>
               </span>
               <span class="ticket__leg ticket__leg--timed">
+                <span class="ticket__icon" aria-hidden="true">✈</span>
                 <span class="ticket__dur" data-i18n="getting-there.leaf.cdg.fly"></span>
               </span>
               <span class="ticket__end">
@@ -177,7 +179,7 @@
             <span class="ticket__airports" data-trip-airports data-hub="cdg" hidden></span>
           </div>
         </article>
-        <article class="ticket">
+        <article class="ticket" tabindex="0" role="button">
           <div class="ticket__stub">
             <span class="ticket__mark" aria-hidden="true">✈️</span>
             <span data-i18n="getting-there.via.amsterdam"></span>
@@ -188,6 +190,7 @@
                 <span class="ticket__city" data-trip-name></span>
               </span>
               <span class="ticket__leg ticket__leg--timed">
+                <span class="ticket__icon" aria-hidden="true">✈</span>
                 <span class="ticket__dur" data-first="ams"></span>
               </span>
               <span class="ticket__end">
@@ -195,6 +198,7 @@
                 <span class="ticket__place" data-i18n="getting-there.hub.amsterdam"></span>
               </span>
               <span class="ticket__leg ticket__leg--timed">
+                <span class="ticket__icon" aria-hidden="true">✈</span>
                 <span class="ticket__dur" data-i18n="getting-there.leaf.ams"></span>
               </span>
               <span class="ticket__end">
@@ -205,7 +209,7 @@
             <span class="ticket__airports" data-trip-airports data-hub="ams" hidden></span>
           </div>
         </article>
-        <article class="ticket" data-montreal>
+        <article class="ticket" data-montreal tabindex="0" role="button">
           <div class="ticket__stub">
             <span class="ticket__mark" aria-hidden="true">✈️</span>
             <span data-i18n="getting-there.via.montreal"></span>
@@ -216,6 +220,7 @@
                 <span class="ticket__city" data-trip-name></span>
               </span>
               <span class="ticket__leg ticket__leg--timed">
+                <span class="ticket__icon" aria-hidden="true">✈</span>
                 <span class="ticket__dur" data-first="yul"></span>
               </span>
               <span class="ticket__end">
@@ -223,6 +228,7 @@
                 <span class="ticket__place" data-i18n="getting-there.hub.montreal"></span>
               </span>
               <span class="ticket__leg ticket__leg--timed">
+                <span class="ticket__icon" aria-hidden="true">✈</span>
                 <span class="ticket__dur" data-i18n="getting-there.leaf.yul"></span>
               </span>
               <span class="ticket__end">
@@ -238,7 +244,7 @@
         <span data-i18n="getting-there.train.toggle"></span>
       </button>
       <div class="trip-plan" id="train-plan" hidden>
-        <article class="ticket">
+        <article class="ticket" tabindex="0" role="button">
           <div class="ticket__stub">
             <span class="ticket__mark" aria-hidden="true">🚄</span>
             <span data-i18n="getting-there.train.stub.airport"></span>
@@ -249,6 +255,7 @@
                 <span class="ticket__code">CDG</span>
               </span>
               <span class="ticket__leg ticket__leg--timed ticket__leg--train">
+                <span class="ticket__icon" aria-hidden="true">🚄</span>
                 <span class="ticket__dur" data-i18n="getting-there.leaf.train.cdg"></span>
               </span>
               <span class="ticket__end">
@@ -258,7 +265,7 @@
             <p class="ticket__note" data-i18n="getting-there.train.cdg.note"></p>
           </div>
         </article>
-        <article class="ticket">
+        <article class="ticket" tabindex="0" role="button">
           <div class="ticket__stub">
             <span class="ticket__mark" aria-hidden="true">🚄</span>
             <span data-i18n="getting-there.train.stub.city"></span>
@@ -269,6 +276,7 @@
                 <span class="ticket__station" data-i18n="getting-there.train.montparnasse"></span>
               </span>
               <span class="ticket__leg ticket__leg--timed ticket__leg--train">
+                <span class="ticket__icon" aria-hidden="true">🚄</span>
                 <span class="ticket__dur" data-i18n="getting-there.leaf.train.montparnasse"></span>
               </span>
               <span class="ticket__end">
@@ -458,8 +466,8 @@
     <p class="questions__sub" data-i18n="questions.sub"></p>
     <div class="questions__contacts">
       <div class="questions__contact">
-        <span class="name">Antoine &amp; Norika:</span>
-        <span class="phone">antoine&nbsp;[at]&nbsp;riviere&nbsp;[dot]&nbsp;tf</span>
+        <span class="name">Norika &amp; Antoine:</span>
+        <span class="phone">noritoine&nbsp;[at]&nbsp;riviere&nbsp;[dot]&nbsp;tf</span>
       </div>
     </div>
   </section>
@@ -485,7 +493,7 @@
   </div>
 
   <script src="translations.js"></script>
-  <script src="app.js?v=6"></script>
+  <script src="app.js?v=21"></script>
   <script src="rsvp.js"></script>
 </body>
 </html>
