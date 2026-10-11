@@ -1,21 +1,65 @@
 /* ============================================================
    TOKENS
    ============================================================ */
+/*
+  Themes. Blue and gold is the default. Set <html data-theme="green">
+  to restore the original sage and beige. --green is the accent in either theme.
+*/
+:root,
+[data-theme="blue"] {
+  --green:     #2F6E8A;
+  --cream:     #F8F4EC;
+  --blush:     #E7F1F6;
+  --photo:     #FFFCF6;
+  --line:      #E4D6B8;
+  --text:      #24303A;
+  --muted:     #5C6872;
+  --gold:      #8A6828;
+  --gold-fill: #C6A45C;
+  --on-gold:   #1C2A33;
+}
+[data-theme="green"] {
+  --green:     #5c8a6a;
+  --cream:     #FEF7F1;
+  --blush:     #ECD2C4;
+  --photo:     #fffef8;
+  --line:      #e0d4cc;
+  --text:      #343434;
+  --muted:     #707070;
+  --gold:      #343434;
+  --gold-fill: #5c8a6a;
+  --on-gold:   #fff;
+}
 :root {
-  /* colours */
-  --green:  #5c8a6a;
-  --cream:  #FEF7F1;
-  --blush:  #ECD2C4;
-  --text:   #343434;
-  --muted:  #707070;
-
-  /* layout */
   --pad-x:  6rem;
   --nav-h:  58px;
-
-  /* type */
   --font-display: 'Fahkwang', serif;
   --font-body:    'Jost', sans-serif;
+}
+
+/* Gold is the celebratory accent on the blue theme only. */
+[data-theme="blue"] .section-title,
+[data-theme="blue"] .program__date {
+  color: var(--gold);
+}
+[data-theme="blue"] .nav {
+  border-bottom-color: color-mix(in srgb, var(--gold) 35%, transparent);
+}
+[data-theme="blue"] .nav__rsvp {
+  background: var(--gold-fill);
+  color: var(--on-gold);
+}
+[data-theme="blue"] .nav__rsvp:hover {
+  opacity: 1;
+  background: #D4B36A;
+}
+[data-theme="blue"] .hero__date,
+[data-theme="blue"] .rsvp-banner__deadline {
+  color: #F3E6C0 !important;
+}
+[data-theme="blue"] .hero__couple {
+  background: var(--gold-fill);
+  padding: 4px;
 }
 
 /* ============================================================
@@ -89,7 +133,7 @@ p {
   align-items: center;
   gap: 2.5rem;
   padding: 0 var(--pad-x);
-  background: rgba(254, 247, 241, 0.94);
+  background: color-mix(in srgb, var(--cream) 94%, transparent);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(0,0,0,0.06);
@@ -143,7 +187,7 @@ p {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: background 0.2s, opacity 0.2s;
 }
 .nav__rsvp:hover { opacity: 0.85; }
 
@@ -321,7 +365,7 @@ p {
 }
 
 .program__photo-wrap {
-  background: #fffef8;
+  background: var(--photo);
   padding: 12px 12px 52px;
   box-shadow: 4px 8px 22px rgba(0,0,0,0.18), 0 1px 4px rgba(0,0,0,0.06);
   margin-bottom: 2.8rem;
@@ -379,7 +423,7 @@ p {
 /* ── polaroid base ── */
 .polaroid {
   position: absolute;
-  background: #fffef8;
+  background: var(--photo);
   padding: 11px 11px 46px;
   box-shadow: 4px 8px 20px rgba(0,0,0,0.22), 0 1px 4px rgba(0,0,0,0.08);
   width: 265px;
@@ -449,7 +493,7 @@ p {
   font-size: 1rem;
   color: var(--green);
   background: #fff;
-  border: 1px solid rgba(92, 138, 106, 0.35);
+  border: 1px solid color-mix(in srgb, var(--green) 35%, transparent);
   border-radius: 999px;
   cursor: pointer;
 }
@@ -529,7 +573,7 @@ p {
   text-align: center;
   color: var(--green);
   background: #fff;
-  border: 1px solid rgba(92, 138, 106, 0.35);
+  border: 1px solid color-mix(in srgb, var(--green) 35%, transparent);
   border-radius: 14px;
   cursor: pointer;
 }
@@ -656,7 +700,7 @@ p {
   flex: 1;
   min-width: 1.8rem;
   margin: 0.55rem 0.45rem 0;
-  border-top: 1.5px dashed rgba(92, 138, 106, 0.5);
+  border-top: 1.5px dashed color-mix(in srgb, var(--green) 50%, transparent);
 }
 .ticket__leg::before {
   content: "✈";
@@ -715,7 +759,7 @@ p {
     flex: 1 1 auto;
     min-width: 2.4rem;
     margin: 0.4rem 0.18rem 1.25rem;
-    border-top: 1.5px dashed rgba(92, 138, 106, 0.5);
+    border-top: 1.5px dashed color-mix(in srgb, var(--green) 50%, transparent);
   }
   .ticket__dur {
     top: 0.16rem;
@@ -911,7 +955,7 @@ body.modal-open { overflow: hidden; }
 
 /* ── form inside modal ── */
 .rsvp__update-banner {
-  background: #e8f0eb;
+  background: color-mix(in srgb, var(--green) 14%, white);
   color: var(--green);
   font-size: 0.8rem;
   letter-spacing: 0.1em;
@@ -1169,7 +1213,7 @@ body.modal-open { overflow: hidden; }
 
 .registry__message {
   padding: 1.5rem 1.75rem 1.85rem;
-  border-top: 1px solid rgba(92, 138, 106, 0.18);
+  border-top: 1px solid color-mix(in srgb, var(--green) 18%, transparent);
   background: rgba(255, 255, 255, 0.55);
 }
 
@@ -1302,9 +1346,9 @@ body.modal-open { overflow: hidden; }
 }
 .faq__item {
   padding: 2rem 0;
-  border-bottom: 1px solid #e0d4cc;
+  border-bottom: 1px solid var(--line);
 }
-.faq__item:nth-child(-n+2) { border-top: 1px solid #e0d4cc; }
+.faq__item:nth-child(-n+2) { border-top: 1px solid var(--line); }
 .faq__q {
   font-family: var(--font-body);
   font-size: 1.1rem;
@@ -1465,7 +1509,7 @@ body.modal-open { overflow: hidden; }
   .questions { padding: 3rem var(--pad-x); }
   .faq { grid-template-columns: 1fr; margin-bottom: 2rem; }
   .faq__item:nth-child(-n+2) { border-top: none; }
-  .faq__item:first-child { border-top: 1px solid #e0d4cc; }
+  .faq__item:first-child { border-top: 1px solid var(--line); }
 }
 
 /* ============================================================
@@ -1795,7 +1839,7 @@ body.modal-open { overflow: hidden; }
   bottom: calc(100% + 0.55rem);
   z-index: 2;
   padding: 0.85rem 1rem 0.95rem;
-  background: rgba(255, 252, 247, 0.96);
+  background: color-mix(in srgb, var(--photo) 96%, transparent);
   border-radius: 3px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   opacity: 0;
