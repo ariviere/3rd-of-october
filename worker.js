@@ -161,11 +161,13 @@ async function handleRegistry(request, env) {
 async function sendEmail({ env, to, name, attending, events, guests, token, lang }) {
   const editUrl = `${env.SITE_URL}?rsvp=${token}`;
   const isFr    = lang === 'fr';
+  const isJa    = lang === 'ja';
   const isYes   = attending === 'yes';
+  const pick    = (en, fr, ja) => (isJa ? ja : isFr ? fr : en);
 
   const eventLabels = {
-    wedding: isFr ? 'Sam. 14 août — Mariage à La Poterie' : 'Sat Aug 14 — Wedding at La Poterie',
-    retour:  isFr ? 'Dim. 15 août — Retour (brunch)'              : 'Sun Aug 15 — Retour brunch',
+    wedding: pick('Sat Aug 14 — Wedding at La Poterie', 'Sam. 14 août — Mariage à La Poterie', '8月14日（土）— La Poterieでの結婚式'),
+    retour:  pick('Sun Aug 15 — Retour brunch', 'Dim. 15 août — Retour (brunch)', '8月15日（日）— Retourブランチ'),
   };
 
   const guestLines = guests.length
@@ -181,25 +183,29 @@ async function sendEmail({ env, to, name, attending, events, guests, token, lang
 
   let bodyHtml;
   if (isYes) {
-    bodyHtml = (isFr
-      ? `<p style="color:#343434;font-size:1rem;margin:0 0 24px">Nous avons bien reçu votre réponse et avons hâte de vous voir&nbsp;!</p>`
-      : `<p style="color:#343434;font-size:1rem;margin:0 0 24px">We've received your RSVP and can't wait to celebrate with you!</p>`)
-      + (eventLines ? `<p style="${labelStyle}">${isFr ? 'Événements' : 'Events'}</p><ul style="${listStyle}">${eventLines}</ul>` : '')
-      + (guestLines ? `<p style="${labelStyle}">${isFr ? 'Invités' : 'Guests'}</p><ul style="${listStyle}">${guestLines}</ul>` : '');
+    bodyHtml = `<p style="color:#343434;font-size:1rem;margin:0 0 24px">${pick(
+      "We've received your RSVP and can't wait to celebrate with you!",
+      'Nous avons bien reçu votre réponse et avons hâte de vous voir&nbsp;!',
+      '出欠を受け取りました。一緒にお祝いできるのを楽しみにしています。'
+    )}</p>`
+      + (eventLines ? `<p style="${labelStyle}">${pick('Events', 'Événements', '催し')}</p><ul style="${listStyle}">${eventLines}</ul>` : '')
+      + (guestLines ? `<p style="${labelStyle}">${pick('Guests', 'Invités', 'ゲスト')}</p><ul style="${listStyle}">${guestLines}</ul>` : '');
   } else {
-    bodyHtml = isFr
-      ? `<p style="color:#343434;font-size:1rem;margin:0 0 24px">Nous sommes désolés que vous ne puissiez pas venir. Vous nous manquerez&nbsp;!</p>`
-      : `<p style="color:#343434;font-size:1rem;margin:0 0 24px">We're sorry you can't make it. You'll be missed!</p>`;
+    bodyHtml = `<p style="color:#343434;font-size:1rem;margin:0 0 24px">${pick(
+      "We're sorry you can't make it. You'll be missed!",
+      'Nous sommes désolés que vous ne puissiez pas venir. Vous nous manquerez&nbsp;!',
+      '来られないのは残念です。会えないのが寂しいです。'
+    )}</p>`;
   }
 
-  const subject = isFr ? 'Votre RSVP — Norika & Antoine' : 'Your RSVP — Norika & Antoine';
-  const editLabel = isFr ? 'Modifier votre RSVP' : 'Update your RSVP';
-  const editNote  = isFr ? 'Vous avez changé d\'avis ?' : 'Need to make a change?';
+  const subject = pick('Your RSVP — Norika & Antoine', 'Votre RSVP — Norika & Antoine', '出欠の確認 — Norika & Antoine');
+  const editLabel = pick('Update your RSVP', 'Modifier votre RSVP', '出欠を変更する');
+  const editNote  = pick('Need to make a change?', 'Vous avez changé d\'avis ?', '変更がありますか？');
 
   const html = `<!DOCTYPE html><html><body style="margin:0;padding:0;background:#FEF7F1;font-family:Georgia,serif">
   <div style="max-width:480px;margin:40px auto;background:#fff;padding:48px 40px;border-radius:4px">
     <h1 style="font-weight:300;color:#5c8a6a;font-size:2rem;margin:0 0 4px;letter-spacing:0.04em">Norika &amp; Antoine</h1>
-    <p style="color:#aaa;margin:0 0 32px;font-size:0.85rem;letter-spacing:0.1em">${isFr ? '14 août 2027' : 'August 14th, 2027'} &middot; La Poterie</p>
+    <p style="color:#aaa;margin:0 0 32px;font-size:0.85rem;letter-spacing:0.1em">${pick('August 14th, 2027', '14 août 2027', '2027年8月14日')} &middot; La Poterie</p>
     ${bodyHtml}
     <div style="border-top:1px solid #eee;margin:32px 0"></div>
     <p style="color:#aaa;font-size:0.85rem;margin:0">${editNote} <a href="${editUrl}" style="color:#5c8a6a">${editLabel}</a></p>

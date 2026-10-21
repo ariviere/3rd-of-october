@@ -1,30 +1,57 @@
 (function () {
   /* ── apply language ── */
+  var LANGS = ['en', 'fr', 'ja'];
+  var LANG_LABEL = { en: 'EN', fr: 'FR', ja: 'JA' };
+
+  function nextLang(lang) {
+    var i = LANGS.indexOf(lang);
+    return LANGS[(i + 1) % LANGS.length];
+  }
+
+  function ensureJaFont() {
+    if (document.getElementById('ja-font')) return;
+    var link = document.createElement('link');
+    link.id = 'ja-font';
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400&family=Noto+Serif+JP:wght@300&display=swap';
+    document.head.appendChild(link);
+  }
+
+  function textFor(dict, key) {
+    if (dict[key] != null) return dict[key];
+    if (T.en[key] != null) return T.en[key];
+    return null;
+  }
+
   function applyLang(lang) {
+    if (LANGS.indexOf(lang) === -1) lang = 'en';
     localStorage.setItem('wedding_lang', lang);
     document.documentElement.lang = lang;
+    if (lang === 'ja') ensureJaFont();
     const dict = T[lang] || T.en;
-    const other = lang === 'en' ? 'FR' : 'EN';
+    const upcoming = nextLang(lang);
 
     document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.dataset.i18n;
-      const val = dict[key] != null ? dict[key] : (T.fr[key] != null ? T.fr[key] : null);
+      const val = textFor(dict, el.dataset.i18n);
       if (val != null) el.textContent = val;
     });
     document.querySelectorAll('[data-i18n-html]').forEach(el => {
-      const key = el.dataset.i18nHtml;
-      const val = dict[key] != null ? dict[key] : (T.fr[key] != null ? T.fr[key] : null);
+      const val = textFor(dict, el.dataset.i18nHtml);
       if (val != null) el.innerHTML = val;
     });
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-      const key = el.dataset.i18nPlaceholder;
-      const val = dict[key] != null ? dict[key] : (T.fr[key] != null ? T.fr[key] : null);
+      const val = textFor(dict, el.dataset.i18nPlaceholder);
       if (val != null) el.placeholder = val;
     });
 
-    document.querySelectorAll('.lang-toggle').forEach(btn => {
-      btn.textContent = other;
-      btn.dataset.lang = lang === 'en' ? 'fr' : 'en';
+    document.querySelectorAll('.lang-switcher .lang-toggle').forEach(function (btn) {
+      var on = btn.dataset.lang === lang;
+      btn.classList.toggle('is-on', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    document.querySelectorAll('.lang-toggle--next').forEach(function (btn) {
+      btn.textContent = LANG_LABEL[upcoming];
+      btn.dataset.lang = upcoming;
     });
 
     // show/hide elements restricted to a specific language
@@ -49,7 +76,8 @@
     var plan = document.getElementById('trip-plan');
     var btn = document.querySelector('.trip-city.is-on');
     if (!plan || !btn) return;
-    var lang = document.documentElement.lang === 'fr' ? 'fr' : 'en';
+    var lang = document.documentElement.lang;
+    if (LANGS.indexOf(lang) === -1) lang = 'en';
     var dict = T[lang] || T.en;
     var name = btn.querySelector('.trip-city__name');
     plan.querySelectorAll('[data-trip-name]').forEach(function (el) {
@@ -59,7 +87,8 @@
     var times = FIRST_HOP[btn.dataset.city] || {};
     plan.querySelectorAll('[data-first]').forEach(function (el) {
       var hours = times[el.dataset.first];
-      el.textContent = hours ? ((lang === 'fr' ? 'environ ' : 'about ') + hours) : '';
+      var prefix = lang === 'fr' ? 'environ ' : (lang === 'ja' ? '約' : 'about ');
+      el.textContent = hours ? (prefix + hours) : '';
     });
     plan.querySelectorAll('[data-trip-airports]').forEach(function (el) {
       var key = '';
@@ -219,8 +248,9 @@
   document.addEventListener('DOMContentLoaded', function () {
     const params   = new URLSearchParams(window.location.search);
     const paramLang = params.get('lang');
-    const validLang = paramLang === 'fr' || paramLang === 'en' ? paramLang : null;
-    const lang = validLang || localStorage.getItem('wedding_lang') || 'en';
+    const storedLang = localStorage.getItem('wedding_lang');
+    const validLang = LANGS.indexOf(paramLang) !== -1 ? paramLang : null;
+    const lang = validLang || (LANGS.indexOf(storedLang) !== -1 ? storedLang : 'en');
 
     // redirect if this page is restricted to a specific language
     const restrict = document.body.dataset.langRestrict;
@@ -236,8 +266,6 @@
       const img = couple.querySelector('img');
       const frames = [
         { src: 'images/japan.jpeg', alt: 'Norika and Antoine' },
-        { src: 'images/norika-coco.jpg', alt: 'Norika and Coco' },
-        { src: 'images/roller-coaster.jpg', alt: 'On a roller coaster' },
         { src: 'images/coco-mocha-tree.jpg', alt: 'Coco and Mocha on the cat tree' },
       ];
       frames.forEach(function (frame) {

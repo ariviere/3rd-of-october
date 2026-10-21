@@ -1453,7 +1453,9 @@ body.modal-open { overflow: hidden; }
 
   /* nav: swap to hamburger on mobile */
   .nav__links,
-  .nav__rsvp   { display: none; }
+  .nav__rsvp,
+  .lang-switcher--nav { display: none; }
+  .lang-toggle.lang-toggle--next,
   .nav__hamburger { display: flex; }
 
   /* hero: stack teal text panel on top, photo panel below */
@@ -1576,18 +1578,22 @@ body.modal-open { overflow: hidden; }
 /* ============================================================
    LANGUAGE SWITCHER
    ============================================================ */
-.lang-switcher--gate {
+.lang-switcher {
   display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.lang-switcher--gate {
   justify-content: center;
   margin-bottom: 2rem;
 }
-
 .lang-toggle {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 36px;
   height: 36px;
+  padding: 0;
   border-radius: 50%;
   border: 1px solid var(--green);
   background: transparent;
@@ -1599,7 +1605,25 @@ body.modal-open { overflow: hidden; }
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
 }
-.lang-toggle:hover { background: var(--green); color: #fff; }
+.lang-toggle:hover,
+.lang-toggle.is-on { background: var(--green); color: #fff; }
+.lang-toggle.lang-toggle--next { display: none; }
+@media (max-width: 768px) {
+  .lang-switcher--nav { display: none; }
+  .lang-toggle.lang-toggle--next { display: flex; }
+}
+html[lang="ja"] {
+  --font-body: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --font-display: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+}
+html[lang="ja"] .hero__sub,
+html[lang="ja"] .hero__date,
+html[lang="ja"] .nav__link,
+html[lang="ja"] .nav__menu-link,
+html[lang="ja"] .btn {
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
 
 /* ============================================================
    PASSWORD GATE
