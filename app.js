@@ -1,7 +1,7 @@
 (function () {
   /* ── apply language ── */
   var LANGS = ['en', 'fr', 'ja'];
-  var LANG_LABEL = { en: 'EN', fr: 'FR', ja: 'JA' };
+  var LANG_LABEL = { en: 'EN', fr: 'FR', ja: 'JP' };
 
   function nextLang(lang) {
     var i = LANGS.indexOf(lang);
@@ -72,6 +72,15 @@
     tyo: { cdg: '14h45', ams: '14h' }
   };
 
+  function hopLabel(lang, hours) {
+    if (lang === 'ja') {
+      var parts = /^(\d+)h(\d+)?$/.exec(hours);
+      var spoken = parts ? parts[1] + '時間' + (parts[2] ? parts[2] + '分' : '') : hours;
+      return '約' + spoken;
+    }
+    return (lang === 'fr' ? 'environ ' : 'about ') + hours;
+  }
+
   function refreshTrip() {
     var plan = document.getElementById('trip-plan');
     var btn = document.querySelector('.trip-city.is-on');
@@ -87,8 +96,7 @@
     var times = FIRST_HOP[btn.dataset.city] || {};
     plan.querySelectorAll('[data-first]').forEach(function (el) {
       var hours = times[el.dataset.first];
-      var prefix = lang === 'fr' ? 'environ ' : (lang === 'ja' ? '約' : 'about ');
-      el.textContent = hours ? (prefix + hours) : '';
+      el.textContent = hours ? hopLabel(lang, hours) : '';
     });
     plan.querySelectorAll('[data-trip-airports]').forEach(function (el) {
       var key = '';

@@ -301,6 +301,7 @@ p {
   max-width: 380px;
 }
 .hero__sub  { font-size: 1.4rem; color: rgba(255,255,255,0.78); letter-spacing: 0.13em; margin-bottom: 0.3rem; }
+.hero__sub:empty { display: none; }
 .hero__date { font-size: 1.4rem; color: rgba(255,255,255,0.58); letter-spacing: 0.13em; margin-bottom: 1.8rem; }
 
 .hero__content .btn--round { align-self: flex-start; margin: 0; }
@@ -1038,6 +1039,7 @@ body.modal-open { overflow: hidden; }
   margin-bottom: 1rem !important;
 }
 .rsvp__success-text   { margin-bottom: 1rem !important; }
+.rsvp__success-text:empty { display: none; }
 .rsvp__success-update { font-size: 0.82rem !important; color: #aaa !important; line-height: 1.6; }
 
 /* ── form layout ── */

@@ -8,7 +8,9 @@
 
   function t(key) {
     var lang = getLang();
-    return (T[lang] && T[lang][key]) || (T.en && T.en[key]) || '';
+    if (T[lang] && T[lang][key] != null) return T[lang][key];
+    if (T.en && T.en[key] != null) return T.en[key];
+    return '';
   }
 
   /* ── guest rows ── */
