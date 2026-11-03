@@ -46,12 +46,16 @@
   border-bottom-color: color-mix(in srgb, var(--gold) 35%, transparent);
 }
 [data-theme="blue"] .nav__rsvp {
-  background: var(--gold-fill);
-  color: var(--on-gold);
+  background: transparent;
+  color: var(--gold);
+  font-weight: 600;
+  border: 1px solid var(--gold);
+  box-shadow: none;
 }
 [data-theme="blue"] .nav__rsvp:hover {
   opacity: 1;
-  background: #D4B36A;
+  background: var(--gold);
+  color: var(--cream);
 }
 [data-theme="blue"] .hero__date,
 [data-theme="blue"] .rsvp-banner__deadline {
