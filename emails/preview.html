@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Invite emails — Norika &amp; Antoine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fahkwang:wght@300;400&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    background: #F8F4EC;
+    color: #24303A;
+    font-family: "Jost", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+  }
+  header { text-align: center; padding: 36px 16px 8px; }
+  .mark {
+    font-family: "Fahkwang", Georgia, serif;
+    letter-spacing: 0.28em;
+    color: #8A6828;
+    font-size: 13px;
+  }
+  h1 {
+    margin: 10px 0 0;
+    font-family: "Fahkwang", Georgia, serif;
+    font-weight: 300;
+    font-size: 2rem;
+    letter-spacing: 0.04em;
+  }
+  .langs { display: flex; gap: 8px; justify-content: center; margin: 18px 0 16px; }
+  button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #2F6E8A;
+    background: transparent;
+    color: #2F6E8A;
+    font-family: inherit;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+  }
+  button.on, button:hover { background: #2F6E8A; color: #fff; }
+  .subject { margin: 0; color: #24303A; font-size: 16px; }
+  .subject span.label {
+    display: block;
+    margin-bottom: 4px;
+    color: #8A6828;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .hint {
+    margin: 10px auto 0;
+    max-width: 36rem;
+    color: #5C6872;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  iframe {
+    display: block;
+    width: min(680px, 100%);
+    height: 2100px;
+    margin: 22px auto 48px;
+    border: 0;
+    background: #E7F1F6;
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="mark">A &amp; N</div>
+  <h1>Invite</h1>
+  <div class="langs" role="group" aria-label="Language">
+    <button type="button" data-lang="en">EN</button>
+    <button type="button" data-lang="fr">FR</button>
+    <button type="button" data-lang="ja">JP</button>
+  </div>
+  <p class="subject"><span class="label">Subject</span><span id="subject"></span></p>
+  <p class="hint">Open invite.en.html, invite.fr.html, or invite.ja.html and send that file as the email. Plain-text versions sit beside them.</p>
+</header>
+<iframe id="frame" title="Invite email"></iframe>
+<script>
+  var subjects = {
+    en: 'Norika & Antoine — August 14th, 2027',
+    fr: 'Norika & Antoine — 14 août 2027',
+    ja: 'Norika & Antoine — 2027年8月14日'
+  };
+  var frame = document.getElementById("frame");
+  var subject = document.getElementById("subject");
+  function fit() {
+    try {
+      frame.style.height = (frame.contentDocument.documentElement.scrollHeight + 8) + "px";
+    } catch (err) {}
+  }
+  function show(lang) {
+    document.querySelectorAll(".langs button").forEach(function (btn) {
+      var on = btn.dataset.lang === lang;
+      btn.classList.toggle("on", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    frame.src = "invite." + lang + ".html";
+    subject.textContent = subjects[lang];
+  }
+  document.querySelector(".langs").addEventListener("click", function (e) {
+    var btn = e.target.closest("button");
+    if (btn) show(btn.dataset.lang);
+  });
+  frame.addEventListener("load", fit);
+  show("en");
+</script>
+</body>
+</html>
