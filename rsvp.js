@@ -62,7 +62,7 @@
     return guests;
   }
 
-  /* ── parse Airtable guests string back into rows ── */
+  /* ── parse the saved guest list back into rows ── */
   function parseGuestString(str) {
     if (!str) return [];
     return str.split('\n').filter(Boolean).map(function (line) {

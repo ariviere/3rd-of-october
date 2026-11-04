@@ -1,20 +1,33 @@
 /**
  * Wedding RSVP + Registry – Cloudflare Worker
  *
- * Environment variables (Worker Settings → Variables → add as Secrets):
- *   AIRTABLE_TOKEN    Airtable Personal Access Token
- *   AIRTABLE_BASE_ID  Airtable Base ID (appXXXX...)
- *   RESEND_API_KEY    Resend API key — get one free at resend.com (optional but needed for emails)
- *   FROM_EMAIL        Sender address verified in Resend, e.g. rsvp@yourdomain.com
- *   SITE_URL          Your wedding site URL, e.g. https://you.github.io/wedding
+ * Replies are saved to a Google Sheet when these secrets are set:
+ *   GOOGLE_SHEET_ID              The sheet link, or just the id in the link
+ *   GOOGLE_SERVICE_ACCOUNT_JSON  The service-account key file, as one JSON string
  *
- * Airtable tables:
- *   "RSVPs"        — Fields: Name, Email, Attending, Events, Guests, Message, Submitted At, Token
- *   "GiftMessages" — Fields: Name, Message, Submitted At  (create this table for registry notes)
+ * Until those are set, replies still go to Airtable:
+ *   AIRTABLE_TOKEN
+ *   AIRTABLE_BASE_ID
+ *
+ * Email (optional):
+ *   RESEND_API_KEY
+ *   FROM_EMAIL
+ *   SITE_URL
+ *
+ * Sheet tabs (created automatically):
+ *   "RSVPs" — Submitted At, Name, Email, Attending, Events, Guests, Message, Token
+ *   "Notes" — Submitted At, Name, Message
  */
 
 const AIRTABLE_TABLE          = 'RSVPs';
 const AIRTABLE_REGISTRY_TABLE = 'GiftMessages';
+const RSVP_SHEET              = 'RSVPs';
+const NOTES_SHEET             = 'Notes';
+const RSVP_HEADERS            = ['Submitted At', 'Name', 'Email', 'Attending', 'Events', 'Guests', 'Message', 'Token'];
+const NOTE_HEADERS            = ['Submitted At', 'Name', 'Message'];
+
+let cachedToken = '';
+let cachedTokenExp = 0;
 
 export default {
   async fetch(request, env) {
@@ -29,26 +42,20 @@ export default {
       const token = url.searchParams.get('token');
       if (!token) return cors(JSON.stringify({ error: 'Missing token' }), 400);
 
-      const res = await fetch(
-        `${airtableUrl(env)}?filterByFormula=${encodeURIComponent(`{Token}="${token}"`)}`,
-        { headers: airtableHeaders(env) }
-      );
-      const data = await res.json();
+      let found;
+      try { found = await findRsvp(env, 'token', token); }
+      catch (err) { return cors(JSON.stringify({ error: 'Database error', detail: String(err.message || err) }), 500); }
+      if (!found) return cors(JSON.stringify({ error: 'Not found' }), 404);
 
-      if (!data.records || data.records.length === 0) {
-        return cors(JSON.stringify({ error: 'Not found' }), 404);
-      }
-
-      const f = data.records[0].fields;
       return cors(JSON.stringify({
         ok: true,
         rsvp: {
-          name:      f.Name      || '',
-          email:     f.Email     || '',
-          attending: f.Attending || '',
-          events:    f.Events    ? f.Events.split(', ').filter(Boolean) : [],
-          guests:    f.Guests    || '',
-          message:   f.Message   || '',
+          name:      found.name,
+          email:     found.email,
+          attending: found.attending,
+          events:    found.events ? found.events.split(', ').filter(Boolean) : [],
+          guests:    found.guests,
+          message:   found.message,
         },
       }), 200);
     }
@@ -67,46 +74,23 @@ export default {
       return cors(JSON.stringify({ error: 'Name and email are required' }), 400);
     }
 
-    // Look up existing record by email
-    const searchRes = await fetch(
-      `${airtableUrl(env)}?filterByFormula=${encodeURIComponent(`{Email}="${email}"`)}`,
-      { headers: airtableHeaders(env) }
-    );
-    const searchData = await searchRes.json();
-
-    const isUpdate      = searchData.records && searchData.records.length > 0;
-    const existingToken = isUpdate ? searchData.records[0].fields.Token : null;
-    const token         = existingToken || crypto.randomUUID();
-
-    const fields = {
-      Name:           name,
-      Email:          email,
-      Attending:      attending || '',
-      Events:         events.join(', '),
-      Guests:         guests.map(g => g.dietary ? `${g.name} (${g.dietary})` : g.name).join('\n'),
-      Message:        message,
-      Token:          token,
-      'Submitted At': new Date().toISOString(),
-    };
-
-    let saveRes;
-    if (isUpdate) {
-      saveRes = await fetch(`${airtableUrl(env)}/${searchData.records[0].id}`, {
-        method: 'PATCH',
-        headers: airtableHeaders(env),
-        body: JSON.stringify({ fields }),
-      });
-    } else {
-      saveRes = await fetch(airtableUrl(env), {
-        method: 'POST',
-        headers: airtableHeaders(env),
-        body: JSON.stringify({ fields }),
-      });
-    }
-
-    if (!saveRes.ok) {
-      const detail = await saveRes.text();
-      return cors(JSON.stringify({ error: 'Database error', detail }), 500);
+    let existing;
+    let token;
+    try {
+      existing = await findRsvp(env, 'email', email);
+      token = (existing && existing.token) || crypto.randomUUID();
+      await saveRsvp(env, {
+        submittedAt: new Date().toISOString(),
+        name,
+        email,
+        attending: attending || '',
+        events: events.join(', '),
+        guests: guests.map(g => g.dietary ? `${g.name} (${g.dietary})` : g.name).join('\n'),
+        message,
+        token,
+      }, existing);
+    } catch (err) {
+      return cors(JSON.stringify({ error: 'Database error', detail: String(err.message || err) }), 500);
     }
 
     // Send confirmation email if Resend is configured
@@ -133,24 +117,10 @@ async function handleRegistry(request, env) {
   const { name, message = '' } = body;
   if (!name) return cors(JSON.stringify({ error: 'Name is required' }), 400);
 
-  const fields = {
-    Name:           name,
-    Message:        message,
-    'Submitted At': new Date().toISOString(),
-  };
-
-  const res = await fetch(
-    `https://api.airtable.com/v0/${env.AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_REGISTRY_TABLE)}`,
-    {
-      method: 'POST',
-      headers: airtableHeaders(env),
-      body: JSON.stringify({ fields }),
-    }
-  );
-
-  if (!res.ok) {
-    const detail = await res.text();
-    return cors(JSON.stringify({ error: 'Database error', detail }), 500);
+  try {
+    await saveNote(env, name, message);
+  } catch (err) {
+    return cors(JSON.stringify({ error: 'Database error', detail: String(err.message || err) }), 500);
   }
 
   return cors(JSON.stringify({ ok: true }), 200);
@@ -223,6 +193,241 @@ async function sendEmail({ env, to, name, attending, events, guests, token, lang
 }
 
 /* ── Helpers ── */
+
+function usesSheets(env) {
+  return Boolean(env.GOOGLE_SHEET_ID && env.GOOGLE_SERVICE_ACCOUNT_JSON);
+}
+
+function sheetId(env) {
+  const raw = String(env.GOOGLE_SHEET_ID || '').trim();
+  const match = raw.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
+  return match ? match[1] : raw;
+}
+
+function base64url(bytes) {
+  const arr = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
+  let bin = '';
+  for (let i = 0; i < arr.length; i++) bin += String.fromCharCode(arr[i]);
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function pemToBinary(pem) {
+  const b64 = String(pem)
+    .replace(/-----BEGIN PRIVATE KEY-----/, '')
+    .replace(/-----END PRIVATE KEY-----/, '')
+    .replace(/\\n/g, '')
+    .replace(/\s/g, '');
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return bytes.buffer;
+}
+
+async function getAccessToken(env) {
+  const now = Date.now();
+  if (cachedToken && now < cachedTokenExp) return cachedToken;
+
+  const account = JSON.parse(env.GOOGLE_SERVICE_ACCOUNT_JSON);
+  const iat = Math.floor(now / 1000);
+  const header = base64url(new TextEncoder().encode(JSON.stringify({ alg: 'RS256', typ: 'JWT' })));
+  const claim = base64url(new TextEncoder().encode(JSON.stringify({
+    iss: account.client_email,
+    scope: 'https://www.googleapis.com/auth/spreadsheets',
+    aud: 'https://oauth2.googleapis.com/token',
+    iat,
+    exp: iat + 3600,
+  })));
+  const unsigned = `${header}.${claim}`;
+  const key = await crypto.subtle.importKey(
+    'pkcs8',
+    pemToBinary(account.private_key),
+    { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const sig = await crypto.subtle.sign('RSASSA-PKCS1-v1_5', key, new TextEncoder().encode(unsigned));
+  const assertion = `${unsigned}.${base64url(sig)}`;
+
+  const res = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+      assertion,
+    }),
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error_description || data.error || 'Google sign-in failed');
+
+  cachedToken = data.access_token;
+  cachedTokenExp = now + ((data.expires_in || 3600) - 60) * 1000;
+  return cachedToken;
+}
+
+async function sheets(env, path, init = {}) {
+  const token = await getAccessToken(env);
+  const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId(env)}${path}`, {
+    ...init,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      ...(init.headers || {}),
+    },
+  });
+  const text = await res.text();
+  const data = text ? JSON.parse(text) : {};
+  if (!res.ok) throw new Error(data.error?.message || text || 'Sheet request failed');
+  return data;
+}
+
+async function ensureTab(env, title, headers) {
+  const meta = await sheets(env, '?fields=sheets.properties');
+  const tabs = meta.sheets || [];
+  const titles = tabs.map(tab => tab.properties.title);
+  if (!titles.includes(title)) {
+    const onlyBlank = titles.length === 1 && titles[0] === 'Sheet1' && title === RSVP_SHEET;
+    const requests = onlyBlank
+      ? [{ updateSheetProperties: { properties: { sheetId: tabs[0].properties.sheetId, title }, fields: 'title' } }]
+      : [{ addSheet: { properties: { title } } }];
+    await sheets(env, ':batchUpdate', { method: 'POST', body: JSON.stringify({ requests }) });
+  }
+
+  const head = await sheets(env, `/values/${encodeURIComponent(title + '!1:1')}`);
+  const first = (head.values && head.values[0]) || [];
+  if (!first.some(Boolean)) {
+    await sheets(env, `/values/${encodeURIComponent(title + '!A1')}?valueInputOption=RAW`, {
+      method: 'PUT',
+      body: JSON.stringify({ values: [headers] }),
+    });
+  }
+}
+
+async function readRows(env, title, headers) {
+  await ensureTab(env, title, headers);
+  const data = await sheets(env, `/values/${encodeURIComponent(title)}`);
+  return data.values || [];
+}
+
+function findRow(values, column, needle) {
+  const want = String(needle || '').trim().toLowerCase();
+  for (let i = 1; i < values.length; i++) {
+    if (String(values[i][column] || '').trim().toLowerCase() === want) return i + 1;
+  }
+  return 0;
+}
+
+function rsvpFromRow(row) {
+  return {
+    submittedAt: row[0] || '',
+    name:        row[1] || '',
+    email:       row[2] || '',
+    attending:   row[3] || '',
+    events:      row[4] || '',
+    guests:      row[5] || '',
+    message:     row[6] || '',
+    token:       row[7] || '',
+  };
+}
+
+function rsvpToRow(record) {
+  return [record.submittedAt, record.name, record.email, record.attending, record.events, record.guests, record.message, record.token];
+}
+
+async function findRsvp(env, key, value) {
+  if (usesSheets(env)) {
+    const rows = await readRows(env, RSVP_SHEET, RSVP_HEADERS);
+    const column = key === 'token' ? 7 : 2;
+    const rowNumber = findRow(rows, column, value);
+    if (!rowNumber) return null;
+    return { ...rsvpFromRow(rows[rowNumber - 1]), rowNumber };
+  }
+  return findRsvpInAirtable(env, key, value);
+}
+
+async function saveRsvp(env, record, existing) {
+  if (usesSheets(env)) {
+    const row = rsvpToRow(record);
+    if (existing && existing.rowNumber) {
+      await sheets(env, `/values/${encodeURIComponent(RSVP_SHEET + '!A' + existing.rowNumber)}?valueInputOption=RAW`, {
+        method: 'PUT',
+        body: JSON.stringify({ values: [row] }),
+      });
+      return;
+    }
+    await sheets(env, `/values/${encodeURIComponent(RSVP_SHEET)}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`, {
+      method: 'POST',
+      body: JSON.stringify({ values: [row] }),
+    });
+    return;
+  }
+  await saveRsvpInAirtable(env, record, existing);
+}
+
+async function saveNote(env, name, message) {
+  if (usesSheets(env)) {
+    await ensureTab(env, NOTES_SHEET, NOTE_HEADERS);
+    await sheets(env, `/values/${encodeURIComponent(NOTES_SHEET)}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`, {
+      method: 'POST',
+      body: JSON.stringify({ values: [[new Date().toISOString(), name, message]] }),
+    });
+    return;
+  }
+  await saveNoteInAirtable(env, name, message);
+}
+
+async function findRsvpInAirtable(env, key, value) {
+  const field = key === 'token' ? 'Token' : 'Email';
+  const formula = `{${field}}="${String(value).replace(/"/g, '')}"`;
+  const res = await fetch(
+    `${airtableUrl(env)}?filterByFormula=${encodeURIComponent(formula)}`,
+    { headers: airtableHeaders(env) }
+  );
+  const data = await res.json();
+  if (!data.records || !data.records.length) return null;
+  const record = data.records[0];
+  const f = record.fields;
+  return {
+    id:          record.id,
+    name:        f.Name || '',
+    email:       f.Email || '',
+    attending:   f.Attending || '',
+    events:      f.Events || '',
+    guests:      f.Guests || '',
+    message:     f.Message || '',
+    token:       f.Token || '',
+  };
+}
+
+async function saveRsvpInAirtable(env, record, existing) {
+  const fields = {
+    Name:           record.name,
+    Email:          record.email,
+    Attending:      record.attending,
+    Events:         record.events,
+    Guests:         record.guests,
+    Message:        record.message,
+    Token:          record.token,
+    'Submitted At': record.submittedAt,
+  };
+  const res = await fetch(existing ? `${airtableUrl(env)}/${existing.id}` : airtableUrl(env), {
+    method: existing ? 'PATCH' : 'POST',
+    headers: airtableHeaders(env),
+    body: JSON.stringify({ fields }),
+  });
+  if (!res.ok) throw new Error(await res.text());
+}
+
+async function saveNoteInAirtable(env, name, message) {
+  const res = await fetch(
+    `https://api.airtable.com/v0/${env.AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_REGISTRY_TABLE)}`,
+    {
+      method: 'POST',
+      headers: airtableHeaders(env),
+      body: JSON.stringify({ fields: { Name: name, Message: message, 'Submitted At': new Date().toISOString() } }),
+    }
+  );
+  if (!res.ok) throw new Error(await res.text());
+}
 
 function airtableUrl(env) {
   return `https://api.airtable.com/v0/${env.AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE)}`;

@@ -42,21 +42,22 @@ Confirmation emails are also sent in the guest's chosen language.
 
 ## Services setup
 
-### Airtable
+### Google Sheet
 
-1. Create a free account at [airtable.com](https://airtable.com)
-2. Create a base with a table named **`Table 1`** (or update `AIRTABLE_TABLE` in `worker.js`)
-3. Add the following fields (all **Single line text** unless noted):
-   - `Name`
-   - `Email`
-   - `Attending`
-   - `Events`
-   - `Guests` (Long text)
-   - `Message` (Long text)
-   - `Submitted At`
-   - `Token`
-4. Go to **Account → Developer Hub** → create a **Personal Access Token** with `data.records:read` and `data.records:write` scopes on your base
-5. Copy your **Base ID** from the URL: `airtable.com/appXXXXXXXX/...`
+Replies land in a Google Sheet. The worker adds two tabs, **RSVPs** and **Notes**, the first time someone writes.
+
+1. Create a blank Google Sheet and copy its link.
+2. In [Google Cloud](https://console.cloud.google.com/), create a project and enable the **Google Sheets API**.
+3. Create a service account, then create a JSON key for it.
+4. Share the sheet with the service account email (the `client_email` in the key) as an **Editor**.
+5. Add these Worker secrets:
+
+| Secret | Value |
+|---|---|
+| `GOOGLE_SHEET_ID` | The sheet link |
+| `GOOGLE_SERVICE_ACCOUNT_JSON` | The whole key file, as one line |
+
+Until those two secrets exist, replies still go to Airtable.
 
 ### Cloudflare Workers
 
@@ -66,8 +67,8 @@ Confirmation emails are also sent in the guest's chosen language.
 
 | Secret | Value |
 |---|---|
-| `AIRTABLE_TOKEN` | Your Airtable Personal Access Token |
-| `AIRTABLE_BASE_ID` | Your Airtable Base ID (`appXXXX...`) |
+| `GOOGLE_SHEET_ID` | The Google Sheet link |
+| `GOOGLE_SERVICE_ACCOUNT_JSON` | The service-account key, as one JSON line |
 | `RESEND_API_KEY` | Your Resend API key |
 | `FROM_EMAIL` | Verified sender address (e.g. `rsvp@yourdomain.com`) |
 | `SITE_URL` | Your wedding site URL (e.g. `https://you.github.io/wedding`) |
@@ -111,7 +112,7 @@ styles.css        All styles (desktop + mobile responsive)
 app.js            Language switching, password gate, hamburger menu, FAQ
 rsvp.js           RSVP form logic (submit, pre-fill, validation)
 translations.js   EN/FR string dictionaries
-worker.js         Cloudflare Worker (Airtable + Resend integration)
+worker.js         Cloudflare Worker (Google Sheets + Resend integration)
 images/           Photo assets
 TODO.md           Project to-do list
 ```
