@@ -7,6 +7,8 @@ OUT = Path(__file__).resolve().parent
 SITE = "https://wedding.riviere.tf"
 PASSWORD = "mochacoco"
 PHOTO = f"{SITE}/images/japan.jpeg"
+LEAF_LEFT = f"{SITE}/images/gold-leaf-left.png?v=4"
+LEAF_RIGHT = f"{SITE}/images/gold-leaf-right.png?v=5"
 
 TEMPLATE = r"""<!DOCTYPE html>
 <html lang="@@LANG@@">
@@ -30,8 +32,9 @@ TEMPLATE = r"""<!DOCTYPE html>
   table { border-collapse: collapse; }
   img { border: 0; display: block; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; }
   a { text-decoration: none; }
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 640px) {
     .container { width: 100% !important; }
+    .leaf { display: none !important; width: 0 !important; max-width: 0 !important; max-height: 0 !important; overflow: hidden !important; font-size: 0 !important; line-height: 0 !important; }
     .card { padding: 40px 22px 44px !important; }
     .title { font-size: 36px !important; }
     .invite { font-size: 18px !important; }
@@ -45,13 +48,24 @@ TEMPLATE = r"""<!DOCTYPE html>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#E7F1F6" style="background:#E7F1F6;border-collapse:collapse;">
   <tr>
     <td align="center" style="padding:28px 12px 36px;">
-      <!--[if mso]><table role="presentation" width="520" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td><![endif]-->
-      <table role="presentation" class="container" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#C6A45C" style="width:100%;max-width:520px;background:#C6A45C;border-collapse:collapse;">
+      <!--[if mso]><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td><![endif]-->
+      <table role="presentation" class="container" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#C6A45C" style="width:100%;max-width:600px;background:#C6A45C;border-collapse:collapse;">
         <tr>
           <td bgcolor="#C6A45C" style="background:#C6A45C;padding:1px;">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F8F4EC" style="background:#F8F4EC;border-collapse:collapse;">
               <tr>
-                <td class="card" align="center" bgcolor="#F8F4EC" style="background:#F8F4EC;padding:52px 40px 48px;text-align:center;">
+                <td class="leaf" valign="middle" width="88" bgcolor="#F8F4EC" style="width:88px;background:#F8F4EC;vertical-align:middle;">
+                  <table role="presentation" width="88" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                    <tr>
+                      <td width="16" style="width:16px;font-size:0;line-height:0;">&nbsp;</td>
+                      <td width="58" valign="middle" style="width:58px;vertical-align:middle;">
+                        <img src="@@LEAF_LEFT@@" width="58" height="535" alt="" style="display:block;width:58px;height:auto;border:0;">
+                      </td>
+                      <td width="14" style="width:14px;font-size:0;line-height:0;">&nbsp;</td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="card" align="center" bgcolor="#F8F4EC" style="background:#F8F4EC;padding:52px 4px 48px;text-align:center;">
                   <p style="margin:0;font-family:@@BODY@@;font-size:12px;line-height:1.4;letter-spacing:@@KICKER_LS@@;text-transform:uppercase;color:#8A6828;">@@KICKER@@</p>
                   <p style="margin:6px 0 0;font-family:@@BODY@@;font-size:12px;line-height:1.4;letter-spacing:@@KICKER_LS@@;text-transform:uppercase;color:#8A6828;">@@LEAD@@</p>
                   <p class="title" style="margin:8px 0 0;font-family:@@DISPLAY@@;font-size:44px;line-height:1.1;font-weight:300;letter-spacing:0.04em;color:#2F6E8A;">Norika &amp; Antoine</p>
@@ -78,6 +92,17 @@ TEMPLATE = r"""<!DOCTYPE html>
                       <td align="center" bgcolor="#F8F4EC" style="background:#F8F4EC;border:1px solid #2F6E8A;border-radius:24px;">
                         <a href="@@URL@@" style="display:inline-block;padding:14px 36px;font-family:@@BODY@@;font-size:13px;line-height:1;letter-spacing:2px;text-transform:uppercase;color:#2F6E8A;text-decoration:none;">RSVP</a>
                       </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="leaf" valign="middle" width="88" bgcolor="#F8F4EC" style="width:88px;background:#F8F4EC;vertical-align:middle;">
+                  <table role="presentation" width="88" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                    <tr>
+                      <td width="14" style="width:14px;font-size:0;line-height:0;">&nbsp;</td>
+                      <td width="58" valign="middle" style="width:58px;vertical-align:middle;">
+                        <img src="@@LEAF_RIGHT@@" width="58" height="489" alt="" style="display:block;width:58px;height:auto;border:0;">
+                      </td>
+                      <td width="16" style="width:16px;font-size:0;line-height:0;">&nbsp;</td>
                     </tr>
                   </table>
                 </td>
@@ -124,8 +149,8 @@ COPY = {
     },
     "fr": {
         "subject": "Norika & Antoine — 14 août 2027",
-        "preheader": "Nous vous invitons au mariage de Norika & Antoine, au Château de la Poterie.",
-        "kicker": "Nous vous invitons",
+        "preheader": "Vous êtes invités au mariage de Norika & Antoine, au Château de la Poterie.",
+        "kicker": "Vous êtes invités",
         "lead": "au mariage de",
         "hero_date": "Samedi 14&nbsp;août 2027",
         "venue": "Château de la Poterie",
@@ -195,6 +220,8 @@ def main() -> None:
             "PASSWORD": PASSWORD,
             "URL": f"{SITE}/?lang={lang}",
             "PHOTO": PHOTO,
+            "LEAF_LEFT": LEAF_LEFT,
+            "LEAF_RIGHT": LEAF_RIGHT,
             **font_stack(lang),
         }
         (OUT / f"invite.{lang}.html").write_text(fill(TEMPLATE, values), encoding="utf-8")
@@ -277,7 +304,7 @@ def main() -> None:
   }}
   iframe {{
     display: block;
-    width: min(680px, 100%);
+    width: min(760px, 100%);
     height: 2100px;
     margin: 22px auto 48px;
     border: 0;
