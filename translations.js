@@ -402,7 +402,7 @@ const T = {
 
     'hero.sub':   '',
     'hero.date':  '2027年8月14日（土）',
-    'tagline':    'みなさんに会える日を、心待ちにしています。',
+    'tagline':    '皆さんとお祝いできる日を楽しみにしています。',
 
     'program.date1':     '8月14日（土）',
     'program.wedding':   '結婚式',
