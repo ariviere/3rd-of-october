@@ -11,13 +11,13 @@ LEAF_LEFT = f"{SITE}/images/gold-leaf-left.png?v=4"
 LEAF_RIGHT = f"{SITE}/images/gold-leaf-right.png?v=5"
 
 TEMPLATE = r"""<!DOCTYPE html>
-<html lang="@@LANG@@">
+<html lang="@@LANG@@" style="color-scheme:light only;">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="color-scheme" content="light only">
-<meta name="supported-color-schemes" content="light">
+<meta name="supported-color-schemes" content="light only">
 <meta name="format-detection" content="telephone=no,date=no,address=no">
 <meta name="robots" content="noindex">
 <title>@@SUBJECT@@</title>
@@ -26,9 +26,14 @@ TEMPLATE = r"""<!DOCTYPE html>
 <link href="@@FONT_HREF@@" rel="stylesheet">
 <!-- Subject: @@SUBJECT@@ -->
 <style>
-  :root { color-scheme: light only; supported-color-schemes: light; }
+  :root { color-scheme: light only; supported-color-schemes: light only; }
   body, table, td, p, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-  body { margin: 0; padding: 0; background: #E7F1F6; }
+  body { margin: 0; padding: 0; background-color: #E7F1F6; background-image: linear-gradient(#E7F1F6,#E7F1F6); }
+  @media (prefers-color-scheme: dark) {
+    body, .blue { background-color: #E7F1F6 !important; background-image: linear-gradient(#E7F1F6,#E7F1F6) !important; }
+    .cream, .card, .leaf { background-color: #F8F4EC !important; background-image: linear-gradient(#F8F4EC,#F8F4EC) !important; color: #24303A !important; }
+    .gold { background-color: #C6A45C !important; background-image: linear-gradient(#C6A45C,#C6A45C) !important; }
+  }
   table { border-collapse: collapse; }
   img { border: 0; display: block; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; }
   a { text-decoration: none; }
@@ -41,21 +46,21 @@ TEMPLATE = r"""<!DOCTYPE html>
   }
 </style>
 </head>
-<body bgcolor="#E7F1F6" style="margin:0;padding:0;background:#E7F1F6;">
+<body class="blue" bgcolor="#E7F1F6" style="margin:0;padding:0;background-color:#E7F1F6;background-image:linear-gradient(#E7F1F6,#E7F1F6);color-scheme:light only;">
 <div style="display:none;max-height:0;overflow:hidden;mso-hide:all;font-size:1px;line-height:1px;color:#E7F1F6;opacity:0;">
 @@PREHEADER@@ &#847;&zwnj;&#847;&zwnj;&#847;&zwnj;&#847;&zwnj;&#847;&zwnj;&#847;&zwnj;&#847;&zwnj;&#847;&zwnj;
 </div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#E7F1F6" style="background:#E7F1F6;border-collapse:collapse;">
+<table role="presentation" class="blue" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#E7F1F6" style="background-color:#E7F1F6;background-image:linear-gradient(#E7F1F6,#E7F1F6);border-collapse:collapse;">
   <tr>
-    <td align="center" style="padding:28px 12px 36px;">
+    <td class="blue" align="center" bgcolor="#E7F1F6" style="background-color:#E7F1F6;background-image:linear-gradient(#E7F1F6,#E7F1F6);padding:28px 12px 36px;">
       <!--[if mso]><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td><![endif]-->
-      <table role="presentation" class="container" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#C6A45C" style="width:100%;max-width:600px;background:#C6A45C;border-collapse:collapse;">
+      <table role="presentation" class="container gold" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#C6A45C" style="width:100%;max-width:600px;background-color:#C6A45C;background-image:linear-gradient(#C6A45C,#C6A45C);border-collapse:collapse;">
         <tr>
-          <td bgcolor="#C6A45C" style="background:#C6A45C;padding:1px;">
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F8F4EC" style="background:#F8F4EC;border-collapse:collapse;">
+          <td class="gold" bgcolor="#C6A45C" style="background-color:#C6A45C;background-image:linear-gradient(#C6A45C,#C6A45C);padding:1px;">
+            <table role="presentation" class="cream" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F8F4EC" style="background-color:#F8F4EC;background-image:linear-gradient(#F8F4EC,#F8F4EC);border-collapse:collapse;">
               <tr>
-                <td class="leaf" valign="middle" width="88" bgcolor="#F8F4EC" style="width:88px;background:#F8F4EC;vertical-align:middle;">
-                  <table role="presentation" width="88" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                <td class="leaf cream" valign="middle" width="88" bgcolor="#F8F4EC" style="width:88px;background-color:#F8F4EC;background-image:linear-gradient(#F8F4EC,#F8F4EC);vertical-align:middle;">
+                  <table role="presentation" class="cream" width="88" cellpadding="0" cellspacing="0" border="0" bgcolor="#F8F4EC" style="background-color:#F8F4EC;background-image:linear-gradient(#F8F4EC,#F8F4EC);border-collapse:collapse;">
                     <tr>
                       <td width="16" style="width:16px;font-size:0;line-height:0;">&nbsp;</td>
                       <td width="58" valign="middle" style="width:58px;vertical-align:middle;">
@@ -65,13 +70,13 @@ TEMPLATE = r"""<!DOCTYPE html>
                     </tr>
                   </table>
                 </td>
-                <td class="card" align="center" bgcolor="#F8F4EC" style="background:#F8F4EC;padding:52px 4px 48px;text-align:center;">
+                <td class="card cream" align="center" bgcolor="#F8F4EC" style="background-color:#F8F4EC;background-image:linear-gradient(#F8F4EC,#F8F4EC);padding:52px 4px 48px;text-align:center;">
                   <p style="margin:0;font-family:@@BODY@@;font-size:12px;line-height:1.4;letter-spacing:@@KICKER_LS@@;text-transform:uppercase;color:#8A6828;">@@KICKER@@</p>
                   <p style="margin:6px 0 0;font-family:@@BODY@@;font-size:12px;line-height:1.4;letter-spacing:@@KICKER_LS@@;text-transform:uppercase;color:#8A6828;">@@LEAD@@</p>
                   <p class="title" style="margin:8px 0 0;font-family:@@DISPLAY@@;font-size:44px;line-height:1.1;font-weight:300;letter-spacing:0.04em;color:#2F6E8A;">Norika &amp; Antoine</p>
-                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" bgcolor="#C6A45C" style="background:#C6A45C;border-collapse:collapse;margin-top:28px;">
+                  <table role="presentation" class="gold" cellpadding="0" cellspacing="0" border="0" align="center" bgcolor="#C6A45C" style="background-color:#C6A45C;background-image:linear-gradient(#C6A45C,#C6A45C);border-collapse:collapse;margin-top:28px;">
                     <tr>
-                      <td bgcolor="#C6A45C" style="background:#C6A45C;padding:5px;line-height:0;font-size:0;">
+                      <td class="gold" bgcolor="#C6A45C" style="background-color:#C6A45C;background-image:linear-gradient(#C6A45C,#C6A45C);padding:5px;line-height:0;font-size:0;">
                         <img src="@@PHOTO@@" width="220" height="293" alt="@@ALT@@" style="display:block;width:220px;max-width:100%;height:auto;border:0;">
                       </td>
                     </tr>
@@ -82,21 +87,21 @@ TEMPLATE = r"""<!DOCTYPE html>
                   <p class="invite" style="margin:22px auto 0;max-width:400px;font-family:@@DISPLAY@@;font-size:20px;line-height:1.5;font-weight:300;color:#24303A;">@@INVITE@@</p>
                   <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse;margin-top:28px;">
                     <tr>
-                      <td width="56" height="1" bgcolor="#C6A45C" style="background:#C6A45C;font-size:0;line-height:0;">&nbsp;</td>
+                      <td class="gold" width="56" height="1" bgcolor="#C6A45C" style="background-color:#C6A45C;background-image:linear-gradient(#C6A45C,#C6A45C);font-size:0;line-height:0;">&nbsp;</td>
                     </tr>
                   </table>
                   <p style="margin:22px 0 6px;font-family:@@BODY@@;font-size:11px;line-height:1.4;letter-spacing:@@KICKER_LS@@;text-transform:uppercase;color:#8A6828;">@@PASSWORD_LABEL@@</p>
                   <p style="margin:0 0 22px;font-family:@@DISPLAY@@;font-size:22px;line-height:1.2;font-weight:300;letter-spacing:1px;color:#2F6E8A;">@@PASSWORD@@</p>
                   <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:separate;">
                     <tr>
-                      <td align="center" bgcolor="#F8F4EC" style="background:#F8F4EC;border:1px solid #2F6E8A;border-radius:24px;">
+                      <td class="cream" align="center" bgcolor="#F8F4EC" style="background-color:#F8F4EC;background-image:linear-gradient(#F8F4EC,#F8F4EC);border:1px solid #2F6E8A;border-radius:24px;">
                         <a href="@@URL@@" style="display:inline-block;padding:14px 36px;font-family:@@BODY@@;font-size:13px;line-height:1;letter-spacing:2px;text-transform:uppercase;color:#2F6E8A;text-decoration:none;">RSVP</a>
                       </td>
                     </tr>
                   </table>
                 </td>
-                <td class="leaf" valign="middle" width="88" bgcolor="#F8F4EC" style="width:88px;background:#F8F4EC;vertical-align:middle;">
-                  <table role="presentation" width="88" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                <td class="leaf cream" valign="middle" width="88" bgcolor="#F8F4EC" style="width:88px;background-color:#F8F4EC;background-image:linear-gradient(#F8F4EC,#F8F4EC);vertical-align:middle;">
+                  <table role="presentation" class="cream" width="88" cellpadding="0" cellspacing="0" border="0" bgcolor="#F8F4EC" style="background-color:#F8F4EC;background-image:linear-gradient(#F8F4EC,#F8F4EC);border-collapse:collapse;">
                     <tr>
                       <td width="14" style="width:14px;font-size:0;line-height:0;">&nbsp;</td>
                       <td width="58" valign="middle" style="width:58px;vertical-align:middle;">
